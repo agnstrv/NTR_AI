@@ -11,7 +11,7 @@
 | МАФ | [Открыть](https://drive.google.com/drive/folders/1_PDpB0r7fQhDRksrWdgl6zPIbVddUAAF) | Папка назначения; общий файл Ивана не получен. |
 | Флора | [Открыть](https://drive.google.com/drive/folders/1lvRfIZXx3b7lN4L39ft1J7UFncVvb3ua) | Папка назначения; реальные модели/карты не добавлены. |
 | Эталоны и тесты | [Открыть](https://drive.google.com/drive/folders/1hxkKQRxchGKRkICjbUqnnh2I7EadQ0tp) | Есть NAV-001 с синтетическими карточками для проверки навигации. |
-| Интервью | [Открыть](https://drive.google.com/drive/folders/1Pqw-paJFX2IhNDSpyKPNtPRWppWDgkdu) | Папка назначения; оригиналы остаются в файлах проекта. |
+| Интервью | [Открыть](https://drive.google.com/drive/folders/1Pqw-paJFX2IhNDSpyKPNtPRWppWDgkdu) | Все пять оригинальных отчётов размещены; [реестр с прямыми ссылками](../interviews/README.md). |
 
 ## Ресурсы, заявленные в интервью
 
