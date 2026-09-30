@@ -1,0 +1,44 @@
+{
+  "case_id": "NAV-001",
+  "status": "synthetic_navigation_fixture",
+  "purpose": "Проверка поиска входов, записи результата и передачи коллеге; реальные изображения и модели не предоставляются.",
+  "resources": [
+    {
+      "id": "DEMO-MAT-001",
+      "category": "material",
+      "name": "Учебная карточка кирпича",
+      "file_status": "metadata_only",
+      "asset_url": null,
+      "origin": "Синтетическая запись для проверки навигации",
+      "usage": "Только учебная карточка",
+      "maps": [
+        "Diffuse"
+      ],
+      "resolution_px": [
+        2048,
+        2048
+      ],
+      "physical_size_m": null
+    },
+    {
+      "id": "DEMO-FLORA-001",
+      "category": "flora",
+      "name": "Учебная карточка берёзы",
+      "latin_name": null,
+      "file_status": "metadata_only",
+      "asset_url": null,
+      "origin": "Синтетическая запись для проверки навигации",
+      "usage": "Только учебная карточка",
+      "maps": [
+        "Diffuse",
+        "Opacity"
+      ],
+      "resolution_px": null
+    }
+  ],
+  "expected_result": {
+    "entries": 2,
+    "missing_values": "Не выдумывать ссылки, латинское название, физический размер и отсутствующее разрешение.",
+    "ready_for_production": false
+  }
+}
