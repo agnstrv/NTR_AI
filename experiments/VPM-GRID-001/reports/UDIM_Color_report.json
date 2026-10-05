@@ -1,0 +1,28 @@
+{
+  "VPM": "VPM.006_VPM_8Rows",
+  "NPM": "VPM",
+  "UDIM_colors": {
+    "1001": "grey",
+    "1002": "beige",
+    "1003": "white"
+  },
+  "faces_by_UDIM": {
+    "1001": 18202,
+    "1003": 2367,
+    "1002": 3274
+  },
+  "faces": 23843,
+  "sample_votes": {
+    "1001": 85957,
+    "1003": 11210,
+    "1002": 15608
+  },
+  "mixed_faces": 0,
+  "mixed_face_details": [],
+  "distance_max_m": 0.011911404319107533,
+  "distance_p99_m": 0.00038303131761494984,
+  "normal_fallback_samples": 0,
+  "UV_translation_error": 0,
+  "geometry_unchanged": true,
+  "rows_Z": 8
+}

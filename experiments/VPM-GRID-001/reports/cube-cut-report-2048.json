@@ -1,0 +1,34 @@
+{
+  "stage": "cut",
+  "object": "Cube_VPM_2048_CUT",
+  "density_setting_px_per_m": 1000,
+  "texture_resolution_px": 2048,
+  "grid_step_m": 2.048,
+  "scene_scale_length": 1.0,
+  "grid_origin_m": [
+    0,
+    0,
+    0
+  ],
+  "policy": "shared XYZ grid; slope distortion accepted and measured",
+  "faces": 216,
+  "vertices": 218,
+  "projection_counts_X_Y_Z": {
+    "0": 72,
+    "1": 72,
+    "2": 72
+  },
+  "sloped_faces": 0,
+  "density_min_direction": 1000.0,
+  "density_max_direction": 1000,
+  "density_area_min": 1000.0,
+  "max_stretch_ratio": 1.0,
+  "grid_planes": 15,
+  "area_before_m2": 905.9696960449219,
+  "area_after_m2": 905.9696931838989,
+  "active_uv_layer": "VPM_TILE_1001",
+  "uv_tile": 1001,
+  "stacked_faces": 216,
+  "measured_density_min": 999.9997115228886,
+  "measured_density_max": 1000.0002854795952
+}

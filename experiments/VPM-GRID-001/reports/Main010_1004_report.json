@@ -1,0 +1,33 @@
+{
+  "object": "VPM.010",
+  "neighbour": "Main",
+  "step_XYZ_m": [
+    2.41249942779541,
+    2.41249942779541,
+    2.41249942779541
+  ],
+  "cell_subdivision": 1,
+  "grid_planes": 39,
+  "faces_before": 71,
+  "faces_after": 305,
+  "vertices_after": 431,
+  "UDIM": 1004,
+  "UV_bounds": [
+    [
+      3.0,
+      4.0
+    ],
+    [
+      0.0,
+      1.0
+    ]
+  ],
+  "Main_boundary_edge_splits": 3,
+  "part_boundary_edge_splits": 71,
+  "matching_interface_vertices": 231,
+  "interface_snap_max_m": 0.0009037291747517884,
+  "Main_original_vertices_unchanged": true,
+  "Main_UV_error": 0.0,
+  "area_before_m2": 247.18743586540222,
+  "area_after_m2": 247.1874488046451
+}

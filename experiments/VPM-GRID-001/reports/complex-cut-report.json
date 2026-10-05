@@ -1,0 +1,44 @@
+{
+  "stage": "cut",
+  "object": "VPM.006_VPM_2048",
+  "density_setting_px_per_m": 1000,
+  "texture_resolution_px": 2048,
+  "grid_step_m": 2.048,
+  "scene_scale_length": 1.0,
+  "grid_origin_m": [
+    0,
+    0,
+    0
+  ],
+  "policy": "shared XYZ grid; slope distortion accepted and measured",
+  "faces": 12059,
+  "vertices": 14995,
+  "projection_counts_X_Y_Z": {
+    "1": 6397,
+    "0": 5516,
+    "2": 146
+  },
+  "sloped_faces": 10466,
+  "density_min_direction": 709.649411277753,
+  "density_max_direction": 1000,
+  "density_area_min": 842.4069154973462,
+  "max_stretch_ratio": 1.409146522364415,
+  "grid_planes": 127,
+  "area_before_m2": 7560.404989768285,
+  "area_after_m2": 7560.403914963292,
+  "active_uv_layer": "VPM_TILE_1001",
+  "uv_tile": 1001,
+  "before_measurements": {
+    "area": 7560.403746192809,
+    "boundary_length": 6058.780279446393,
+    "nonmanifold_length": 13.888538800179958
+  },
+  "after_measurements": {
+    "area": 7560.403914963292,
+    "boundary_length": 6058.781205730978,
+    "nonmanifold_length": 13.888539269566536
+  },
+  "original_vertex_max_displacement": 0.0,
+  "elapsed_seconds": 1.6026897430419922,
+  "cutting_method": "Whole BMesh bisected by shared XYZ planes; existing edges preserved"
+}

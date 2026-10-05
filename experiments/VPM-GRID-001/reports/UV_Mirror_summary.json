@@ -1,0 +1,37 @@
+[
+  {
+    "object": "Main",
+    "mirrored_faces_corrected": 141,
+    "patches": 137,
+    "geometry_unchanged": true,
+    "other_faces_UV_unchanged": true,
+    "negative_UV_faces_after": 0,
+    "by_UDIM": {
+      "1005": {
+        "patches": 45,
+        "faces": 46,
+        "max_image_sample_RMSE": 0
+      },
+      "1004": {
+        "patches": 82,
+        "faces": 85,
+        "max_image_sample_RMSE": 0.13601177914468646
+      },
+      "1009": {
+        "patches": 3,
+        "faces": 3,
+        "max_image_sample_RMSE": 0.03708414398279166
+      },
+      "1007": {
+        "patches": 6,
+        "faces": 6,
+        "max_image_sample_RMSE": 0
+      },
+      "1008": {
+        "patches": 1,
+        "faces": 1,
+        "max_image_sample_RMSE": 0
+      }
+    }
+  }
+]

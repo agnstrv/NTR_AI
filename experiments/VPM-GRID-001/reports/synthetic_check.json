@@ -1,0 +1,23 @@
+{
+  "Blender": "5.0.0",
+  "fixture": "synthetic planes and solid generated UDIM",
+  "checks": [
+    {
+      "test": "cut_006",
+      "faces_after": 6,
+      "matches": 3,
+      "pass": true
+    },
+    {
+      "test": "cut_010",
+      "faces_after": 6,
+      "matches": 3,
+      "pass": true
+    },
+    {
+      "test": "negative_uv_same_udim",
+      "pass": true
+    }
+  ],
+  "pass": true
+}
