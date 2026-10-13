@@ -9,3 +9,6 @@
 [Рабочие процессы по пяти интервью](workflows.md) · [Старт и продолжение с Codex](codex-start.md) · [Проверка навигации](navigation-pilot.md).
 
 См. также [шаблон паспорта](../templates/project-card.md), [каталог](../resources/README.md) и инструкцию на Drive.
+
+## Разработка инструментов командой
+[Памятка](team-quickstart.md) · [Структура](repository-structure.md) · [Совместная работа](team-workflow.md) · [Цикл агента](agent-harness.md) · [Навыки](agent-skills.md).
