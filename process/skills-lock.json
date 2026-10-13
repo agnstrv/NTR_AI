@@ -1,0 +1,15 @@
+{
+  "source": "https://github.com/mattpocock/skills",
+  "commit": "49dd158d1076134a641b33efb035946536778336",
+  "skills": [
+    "grill-me",
+    "grilling",
+    "code-review",
+    "codebase-design",
+    "domain-modeling",
+    "tdd",
+    "writing-for-agents"
+  ],
+  "installation": "repository .agents/skills; explicit read fallback",
+  "auto_update": false
+}
