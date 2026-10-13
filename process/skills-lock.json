@@ -10,6 +10,6 @@
     "tdd",
     "writing-for-agents"
   ],
-  "installation": "repository .agents/skills; explicit read fallback",
+  "installation": "Codex: .agents/skills; Claude Code: .claude/skills wrappers reading canonical .agents/skills",
   "auto_update": false
 }
