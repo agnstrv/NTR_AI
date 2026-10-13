@@ -1,0 +1,41 @@
+{
+  "stage": "cut",
+  "object": "VPM.006_VPM_8Rows",
+  "density_setting_px_per_m": 848.9121184461806,
+  "texture_resolution_px": 2048,
+  "grid_step_m": 2.41249942779541,
+  "scene_scale_length": 1.0,
+  "grid_origin_m": [
+    0,
+    0,
+    0
+  ],
+  "policy": "shared XYZ grid; slope distortion accepted and measured",
+  "faces": 23843,
+  "vertices": 24817,
+  "projection_counts_X_Y_Z": {
+    "1": 8899,
+    "0": 7758,
+    "2": 186
+  },
+  "sloped_faces": 14577,
+  "density_min_direction": 602.4091006385198,
+  "density_max_direction": 848.9121184461806,
+  "density_area_min": 715.1170434231757,
+  "max_stretch_ratio": 1.4091953749476582,
+  "grid_planes": 105,
+  "area_before_m2": 7560.409252321697,
+  "area_after_m2": 7560.409308974453,
+  "rows_Z": 8,
+  "texture_columns": 2,
+  "texture_rows": 1,
+  "height_m": 19.29999542236328,
+  "tile_height_m": 2.41249942779541,
+  "tile_width_m": 1.206249713897705,
+  "UV_range_Z": [
+    0.0,
+    8.0
+  ],
+  "UV_Z_max_error": 2.38402839691787e-07,
+  "UV_layer": "VPM_TILE_1001"
+}

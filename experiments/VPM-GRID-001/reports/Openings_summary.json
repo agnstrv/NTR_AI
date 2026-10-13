@@ -1,0 +1,18 @@
+{
+  "object": "VPM.006_VPM_8Rows",
+  "openings": 223,
+  "recess_depth_m": 1,
+  "new_caps": 223,
+  "new_reveal_faces": 3872,
+  "new_faces": 4095,
+  "new_vertices": 3872,
+  "depth_error_max_m": 5.230321257210235e-06,
+  "original_geometry_and_UV_unchanged": true,
+  "new_faces_UDIM": 1004,
+  "nonmanifold_edges_before": 17,
+  "nonmanifold_edges_after": 17,
+  "boundary_edges_before": 8874,
+  "boundary_edges_after": 5004,
+  "unclosed_boundary_chains": 43,
+  "rejected_boundary_count": 24
+}

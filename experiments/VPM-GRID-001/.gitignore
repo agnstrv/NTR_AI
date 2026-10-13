@@ -1,0 +1,6 @@
+.synthetic-work/
+vpm-grid-test-*/
+__pycache__/
+scripts/*.blend*
+scripts/*.png
+scripts/*report.json
