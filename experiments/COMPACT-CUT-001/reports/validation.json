@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "addon_version": [
+    1,
+    1,
+    1
+  ],
+  "blender_version": "5.0.0",
+  "zip_install": true,
+  "panel_draw": true,
+  "lifecycle_cycles": 2,
+  "stale_backend_reload": true,
+  "synthetic_geometry_cases": [
+    {
+      "segments": 16,
+      "sides": 2,
+      "blind": false
+    },
+    {
+      "segments": 17,
+      "sides": 2,
+      "blind": false
+    },
+    {
+      "segments": 32,
+      "sides": 2,
+      "blind": false
+    },
+    {
+      "segments": 24,
+      "sides": 2,
+      "blind": false
+    },
+    {
+      "segments": 20,
+      "sides": 2,
+      "blind": false
+    },
+    {
+      "segments": 16,
+      "sides": 2,
+      "blind": true
+    },
+    {
+      "segments": 24,
+      "sides": 2,
+      "blind": false
+    },
+    {
+      "segments": 31,
+      "sides": 1,
+      "blind": false
+    }
+  ],
+  "user_confirmation": {
+    "date": "2026-10-13",
+    "result": "Это успех!",
+    "scope": "one user-provided example; team-wide acceptance and tool owner not assigned"
+  },
+  "source_edge_validation": {
+    "checked_segments": 54,
+    "missing_or_bent_segments": 0,
+    "maximum_line_deviation": 9.555351461101412e-07
+  }
+}
