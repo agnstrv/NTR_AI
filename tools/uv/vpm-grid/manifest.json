@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-05",
+  "Blender_tested": "5.0.0",
+  "changes_for_publication": [
+    "Client object prefix replaced with VPM aliases",
+    "Main010 active UV name read instead of assuming VPM_UDIM_Color",
+    "Only Blender 5.0.0 stated as tested",
+    "Reports omit world position and client names; detailed boundary geometry omitted"
+  ],
+  "scripts": [
+    {
+      "file": "src/vpm_auto_uv.py",
+      "source_sha256": "16d5c0b14958a107ee1151267c8868cb5f189a3e7d0f4a852dc046af2f597b9d",
+      "published_sha256": "cca756ea39d35022a4011109cf9bfb8c471cef616d66c64c93c4e78f230d0718",
+      "previous_manifest_published_sha256": "d5c4cd355117f2d2990b000310392280e3f53a4d5ba80de60dbf78aa1fcd8dc8"
+    },
+    {
+      "file": "src/vpm_8rows.py",
+      "source_sha256": "be3c49455c9fab34613e2e071704751e5262de9dac3a4382b2b685dfd24235b9",
+      "published_sha256": "dae6dd56fe64d947c8db789168c6524c55e1a97bffab5c091aa974d8cd5e837c",
+      "previous_manifest_published_sha256": "b8966b4cfe927dbe74fcc826d9f74b3654283bb62a82a91590c86dbc87d1d55a"
+    },
+    {
+      "file": "src/vpm_udim_color.py",
+      "source_sha256": "ee94e3885ed0d07173045a45b85192a5dedcfd7ab66742b9026fa1ef6256fcc5",
+      "published_sha256": "a9e68a6cd424cb7725259617853dc39d64fb28d58b937580271ca9e53f2b73de",
+      "previous_manifest_published_sha256": "e6010975454bdb1abec98fecc4b36c25e35afff3e66485c0938c20ca595a33b6"
+    },
+    {
+      "file": "src/vpm_recess_openings.py",
+      "source_sha256": "5f53159b4d6a57f16266f5abd9f2608568679a1f321e88dcaf8040a68b1d3c69",
+      "published_sha256": "ab57ab49e68265205efc0b4f04f4aca2331684817d0b05b417f96cbd03ed7606",
+      "previous_manifest_published_sha256": "80a50b68f00b735d44c85ef59e94926849e52528acc30f373072c99fb231887b"
+    },
+    {
+      "file": "src/vpm_cut_weld_main009.py",
+      "source_sha256": "552e8a0c528def788b073962954fc8e9f812deefd986d3e3782f5a41b3c7f59d",
+      "published_sha256": "fa62405eb5c62901d956bcae8da5ff1c98c67d68916ca499c378acf0d9097dde",
+      "previous_manifest_published_sha256": "35ae215aae65b193b4df416e283a70ee0587b0d9d7b37c660b9962f67410f4c3"
+    },
+    {
+      "file": "src/vpm_cut_main006_1004.py",
+      "source_sha256": "1ab81276804ac12f044f3634cff1046eb0be73e52a9f4d1c8dacc2a4d134a281",
+      "published_sha256": "0d70bf7f28c86d242e5c48ca173ade56beeafc80c2661e4422cdb65147c216e8",
+      "previous_manifest_published_sha256": "54c328fb9b81e958919979019442f28dfc3f906b05d5ea1008eea3cd37d1065f"
+    },
+    {
+      "file": "src/vpm_cut_main010_1004.py",
+      "source_sha256": "e7796d4883712ab6a97074b3fa66121d7f31c2b422dd0111106db1dabafcbebe",
+      "published_sha256": "62b066bc3f7410a69e9c50038433e24924ebc121ea63b54ac50342636834c45d",
+      "previous_manifest_published_sha256": "2a7b90f0cb5b14d3ef6725b12828477c80254be4a48ac5752ffb533aed957a57"
+    },
+    {
+      "file": "src/fix_mirrored_uv.py",
+      "source_sha256": "60107f0812d30cbb70a38c29d05caf88b10d0f02ad71e6a95c41dccac9945e3b",
+      "published_sha256": "60107f0812d30cbb70a38c29d05caf88b10d0f02ad71e6a95c41dccac9945e3b",
+      "previous_manifest_published_sha256": "215efa7c91a7df4785e69f6044e80424c05c942be76e01e4f3aeceaf8ccbdea6"
+    }
+  ],
+  "manifest_reconciled_on": "2026-10-13",
+  "manifest_reconciliation": "The previous published_sha256 values did not match the exact Git blobs at 8f2a93d8f0e130380afb31722c90341ce6f13a3d. Previous values are retained for provenance; published_sha256 now describes the unchanged repository source bytes. This correction does not certify that historical Blender reports were generated from these exact bytes; rerun the synthetic check before production use."
+}

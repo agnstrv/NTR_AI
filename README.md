@@ -4,6 +4,8 @@
 
 ## Начать здесь
 
+**[Первый запуск — инструкция для каждого участника](docs/start-here.md)**
+
 | Что нужно сделать | Открыть |
 |---|---|
 | Понять порядок работы | [Блок-схемы](docs/team-workflow/README.md) |
@@ -36,18 +38,16 @@
 | [standards/](standards/README.md) | Требования с указанием источника и степени подтверждения |
 | [resources/](resources/README.md) | Каталог входных материалов и проверяющих инструментов |
 | [interviews/](interviews/README.md) | Исходные выводы и потребности команды |
-| [experiments/](experiments/README.md) | Разработки по прежним адресам; пути сохраняются |
-| [scripts/](scripts/README.md) | Прежние разделы скриптов; новые инструменты — через tools |
 | [tasks/](tasks/README.md) | Личные реестры и указатели |
 
 Общие инструкции агента: [AGENTS.md](AGENTS.md). Claude Code: [CLAUDE.md](CLAUDE.md).
 
 ## Существующие разработки
 
-- [НПМ ОКС Ромы — лёгкая и средняя версии](<Рома. НПМ ОКС/README.md>).
-- [COMPACT-CUT-001](experiments/COMPACT-CUT-001/README.md) — круговые вырезы, эксперимент.
-- [VPM-GRID-001 — PR №27](https://github.com/agnstrv/NTR_AI/pull/27) — отдельная разработка до принятия.
-- [Реестр интервью Артёма — PR №20](https://github.com/agnstrv/NTR_AI/pull/20).
-- [Навигационный пилот NAV-001](experiments/NAV-001/README.md).
+- [НПМ ОКС Ромы — лёгкая и средняя версии](tools/textures/npm-oks/README.md).
+- [COMPACT-CUT-001](tools/geometry/compact-circular-cut/README.md) — круговые вырезы, эксперимент.
+- [VPM-GRID-001](tools/uv/vpm-grid/README.md) — прототип с опубликованными испытаниями.
+- [Реестр интервью Артёма](tasks/artem-safro/README.md).
+- [Навигационный пилот NAV-001](tools/infrastructure/navigation-pilot/README.md).
 
-Существующие сценарии и ссылки сохраняются. Перенос в новые пути требует отдельной проверки. Пилот нового порядка на двух ПК ещё предстоит.
+Разработки собраны в tools; [карта переноса и проверки](process/repository-migration.md). Пилот нового порядка на двух ПК ещё предстоит.

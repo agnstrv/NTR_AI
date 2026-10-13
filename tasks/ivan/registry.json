@@ -2,7 +2,7 @@
   "updated_at": "2026-10-02",
   "participant": "Иван",
   "completeness_confirmed": true,
-  "source": "interviews/Tasks_ivan_2026-10-02.md",
+  "source": "interviews/tasks-ivan-2026-10-02.md",
   "tasks": [
     {
       "id": "DRAFT-ivan-001",
@@ -19,7 +19,7 @@
       "experiments_authorized": false,
       "issue_number": 21,
       "issue_url": "https://github.com/agnstrv/NTR_AI/issues/21",
-      "card_source": "interviews/Tasks_ivan_2026-10-02.md",
+      "card_source": "interviews/tasks-ivan-2026-10-02.md",
       "related": "Связь с #16: поиск готового МАФ дополняет построение новой сетки, не является дублем."
     },
     {
@@ -37,7 +37,7 @@
       "experiments_authorized": false,
       "issue_number": 22,
       "issue_url": "https://github.com/agnstrv/NTR_AI/issues/22",
-      "card_source": "interviews/Tasks_ivan_2026-10-02.md",
+      "card_source": "interviews/tasks-ivan-2026-10-02.md",
       "related": "Связь с #6: похожая область UV, но МАФ/Blender и фасады/3ds Max имеют разные входы и критерии."
     },
     {
@@ -55,7 +55,7 @@
       "experiments_authorized": false,
       "issue_number": 23,
       "issue_url": "https://github.com/agnstrv/NTR_AI/issues/23",
-      "card_source": "interviews/Tasks_ivan_2026-10-02.md",
+      "card_source": "interviews/tasks-ivan-2026-10-02.md",
       "related": "Связь с #16 и #17: подбор/размещение ассетов, но здесь флора и посадка на ground, а у Артёма МАФ."
     },
     {
@@ -73,7 +73,7 @@
       "experiments_authorized": false,
       "issue_number": 24,
       "issue_url": "https://github.com/agnstrv/NTR_AI/issues/24",
-      "card_source": "interviews/Tasks_ivan_2026-10-02.md",
+      "card_source": "interviews/tasks-ivan-2026-10-02.md",
       "related": "Связь с #9: коллизии ground и сложных корпусов имеют разные геометрию и требования."
     },
     {
@@ -91,7 +91,7 @@
       "experiments_authorized": false,
       "issue_number": 25,
       "issue_url": "https://github.com/agnstrv/NTR_AI/issues/25",
-      "card_source": "interviews/Tasks_ivan_2026-10-02.md",
+      "card_source": "interviews/tasks-ivan-2026-10-02.md",
       "related": "Связь с #18: выделение дефектов; недостающее покрытие Синтез AGR уточняется, автоматическое объединение преждевременно."
     }
   ]
