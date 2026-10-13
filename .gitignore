@@ -1,0 +1,31 @@
+# Local credentials and caches
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+.DS_Store
+Thumbs.db
+# Client data stays on Drive; ignore is not a content audit
+*.blend
+*.blend[0-9]
+*.fbx
+*.glb
+*.gltf
+*.max
+*.skp
+*.rvt
+*.ifc
+*.dwg
+*.dxf
+*.psd
+*.psb
+client-data/
+local-data/
+tmp/
+# Already tracked files are unaffected

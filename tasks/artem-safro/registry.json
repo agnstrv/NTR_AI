@@ -1,0 +1,498 @@
+{
+  "updated_at": "2026-10-01",
+  "source_participant": "Артём Сафро",
+  "source_report": "../interviews/Tasks_artem_2026-10-01.md",
+  "drive_report": "https://drive.google.com/file/d/10CXgk8o88ZcBwK-gTpBo3LaDKbH6uZgF/view?usp=drivesdk",
+  "fullness_confirmed": false,
+  "items": [
+    {
+      "id": "DRAFT-artem-001",
+      "stage": "Геометрия",
+      "title": "Обводить plane по точкам привязки и осям",
+      "source": "Артём, И1",
+      "type": "Существующий инструмент",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Получить скрипт, язык, версию Max и пример запуска",
+      "issue": null
+    },
+    {
+      "id": "DRAFT-artem-002",
+      "stage": "Material ID",
+      "title": "Быстро назначать ID фасадам, откосам, отливам, рамам и другим элементам",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Уточнить схему ID и правила выделения элементов",
+      "issue": {
+        "number": 2,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/2"
+      }
+    },
+    {
+      "id": "DRAFT-artem-003",
+      "stage": "Библиотеки",
+      "title": "Создать библиотеку типовых окон",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Определить состав, параметры и источники моделей",
+      "issue": {
+        "number": 3,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/3"
+      }
+    },
+    {
+      "id": "DRAFT-artem-004",
+      "stage": "Расстановка",
+      "title": "Размещать библиотечные окна по проёмам",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Предоставить фасад и типовое окно, определить правила масштабирования",
+      "issue": {
+        "number": 4,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/4"
+      }
+    },
+    {
+      "id": "DRAFT-artem-005",
+      "stage": "Атлас",
+      "title": "Подключать карты по ID и собирать атлас с текстурами и однотонными заглушками",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Взять размеченный этаж и ручной атлас",
+      "issue": {
+        "number": 5,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/5"
+      }
+    },
+    {
+      "id": "DRAFT-artem-006",
+      "stage": "UV",
+      "title": "Раскладывать плитку с физическим масштабом и непрерывными швами",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Гарибальди",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Получить этаж, текстуру и страницы альбома",
+      "issue": {
+        "number": 6,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/6"
+      }
+    },
+    {
+      "id": "DRAFT-artem-007",
+      "stage": "UV",
+      "title": "Преобразовывать атлас НПМ в UDIM ВПМ",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Уточнить сохраняемые данные и эталон обеих поставок",
+      "issue": {
+        "number": 7,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/7"
+      }
+    },
+    {
+      "id": "DRAFT-artem-008",
+      "stage": "UV",
+      "title": "Преобразовывать UDIM ВПМ в атлас НПМ",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Определить допустимую потерю детализации и правила запекания",
+      "issue": {
+        "number": 8,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/8"
+      }
+    },
+    {
+      "id": "DRAFT-artem-009",
+      "stage": "Коллизии",
+      "title": "Подготавливать UCX для сложных корпусов",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Гарибальди",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Получить проблемный узел и уточнить применимые допуски",
+      "issue": {
+        "number": 9,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/9"
+      }
+    },
+    {
+      "id": "DRAFT-artem-010",
+      "stage": "Библиотеки",
+      "title": "Собрать общую библиотеку текстурных карт",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Определить источники, состав наборов и разрешённое хранение",
+      "issue": {
+        "number": 10,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/10"
+      }
+    },
+    {
+      "id": "DRAFT-artem-011",
+      "stage": "Исходники/материалы",
+      "title": "Анализировать PDF и находить подходящие карты в библиотеке",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Дать спецификацию и каталог; определить критерии визуального аналога",
+      "issue": {
+        "number": 11,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/11"
+      }
+    },
+    {
+      "id": "DRAFT-artem-012",
+      "stage": "Геометрия",
+      "title": "Моделировать типовые этажи с помощью Codex",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Гарибальди",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Выбрать входной формат, эталон и представительный этаж",
+      "issue": {
+        "number": 12,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/12"
+      }
+    },
+    {
+      "id": "DRAFT-artem-013",
+      "stage": "Кровля",
+      "title": "Расставлять вентшахты",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Уточнить источник позиций и типы шахт",
+      "issue": {
+        "number": 13,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/13"
+      }
+    },
+    {
+      "id": "DRAFT-artem-014",
+      "stage": "Кровля",
+      "title": "Строить типовые ограждения",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Проверить, что не закрыто Array/RailClone, и выбрать пример",
+      "issue": {
+        "number": 14,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/14"
+      }
+    },
+    {
+      "id": "DRAFT-artem-015",
+      "stage": "Именование",
+      "title": "Назначать имена по требованиям",
+      "source": "Артём, И1",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Согласовать редакцию правил и образец поставки",
+      "issue": {
+        "number": 15,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/15"
+      }
+    },
+    {
+      "id": "DRAFT-artem-016",
+      "stage": "Чистка",
+      "title": "Выделять скрытые грани ограждений перед удалением",
+      "source": "AI, И1; боль описал Артём",
+      "type": "Предложение AI",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Подтвердить запрос и дать фрагмент пересечения",
+      "issue": null
+    },
+    {
+      "id": "DRAFT-artem-017",
+      "stage": "Анализ исходников",
+      "title": "Проверять материалы, швы, мелкий декор, фасадное освещение и перепады рельефа",
+      "source": "Артём, И2",
+      "type": "Операция участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Уточнить, какую часть анализа хочет поручить AI",
+      "issue": null
+    },
+    {
+      "id": "DRAFT-artem-018",
+      "stage": "Подготовка сцены",
+      "title": "Импортировать, объединять по материалам и выравнивать здание по мировым X/Y",
+      "source": "Артём, И2",
+      "type": "Операция участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Уточнить формат, названный «VX», и желаемую автоматизацию",
+      "issue": null
+    },
+    {
+      "id": "DRAFT-artem-019",
+      "stage": "Подготовка геометрии",
+      "title": "Выделять внешние грани корпуса и передние грани рам; выбирать доработку или перемоделивание",
+      "source": "Артём, И2",
+      "type": "Операция участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Получить хорошие и плохие исходные сетки для сравнения",
+      "issue": null
+    },
+    {
+      "id": "DRAFT-artem-020",
+      "stage": "Ground",
+      "title": "Создавать рельефную поверхность по высотным отметкам AutoCAD или Revit",
+      "source": "Артём, И2",
+      "type": "Ручная операция; запрос AI уточняется",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Получить пример отметок и эталон поверхности",
+      "issue": null
+    },
+    {
+      "id": "DRAFT-artem-021",
+      "stage": "Ground",
+      "title": "Подготавливать нарезанную плоскую геометрию НПМ/ВПМ",
+      "source": "Артём, И2",
+      "type": "Ручная операция; запрос AI уточняется",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Уточнить способ нарезки и критерии сетки",
+      "issue": null
+    },
+    {
+      "id": "DRAFT-artem-022",
+      "stage": "Ground",
+      "title": "Проецировать плоскую геометрию на рельеф",
+      "source": "Артём, И2",
+      "type": "Ручная операция; запрос AI уточняется",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Уточнить плагин «Cine», взять плоскую сетку и поверхность",
+      "issue": null
+    },
+    {
+      "id": "DRAFT-artem-023",
+      "stage": "МАФ",
+      "title": "Подбирать модель МАФ из библиотеки",
+      "source": "Артём, И2",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Дать DWG, спецификацию и доступ к каталогу",
+      "issue": {
+        "number": 16,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/16"
+      }
+    },
+    {
+      "id": "DRAFT-artem-024",
+      "stage": "МАФ",
+      "title": "Переносить позицию и поворот МАФ из DWG в сцену",
+      "source": "Артём, И2",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Получить DWG-блок и модель с известными осями/pivot",
+      "issue": {
+        "number": 17,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/17"
+      }
+    },
+    {
+      "id": "DRAFT-artem-025",
+      "stage": "Проверка",
+      "title": "Отмечать подозрительные щели, вывернутые нормали и грубое сглаживание",
+      "source": "AI предложил; Артём подтвердил, И2",
+      "type": "Подтверждённый запрос",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Взять сцену с известными дефектами и способы их ручной оценки",
+      "issue": {
+        "number": 18,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/18"
+      }
+    },
+    {
+      "id": "DRAFT-artem-026",
+      "stage": "Замечания",
+      "title": "Отслеживать исправленные и оставшиеся замечания",
+      "source": "Артём, И2",
+      "type": "Операция участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Уточнить необходимость отдельного инструмента; формат зависит от входа",
+      "issue": null
+    },
+    {
+      "id": "DRAFT-artem-027",
+      "stage": "Выдача",
+      "title": "Экспортировать модель и проверять её в Synthes Checker",
+      "source": "Артём, И2",
+      "type": "Операция участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Зафиксировать настройки экспорта и версии; связана с 028",
+      "issue": null
+    },
+    {
+      "id": "DRAFT-artem-028",
+      "stage": "Между редакторами",
+      "title": "Обновлять всю модель из 3ds Max в Blender для проверки Synthes Checker",
+      "source": "Артём, И2",
+      "type": "Запрос участника",
+      "example": "Не выбран",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Согласовать передачу, правила замены сцены и тестовый файл",
+      "issue": {
+        "number": 19,
+        "url": "https://github.com/agnstrv/NTR_AI/issues/19"
+      }
+    },
+    {
+      "id": "DRAFT-artem-029",
+      "stage": "Оптимизация",
+      "title": "Сокращать НПМ, сохраняя силуэт и заменяя мелкие детали текстурой",
+      "source": "Артём, И1",
+      "type": "Операция участника",
+      "example": "Гарибальди",
+      "status": "Нужно уточнить",
+      "ai": "Не проверено",
+      "assignee": null,
+      "participant_priority": null,
+      "team_priority": null,
+      "next": "Уточнить конкретную часть оптимизации для AI",
+      "issue": null
+    }
+  ]
+}
