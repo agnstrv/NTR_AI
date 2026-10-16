@@ -1,0 +1,2 @@
+# Preserve collected source bytes and exact substitution manifest hashes.
+src/** -text

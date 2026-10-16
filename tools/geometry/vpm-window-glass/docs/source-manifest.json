@@ -1,0 +1,165 @@
+[
+  {
+    "source_relative": "outputs/window_planes.py",
+    "published": "src/outputs/window_planes.py",
+    "source_sha256": "dbdfdd83ad60f18277af2d2b6e0c31741e512230551568f67689c787fe387e29",
+    "published_sha256": "66980a0d2362f8e2e6242757ab31739c1452769fb373ca3883e4bc4d9c6ed33a",
+    "replacements": [
+      {
+        "original_literal_sha256": "b1377658020d4a50f14a171a5d3670f89e39cfc0f8ae0add09b663d5dcf2d201",
+        "replacement_utf8": "WindowFrameSource",
+        "count": 1
+      }
+    ],
+    "other_changes": false
+  },
+  {
+    "source_relative": "outputs/window_plane_adjust.py",
+    "published": "src/outputs/window_plane_adjust.py",
+    "source_sha256": "21e555bd698a87b2408e7623cc015c4255d01c1ab3c9d301086ddb5fc54b573c",
+    "published_sha256": "a709219de2c6e1ef74973422beee180e481fad5832e408df259cb832649acec0",
+    "replacements": [
+      {
+        "original_literal_sha256": "b1377658020d4a50f14a171a5d3670f89e39cfc0f8ae0add09b663d5dcf2d201",
+        "replacement_utf8": "WindowFrameSource",
+        "count": 1
+      }
+    ],
+    "other_changes": false
+  },
+  {
+    "source_relative": "outputs/window_plane_cutouts.py",
+    "published": "src/outputs/window_plane_cutouts.py",
+    "source_sha256": "7afba676928ffdeddf2f6b883671908a19c2e808dafe2755932effa07368b661",
+    "published_sha256": "04a9af2ce0c3e231406723d3c156985c2a51f96efbbbc844968ff8fbb804f18f",
+    "replacements": [
+      {
+        "original_literal_sha256": "b1377658020d4a50f14a171a5d3670f89e39cfc0f8ae0add09b663d5dcf2d201",
+        "replacement_utf8": "WindowFrameSource",
+        "count": 1
+      }
+    ],
+    "other_changes": false
+  },
+  {
+    "source_relative": "outputs/window_plane_cleanup.py",
+    "published": "src/outputs/window_plane_cleanup.py",
+    "source_sha256": "a51c3041d5a0716a0c50ca223f44427afd48cfd8440705e94dcef46315d36581",
+    "published_sha256": "a51c3041d5a0716a0c50ca223f44427afd48cfd8440705e94dcef46315d36581",
+    "replacements": [],
+    "other_changes": false
+  },
+  {
+    "source_relative": "outputs/window_quad_retopology.py",
+    "published": "src/outputs/window_quad_retopology.py",
+    "source_sha256": "8a2e4b56a9f16c429649a663210d94df22a2bfc7534a3b5772a7c67d68def132",
+    "published_sha256": "8af1384b3ffa6eb362df6b43babfdde7c4acfae528cd145d4c7915a6c403ec78",
+    "replacements": [
+      {
+        "original_literal_sha256": "b1377658020d4a50f14a171a5d3670f89e39cfc0f8ae0add09b663d5dcf2d201",
+        "replacement_utf8": "WindowFrameSource",
+        "count": 1
+      }
+    ],
+    "other_changes": false
+  },
+  {
+    "source_relative": "outputs/window_infill_planes.py",
+    "published": "src/outputs/window_infill_planes.py",
+    "source_sha256": "e9b9802f1c1e427f506ac96e2ffd535ce4ade3f82dc65132cc7cc75f7369c807",
+    "published_sha256": "f9de6dd3915d90e15c776203711ecac46776d08a729c4c9d13318f2b3bd676be",
+    "replacements": [
+      {
+        "original_literal_sha256": "90c7827329cc70f9053c47a1d42830415e7128bee81f4d5f93c98e58b02f9009",
+        "replacement_utf8": "Path(__file__).resolve().parents[1]",
+        "count": 1
+      }
+    ],
+    "other_changes": false
+  },
+  {
+    "source_relative": "outputs/window_continuous_infill.py",
+    "published": "src/outputs/window_continuous_infill.py",
+    "source_sha256": "42cb3594eee8843fa79f83a5dd3bf40beaf7032d2270338583be1b5bce58ccef",
+    "published_sha256": "78e74f6f560066aa9130c53225703526770db3f9ec963bd98d96812c291c297f",
+    "replacements": [
+      {
+        "original_literal_sha256": "90c7827329cc70f9053c47a1d42830415e7128bee81f4d5f93c98e58b02f9009",
+        "replacement_utf8": "Path(__file__).resolve().parents[1]",
+        "count": 1
+      }
+    ],
+    "other_changes": false
+  },
+  {
+    "source_relative": "work/analyze_infill.py",
+    "published": "src/work/analyze_infill.py",
+    "source_sha256": "c5e6c1789162e7d145aca3a52e1484a8140fb0fb7473d90b4f7c26d785a287ba",
+    "published_sha256": "09e2a09e1ddaf689999942c33c9901f233b9d5a78033a9dffd2c105a85bad5ed",
+    "replacements": [
+      {
+        "original_literal_sha256": "90c7827329cc70f9053c47a1d42830415e7128bee81f4d5f93c98e58b02f9009",
+        "replacement_utf8": "Path(__file__).resolve().parents[1]",
+        "count": 1
+      }
+    ],
+    "other_changes": false
+  },
+  {
+    "source_relative": "work/infill_loops.py",
+    "published": "src/work/infill_loops.py",
+    "source_sha256": "a516714f6ef5fd81a132b34878776d25efd657d20a4989a2bd2623e79300da25",
+    "published_sha256": "a516714f6ef5fd81a132b34878776d25efd657d20a4989a2bd2623e79300da25",
+    "replacements": [],
+    "other_changes": false
+  },
+  {
+    "source_relative": "work/prepare_infill.py",
+    "published": "src/work/prepare_infill.py",
+    "source_sha256": "a70d860da95e553bddc901cafce4299848051d0856e3d09e7e3f7fbcbb04733d",
+    "published_sha256": "a70d860da95e553bddc901cafce4299848051d0856e3d09e7e3f7fbcbb04733d",
+    "replacements": [],
+    "other_changes": false
+  },
+  {
+    "source_relative": "work/analyze_continuous.py",
+    "published": "src/work/analyze_continuous.py",
+    "source_sha256": "ddfaad4f233d28378999afc971027b8d579a2a4fc4c4c24d52ca099e3bd156a3",
+    "published_sha256": "f6abd0e4bdf2984b31da82e2ebf8707d02485e01efba61df1c567752ef670494",
+    "replacements": [
+      {
+        "original_literal_sha256": "90c7827329cc70f9053c47a1d42830415e7128bee81f4d5f93c98e58b02f9009",
+        "replacement_utf8": "Path(__file__).resolve().parents[1]",
+        "count": 1
+      }
+    ],
+    "other_changes": false
+  },
+  {
+    "source_relative": "work/continuous_profiles.py",
+    "published": "src/work/continuous_profiles.py",
+    "source_sha256": "73c44a2896efaa6330d6f8fb8e47082513bd47c719f57fdef935283f91a8fc4d",
+    "published_sha256": "73c44a2896efaa6330d6f8fb8e47082513bd47c719f57fdef935283f91a8fc4d",
+    "replacements": [],
+    "other_changes": false
+  },
+  {
+    "source_relative": "work/unify_manifold_v4.py",
+    "published": "src/experimental/unify_manifold_v4.py",
+    "source_sha256": "a9d0bf6225516ab90d8f5f6c8cdcd35d2d68ad896f4c443ddbc0df6ea7c65174",
+    "published_sha256": "4c9e02ebcbd9ac213067304aca5b54470ed36bb7642f033912a827ff006d024f",
+    "replacements": [
+      {
+        "original_literal_sha256": "b1377658020d4a50f14a171a5d3670f89e39cfc0f8ae0add09b663d5dcf2d201",
+        "replacement_utf8": "WindowFrameSource",
+        "count": 1
+      },
+      {
+        "original_literal_sha256": "90c7827329cc70f9053c47a1d42830415e7128bee81f4d5f93c98e58b02f9009",
+        "replacement_utf8": "Path(__file__).resolve().parents[1]",
+        "count": 1
+      }
+    ],
+    "other_changes": false
+  }
+]

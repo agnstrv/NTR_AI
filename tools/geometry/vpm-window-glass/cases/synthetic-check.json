@@ -1,0 +1,13 @@
+{
+  "blender": "5.0.0",
+  "checks": [
+    "seven output modules compile and import without main execution",
+    "infill square expands by 2 cm and preserves expected area",
+    "infill clipping retains half of unit square",
+    "continuous profile projection on straight synthetic segment",
+    "synthetic T-junction found and connected",
+    "missing source rejected before scene mutation"
+  ],
+  "passed": 6,
+  "scope": "synthetic helpers and import only; no client scene, no end-to-end window reconstruction"
+}
