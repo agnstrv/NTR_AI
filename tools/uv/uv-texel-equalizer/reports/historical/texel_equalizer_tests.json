@@ -1,0 +1,20 @@
+{
+  "passed": 15,
+  "tests": [
+    "RMS mean, equalization, geometry unchanged, idempotence",
+    "arithmetic mean",
+    "UV continuity joins faces; actual seam separates",
+    "rectangular stretch missed by polygon corner angles is detected",
+    "nonuniform object scale, world metric, large translations",
+    "rectangular texture pixel aspect",
+    "pinned UV aborts atomically",
+    "collapsed UV rejected",
+    "shared Mesh Data copied without changing other object",
+    "Edit Mode includes hidden faces and preserves mode/hiding",
+    "new island overlap rejected without UV writes",
+    "uniformly mirrored island remains mirrored",
+    "scene units in px per meter",
+    "large UV float32 precision checked before committing",
+    "UI registers, reruns and unregisters"
+  ]
+}

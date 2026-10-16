@@ -1,0 +1,19 @@
+PASS RMS mean, equalization, geometry unchanged, idempotence
+PASS arithmetic mean
+PASS UV continuity joins faces; actual seam separates
+PASS rectangular stretch missed by polygon corner angles is detected
+PASS nonuniform object scale, world metric, large translations
+PASS rectangular texture pixel aspect
+PASS pinned UV aborts atomically
+PASS collapsed UV rejected
+PASS shared Mesh Data copied without changing other object
+PASS Edit Mode includes hidden faces and preserves mode/hiding
+PASS new island overlap rejected without UV writes
+PASS uniformly mirrored island remains mirrored
+PASS scene units in px per meter
+PASS large UV float32 precision checked before committing
+PASS UI registers, reruns and unregisters
+ALL PASSED 15
+Blender 5.0.0 (hash a37564c4df7a built 2025-11-18 11:06:54)
+
+Blender quit

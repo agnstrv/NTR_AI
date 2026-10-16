@@ -1,0 +1,5 @@
+# Preserve collected source/ZIP matching and source-manifest byte hashes.
+src/** -text
+tests/** -text
+docs/original-readme.md -text
+reports/historical/** -text

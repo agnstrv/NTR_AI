@@ -1,0 +1,24 @@
+PASS upright vertical window is unchanged
+PASS rotation 90 degrees corrected with density preserved
+PASS rotation 180 degrees corrected with density preserved
+PASS rotation -90 degrees corrected with density preserved
+PASS rotation 37 degrees corrected with density preserved
+PASS mirrored island corrected as a whole
+PASS reflection plus arbitrary rotation
+PASS horizontal island uses world Y fallback
+PASS world-space rotation of the object is respected
+PASS negative object scale handedness
+PASS curved vertical island remains connected
+PASS conflicting up directions abort atomically
+PASS pixel-space rotation preserves shape on rectangular images
+PASS orientation pin protection
+PASS Edit Mode preserves hiding and mode
+PASS shared data is separated for orientation
+PASS rotation cannot introduce new island intersections
+Info: Зеркальных: 0; повёрнутых: 1; неоднозначных: 0. Отчёт: Texel_Equalizer_Report.json
+Info: Исправлено островов: 1. Плотность и форма сохранены.
+PASS new UI operators register and execute
+ALL ORIENTATION TESTS PASSED 18
+Blender 5.0.0 (hash a37564c4df7a built 2025-11-18 11:06:54)
+
+Blender quit

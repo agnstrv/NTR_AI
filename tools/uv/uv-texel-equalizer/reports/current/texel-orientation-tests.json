@@ -1,0 +1,23 @@
+{
+  "passed": 18,
+  "tests": [
+    "upright vertical window is unchanged",
+    "rotation 90 degrees corrected with density preserved",
+    "rotation 180 degrees corrected with density preserved",
+    "rotation -90 degrees corrected with density preserved",
+    "rotation 37 degrees corrected with density preserved",
+    "mirrored island corrected as a whole",
+    "reflection plus arbitrary rotation",
+    "horizontal island uses world Y fallback",
+    "world-space rotation of the object is respected",
+    "negative object scale handedness",
+    "curved vertical island remains connected",
+    "conflicting up directions abort atomically",
+    "pixel-space rotation preserves shape on rectangular images",
+    "orientation pin protection",
+    "Edit Mode preserves hiding and mode",
+    "shared data is separated for orientation",
+    "rotation cannot introduce new island intersections",
+    "new UI operators register and execute"
+  ]
+}

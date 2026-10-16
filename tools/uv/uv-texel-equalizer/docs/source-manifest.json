@@ -1,0 +1,75 @@
+{
+  "collected": "2026-10-16",
+  "source_root": "C:\\Users\\User\\Documents\\Codex\\2026-10-05\\x20",
+  "entries": [
+    {
+      "source": "outputs/uv_texel_equalizer.py",
+      "destination": "src/uv_texel_equalizer.py",
+      "source_bytes": 41437,
+      "source_sha256": "863d9c49b003d158951fdc8c5e053cc1a0d617714ccbbe8dd047186aca636973",
+      "packaged_bytes": 41437,
+      "packaged_sha256": "863d9c49b003d158951fdc8c5e053cc1a0d617714ccbbe8dd047186aca636973"
+    },
+    {
+      "source": "outputs/uv_texel_equalizer_v1_1_0.zip",
+      "destination": "dist/uv_texel_equalizer_v1_1_0.zip",
+      "source_bytes": 17303,
+      "source_sha256": "8f7c4edf09c85d9abb7c0252bae0eb73e35bf0b80a6e0e1f65b918715bad55e1",
+      "packaged_bytes": 17303,
+      "packaged_sha256": "8f7c4edf09c85d9abb7c0252bae0eb73e35bf0b80a6e0e1f65b918715bad55e1"
+    },
+    {
+      "source": "outputs/uv_texel_equalizer_README.md",
+      "destination": "docs/original-readme.md",
+      "source_bytes": 17006,
+      "source_sha256": "6fc8ab79a7cf3259a62b13e60facec826780dd3189284bd592bf12b63e7e8873",
+      "packaged_bytes": 17006,
+      "packaged_sha256": "6fc8ab79a7cf3259a62b13e60facec826780dd3189284bd592bf12b63e7e8873"
+    },
+    {
+      "source": "work/texel_equalizer_tests.json",
+      "destination": "reports/historical/texel_equalizer_tests.json",
+      "source_bytes": 804,
+      "source_sha256": "3c4223a82826cb55d7432b37497894560a572ad208ff11592d0a14c3862b0b5b",
+      "packaged_bytes": 804,
+      "packaged_sha256": "3c4223a82826cb55d7432b37497894560a572ad208ff11592d0a14c3862b0b5b"
+    },
+    {
+      "source": "work/texel_orientation_tests.json",
+      "destination": "reports/historical/texel_orientation_tests.json",
+      "source_bytes": 963,
+      "source_sha256": "cd4f58872efec77908518ffe83251a95700a2a8838cb74ebf7ac112630a6e2bf",
+      "packaged_bytes": 963,
+      "packaged_sha256": "cd4f58872efec77908518ffe83251a95700a2a8838cb74ebf7ac112630a6e2bf"
+    },
+    {
+      "source": "work/test_texel_equalizer.py",
+      "destination": "tests/test_texel_equalizer.py",
+      "source_bytes": 6970,
+      "source_sha256": "8eee0c8e35ed12948ec386471514a17064aec0da86664dfb4d35081f36598974",
+      "packaged_bytes": 6959,
+      "packaged_sha256": "65179598a464e17ca0e0f4415d76bba49bf81c99cc87669718128f8dffa4aead"
+    },
+    {
+      "source": "work/test_texel_orientation.py",
+      "destination": "tests/test_texel_orientation.py",
+      "source_bytes": 6535,
+      "source_sha256": "4b146f5060585e7f1ac07dbbbc30f7fed2843a23a62c33264a6935963ef00e98",
+      "packaged_bytes": 6524,
+      "packaged_sha256": "211a52192afcf2a1f9865cca74802e0e64e8fed5a79d8cf2b0dc30ddcd1cf7a9"
+    }
+  ],
+  "archive_entries": [
+    {
+      "name": "uv_texel_equalizer/__init__.py",
+      "bytes": 41437,
+      "sha256": "863d9c49b003d158951fdc8c5e053cc1a0d617714ccbbe8dd047186aca636973"
+    },
+    {
+      "name": "uv_texel_equalizer/README.md",
+      "bytes": 17006,
+      "sha256": "6fc8ab79a7cf3259a62b13e60facec826780dd3189284bd592bf12b63e7e8873"
+    }
+  ],
+  "duplicate_zip_sha256": "8f7c4edf09c85d9abb7c0252bae0eb73e35bf0b80a6e0e1f65b918715bad55e1"
+}
