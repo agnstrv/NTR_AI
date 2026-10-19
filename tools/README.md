@@ -4,6 +4,7 @@
 
 | Направление | Инструмент | Статус и следующий шаг |
 |---|---|---|
+| geometry / uv / placement | [maf-workflow — опыт Вани](geometry/maf-workflow/README.md) | prototype; МАФ, сетки, UV 0–1, свет и сборка; ограничения и передача зафиксированы |
 | geometry | [compact-circular-cut](geometry/compact-circular-cut/README.md) | prototype; независимый повтор после успешного пользовательского примера |
 | uv | [vpm-grid](uv/vpm-grid/README.md) | prototype; опубликованы испытания Blender 5.0, нужна проверка коллегой |
 | textures / geometry | [npm-oks — сценарии Ромы](textures/npm-oks/README.md) | prototype; тип — workflow. Выбор лёгкой/средней версии, независимая приёмка не установлена |
