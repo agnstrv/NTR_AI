@@ -1,0 +1,4 @@
+interface:
+  display_name: "NTR /push"
+  short_description: "Опубликовать результаты чата по правилам NTR_AI"
+  default_prompt: "Используй $push, чтобы опубликовать наработки текущего чата по правилам NTR_AI."
