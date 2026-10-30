@@ -29,3 +29,6 @@ client-data/
 local-data/
 tmp/
 # Already tracked files are unaffected
+
+# Generic plant-card primitive; client Blender scenes remain excluded
+!/tools/placement/album-plant-placement/assets/plant-card.blend
