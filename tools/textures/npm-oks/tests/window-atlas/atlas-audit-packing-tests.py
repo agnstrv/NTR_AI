@@ -1,8 +1,8 @@
-"""Behavior checks for atlas-packing.py; standalone, no Blender."""
+"""Behavior checks for atlas_packing.py; standalone, no Blender."""
 import importlib.util, json, random, time
 from pathlib import Path
 root=Path(__file__).resolve().parents[2]/'src'/'window-atlas'
-spec=importlib.util.spec_from_file_location('atlas_packing',root/'atlas-packing.py')
+spec=importlib.util.spec_from_file_location('atlas_packing',root/'atlas_packing.py')
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 pack=m.pack_rectangles
 

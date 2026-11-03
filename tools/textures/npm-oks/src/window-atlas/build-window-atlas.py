@@ -18,10 +18,10 @@ if (OUT/BLEND_NAME).resolve()==Path(bpy.data.filepath).resolve():raise ValueErro
 worker=None
 if '--raster-worker' in sys.argv:
  pos=sys.argv.index('--raster-worker');worker=(int(sys.argv[pos+1]),int(sys.argv[pos+2]))
-COLORS=np.array([[255,0,0],[160,160,160],[255,255,255],[32,32,32],[255,0,0]],np.uint8)
+COLORS=np.array([[255,0,0],[160,160,160],[255,255,255],[32,32,32],[255,0,0],[0,0,0]],np.uint8)
 def module(name):
  s=importlib.util.spec_from_file_location(name,ROOT/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
-geom=module('geometry-sections');packing=module('atlas-packing');grouping=module('tolerant-groups')
+geom=module('geometry_sections');packing=module('atlas_packing');grouping=module('tolerant_groups')
 def write_png(path,rgb):
  h,w,_=rgb.shape
  def chunk(tag,data):return struct.pack('>I',len(data))+tag+data+struct.pack('>I',zlib.crc32(tag+data)&0xffffffff)
@@ -84,7 +84,7 @@ if worker is None:(OUT/'section-geometry.json').write_text(json.dumps({name:{'ve
 # Rasterize once at high density, retain source samples and polygon mask for auditing.
 HIGH=64
 
-cache_inputs={'source_sha256':hashlib.sha256(Path(bpy.data.filepath).read_bytes()).hexdigest(),'targets':TARGETS,'source_collection':CONFIG['source_collection'],'source_ids':CONFIG['source_ids'],'high_density':HIGH,'sampling_version':3,'geometry_sha256':hashlib.sha256((ROOT/'geometry-sections.py').read_bytes()).hexdigest()}
+cache_inputs={'source_sha256':hashlib.sha256(Path(bpy.data.filepath).read_bytes()).hexdigest(),'targets':TARGETS,'source_collection':CONFIG['source_collection'],'source_ids':CONFIG['source_ids'],'high_density':HIGH,'sampling_version':3,'geometry_sha256':hashlib.sha256((ROOT/'geometry_sections.py').read_bytes()).hexdigest()}
 cache_fingerprint=hashlib.sha256(json.dumps(cache_inputs,sort_keys=True).encode()).hexdigest()[:16]
 CACHE=Path(CONFIG.get('cache_root',str(OUT)))/('raster-cache-'+cache_fingerprint);CACHE.mkdir(exist_ok=True)
 if worker is None:(OUT/'cache-manifest.json').write_text(json.dumps(cache_inputs,indent=2),encoding='utf-8')
@@ -173,10 +173,25 @@ if CONFIG.get('template_plan'):
  assert all(0<=a['template']<len(plan['templates']) for a in plan['assignments'])
  for template in plan['templates']:
   tid=template['id'];grid=load_tile(template['png'])
-  if tid<4:w=h=56;xy=(tid*64+4,4)
-  else:w,h=248,472;xy=(((tid-4)%4)*256+4,80+((tid-4)//4)*480+4)
-  sh,sw=grid.shape;yy=np.minimum(sh-1,((np.arange(h)+.5)/h*sh).astype(int));xx=np.minimum(sw-1,((np.arange(w)+.5)/w*sw).astype(int));grid=grid[np.ix_(yy,xx)]
-  groups.append({'grid':grid,'members':template['members'],'representative':template['representative_section'],'xy':xy})
+  # Preserve every native texel. No downsampling of thin source features.
+  if CONFIG.get('black_edge_traces'):
+   red=grid==4;h,w=grid.shape;black=np.zeros_like(red)
+   for vertical in [True,False]:
+    view=red if vertical else red.T;target=black if vertical else black.T
+    limit=max(2,math.ceil(view.shape[0]*.06))
+    for column in range(view.shape[1]):
+     line=view[:,column];start=None
+     for index,value in enumerate(np.r_[line,False]):
+      if value and start is None:start=index
+      if not value and start is not None:
+       length=index-start
+       if length<=limit and (start<limit or index>len(line)-limit):target[start:index,column]=True
+       start=None
+   grid=grid.copy();grid[black]=5
+  groups.append({'grid':grid,'members':template['members'],'representative':template['representative_section']})
+ origins=packing.pack_rectangles([(g['grid'].shape[1],g['grid'].shape[0]) for g in groups],padding=PAD)
+ if origins is None:raise RuntimeError('Native templates cannot fit reserved half; do not downsample silently')
+ for g,xy in zip(groups,origins):g['xy']=xy
  for assignment in plan['assignments']:
   sections[assignment['section']]['group']=assignment['template'];sections[assignment['section']]['effective_density']=0
  density=0;TOLERANCE=None
@@ -223,7 +238,7 @@ image=bpy.data.images.load(str(OUT/IMAGE_NAME),check_existing=False);image.color
 mat=bpy.data.materials.new('M_Savinskaja_Windows');mat.use_nodes=True
 tex=mat.node_tree.nodes.new('ShaderNodeTexImage');tex.image=image;tex.interpolation='Closest';tex.extension='EXTEND'
 bsdf=mat.node_tree.nodes.get('Principled BSDF');mat.node_tree.links.new(tex.outputs['Color'],bsdf.inputs['Base Color']);bsdf.inputs['Roughness'].default_value=.5
-report={'blender':bpy.app.version_string,'template_plan':CONFIG.get('template_plan'),'template_mode':bool(CONFIG.get('template_plan')),'density_px_per_unit':density,'high_density':HIGH,'group_tolerance_pixels':TOLERANCE,'cuts':{n:r['stats'] for n,r in prepared.items()},'pieces':sum(len(r['faces']) for r in prepared.values()),'groups':len(groups),'repeated_groups':sum(len(g['members'])>1 for g in groups),'source_hits':dict(HITS),'no_hit_samples':MISSES,'depth_histogram':dict(DEPTH),'grazing_samples':GRAZING,'palette':COLORS.tolist(),'objects':{},'atlas':[2048,2048],'reserved_half':'x>=1024','padding':PAD,'group_manifest':[],'section_manifest':[]}
+report={'blender':bpy.app.version_string,'template_plan':CONFIG.get('template_plan'),'template_mode':bool(CONFIG.get('template_plan')),'black_edge_traces':bool(CONFIG.get('black_edge_traces')),'density_px_per_unit':density,'high_density':HIGH,'group_tolerance_pixels':TOLERANCE,'cuts':{n:r['stats'] for n,r in prepared.items()},'pieces':sum(len(r['faces']) for r in prepared.values()),'groups':len(groups),'repeated_groups':sum(len(g['members'])>1 for g in groups),'source_hits':dict(HITS),'no_hit_samples':MISSES,'depth_histogram':dict(DEPTH),'grazing_samples':GRAZING,'palette':COLORS.tolist(),'objects':{},'atlas':[2048,2048],'reserved_half':'x>=1024','padding':PAD,'group_manifest':[],'section_manifest':[]}
 for name,r in prepared.items():
  o=bpy.data.objects[name];inv=o.matrix_world.inverted();mesh=bpy.data.meshes.new(name+'-window-sections');mesh.from_pydata([inv@v for v in r['vertices']],[],[f['indices'] for f in r['faces']]);mesh.update();uv=mesh.uv_layers.new(name='UVMap')
  for face,desc in zip(mesh.polygons,r['faces']):

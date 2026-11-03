@@ -1,7 +1,7 @@
 import importlib.util,json,time
 from pathlib import Path
 import numpy as np
-root=Path(__file__).resolve().parents[2]/'src'/'window-atlas';s=importlib.util.spec_from_file_location('tolerant',root/'tolerant-groups.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+root=Path(__file__).resolve().parents[2]/'src'/'window-atlas';s=importlib.util.spec_from_file_location('tolerant',root/'tolerant_groups.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
 group=m.group_tiles
 start=time.perf_counter()
 def boundary(x,h=12,w=16):
