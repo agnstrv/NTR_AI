@@ -1,0 +1,76 @@
+{
+  "_comment": "Источник правды для карты пайплайна. Часы — типовой проект (ЖК, 1 корпус средней сложности). share — % времени ячейки. Цифры — оценка Артёма Сафро (гриллинг 07.11), уточнять замерами.",
+  "updated": "2026-11-07",
+  "hours_per_day": 8,
+  "target": {"project_saving_pct": 35, "why": "Цель программы (07.11): сократить время типового проекта на 30–35%"},
+  "focus": {
+    "period": "2026-11-09 .. 2026-11-22",
+    "cells": ["ground-npm"],
+    "stages": ["flora", "maf"],
+    "why": "Флора + МАФы — ~40% времени Ground-НПМ, и по ним уже есть наработки (расстановка, проекция, библиотеки) — готовый материал для кросс-тестов."
+  },
+  "products": [
+    {"id": "npm-lite", "title": "НПМ упрощённый", "hours": 40, "parts": [{"cell": "ground-npm", "share": 40}, {"cell": "oks-npm-lite", "share": 60}], "source": "estimate"},
+    {"id": "npm",      "title": "НПМ",            "hours": 60, "parts": [{"cell": "ground-npm", "share": 35}, {"cell": "oks-npm", "share": 65}], "source": "estimate"},
+    {"id": "vpm",      "title": "ВПМ",            "hours": 80, "parts": [{"cell": "ground-vpm", "share": 50}, {"cell": "oks-vpm", "share": 50}], "source": "estimate", "note": "≈2 недели: неделя ОКС, неделя Ground"}
+  ],
+  "cells": [
+    {
+      "id": "ground-npm", "kind": "ground", "title": "Ground — НПМ (общий для НПМ и НПМ упрощённого)", "owner": "artem-safro",
+      "note": "Texel density 10–40. Коллизий нет. МАФ и флора — из библиотеки НПМ по DWG.",
+      "stages": [
+        {"id": "sources",  "title": "Исходники: DWG, модель, альбом, координаты", "short": "исходники", "share": 10, "line": "contract"},
+        {"id": "ground",   "title": "Земля по DWG: флет с ID → проекция на рельеф → атлас → нейминг, координаты", "short": "земля", "share": 20, "line": "tool"},
+        {"id": "maf",      "title": "МАФ: из библиотеки или домоделирование, поворот, проекция", "short": "МАФ", "share": 20, "line": "tool",
+          "baseline": [{"value": "low-poly МАФ ≈1 ч/шт, 20 видов — 2–3 дня", "who": "artem-nagornov", "source": "interview-2026-10-07"}, {"value": "лавочка ≈30 мин", "who": "ivan", "source": "interview-2026-10-02"}]},
+        {"id": "flora",    "title": "Флора: точки из DWG → библиотека → расстановка → проекция", "short": "флора", "share": 20, "line": "tool",
+          "baseline": [{"value": "≈200 растений за 3–4 ч", "who": "artem-nagornov", "source": "interview-2026-10-07"}]},
+        {"id": "optimize", "title": "Оптимизация полигонажа до лимита 180k", "short": "оптимизация", "share": 10, "line": "tool"},
+        {"id": "delivery", "title": "Материалы, карты, нейминг, сглаживание → FBX → Синтез → проверка", "short": "проверка", "share": 20, "line": "tool"}
+      ]
+    },
+    {
+      "id": "ground-vpm", "kind": "ground", "title": "Ground — ВПМ", "owner": null,
+      "note": "Texel density 512–1706. Несколько UDIM под МАФ или атлас 4K под texel density.",
+      "stages": [
+        {"id": "sources",    "title": "Исходники и анализ", "short": "исходники", "share": 10, "line": "contract"},
+        {"id": "ground",     "title": "Моделирование земли по DWG", "short": "земля", "share": 20, "line": "tool"},
+        {"id": "maf",        "title": "Моделирование МАФ", "short": "МАФ", "share": 25, "line": "tool"},
+        {"id": "flora",      "title": "Подбор и расстановка зелени", "short": "флора", "share": 20, "line": "tool"},
+        {"id": "collisions", "title": "Коллизии UCX", "short": "коллизии", "share": 15, "line": "contract"},
+        {"id": "delivery",   "title": "UV/атлас МАФ под texel density, группы сглаживания, проверка в Синтезе", "short": "UV+проверка", "share": 10, "line": "tool"}
+      ]
+    },
+    {
+      "id": "oks-npm-lite", "kind": "oks", "title": "ОКС — НПМ упрощённый", "owner": null,
+      "note": "Облегчённая оболочка; есть сценарий Ромы light.",
+      "stages": [
+        {"id": "sources",  "title": "Исходники и сверка с альбомом", "short": "исходники", "share": 10, "line": "contract"},
+        {"id": "geometry", "title": "Геометрия оболочки", "short": "геометрия", "share": 40, "line": "tool"},
+        {"id": "textures", "title": "UV, атлас, текстуры, bake", "short": "текстуры", "share": 35, "line": "tool"},
+        {"id": "delivery", "title": "Проверка в Синтезе, нейминг, JSON", "short": "проверка", "share": 15, "line": "tool"}
+      ]
+    },
+    {
+      "id": "oks-npm", "kind": "oks", "title": "ОКС — НПМ", "owner": null,
+      "note": "Детальнее упрощённого: проёмы, окна в атласе, насыщенный атлас.",
+      "stages": [
+        {"id": "sources",  "title": "Исходники и сверка с альбомом", "short": "исходники", "share": 10, "line": "contract"},
+        {"id": "geometry", "title": "Геометрия: проёмы, окна, детали", "short": "геометрия", "share": 45, "line": "tool"},
+        {"id": "textures", "title": "UV, атлас окон и фасадов, текстуры, bake", "short": "текстуры", "share": 35, "line": "tool"},
+        {"id": "delivery", "title": "Проверка в Синтезе, нейминг, JSON", "short": "проверка", "share": 10, "line": "tool"}
+      ]
+    },
+    {
+      "id": "oks-vpm", "kind": "oks", "title": "ОКС — ВПМ", "owner": null,
+      "note": "Карты ERM / Diffuse / Normal, укладка в UDIM.",
+      "stages": [
+        {"id": "sources",    "title": "Чтение исходников", "short": "исходники", "share": 10, "line": "contract"},
+        {"id": "geometry",   "title": "Моделирование геометрии (рамы, стекло, детали)", "short": "геометрия", "share": 35, "line": "tool"},
+        {"id": "textures",   "title": "Карты ERM/Diffuse/Normal, текстурирование, укладка в UDIM", "short": "текстуры", "share": 30, "line": "tool"},
+        {"id": "collisions", "title": "Коллизии UCX", "short": "коллизии", "share": 15, "line": "contract"},
+        {"id": "delivery",   "title": "Проверка в Синтезе (+ исправления), JSON", "short": "проверка", "share": 10, "line": "tool"}
+      ]
+    }
+  ]
+}

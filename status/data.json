@@ -1,0 +1,3211 @@
+{
+    "generated":  "2026-11-07 10:59",
+    "label":  "",
+    "focus":  {
+                  "period":  "2026-11-09 .. 2026-11-22",
+                  "cells":  [
+                                "ground-npm"
+                            ],
+                  "stages":  [
+                                 "flora",
+                                 "maf"
+                             ],
+                  "why":  "Флора + МАФы — ~40% времени Ground-НПМ, и по ним уже есть наработки (расстановка, проекция, библиотеки) — готовый материал для кросс-тестов."
+              },
+    "target":  {
+                   "project_saving_pct":  35,
+                   "why":  "Цель программы (07.11): сократить время типового проекта на 30–35%"
+               },
+    "team":  {
+                 "id":  "Имя",
+                 "artem-safro":  "Артём Сафро",
+                 "artem-nagornov":  "Артём Нагорнов",
+                 "roman":  "Роман Касьян",
+                 "ivan":  "Иван Проселков",
+                 "slava":  "Вячеслав",
+                 "sergey":  "Сергей Надточий",
+                 "anastasia":  "Анастасия Соломко"
+             },
+    "people":  [
+                   "artem-safro",
+                   "artem-nagornov",
+                   "roman",
+                   "ivan",
+                   "slava"
+               ],
+    "summary":  {
+                    "avg_product_saving_pct":  0,
+                    "tools_by_status":  {
+                                            "not-in-repo":  5,
+                                            "draft":  10,
+                                            "measured":  0,
+                                            "cross-tested":  0,
+                                            "accepted":  0
+                                        },
+                    "contracts":  4,
+                    "tools":  10,
+                    "tests_7d":  0,
+                    "sessions_7d":  0,
+                    "tagged_7d":  0,
+                    "minutes_7d":  0,
+                    "active_people_7d":  0
+                },
+    "products":  [
+                     {
+                         "id":  "npm-lite",
+                         "title":  "НПМ упрощённый",
+                         "hours":  40,
+                         "days":  5,
+                         "note":  null,
+                         "parts":  [
+                                       {
+                                           "cell":  "ground-npm",
+                                           "share":  40
+                                       },
+                                       {
+                                           "cell":  "oks-npm-lite",
+                                           "share":  60
+                                       }
+                                   ],
+                         "segments":  [
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "sources",
+                                              "short":  "исходники",
+                                              "title":  "Исходники: DWG, модель, альбом, координаты",
+                                              "line":  "contract",
+                                              "hours":  1.6,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  1
+                                          },
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "ground",
+                                              "short":  "земля",
+                                              "title":  "Земля по DWG: флет с ID → проекция на рельеф → атлас → нейминг, координаты",
+                                              "line":  "tool",
+                                              "hours":  3.2,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+                                                            "safro-ground-projection"
+                                                        ],
+                                              "tasks_open":  1
+                                          },
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "maf",
+                                              "short":  "МАФ",
+                                              "title":  "МАФ: из библиотеки или домоделирование, поворот, проекция",
+                                              "line":  "tool",
+                                              "hours":  3.2,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  true,
+                                              "tools":  [
+                                                            "maf-workflow"
+                                                        ],
+                                              "tasks_open":  6
+                                          },
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "flora",
+                                              "short":  "флора",
+                                              "title":  "Флора: точки из DWG → библиотека → расстановка → проекция",
+                                              "line":  "tool",
+                                              "hours":  3.2,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  true,
+                                              "tools":  [
+                                                            "album-plant-placement",
+                                                            "safro-plant-library"
+                                                        ],
+                                              "tasks_open":  4
+                                          },
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "optimize",
+                                              "short":  "оптимизация",
+                                              "title":  "Оптимизация полигонажа до лимита 180k",
+                                              "line":  "tool",
+                                              "hours":  1.6,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+                                                            "slava-retopo-bake"
+                                                        ],
+                                              "tasks_open":  0
+                                          },
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "delivery",
+                                              "short":  "проверка",
+                                              "title":  "Материалы, карты, нейминг, сглаживание → FBX → Синтез → проверка",
+                                              "line":  "tool",
+                                              "hours":  3.2,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+                                                            "roman-checker"
+                                                        ],
+                                              "tasks_open":  8
+                                          },
+                                          {
+                                              "cell":  "oks-npm-lite",
+                                              "kind":  "oks",
+                                              "stage":  "sources",
+                                              "short":  "исходники",
+                                              "title":  "Исходники и сверка с альбомом",
+                                              "line":  "contract",
+                                              "hours":  2.4,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          },
+                                          {
+                                              "cell":  "oks-npm-lite",
+                                              "kind":  "oks",
+                                              "stage":  "geometry",
+                                              "short":  "геометрия",
+                                              "title":  "Геометрия оболочки",
+                                              "line":  "tool",
+                                              "hours":  9.6,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          },
+                                          {
+                                              "cell":  "oks-npm-lite",
+                                              "kind":  "oks",
+                                              "stage":  "textures",
+                                              "short":  "текстуры",
+                                              "title":  "UV, атлас, текстуры, bake",
+                                              "line":  "tool",
+                                              "hours":  8.4,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          },
+                                          {
+                                              "cell":  "oks-npm-lite",
+                                              "kind":  "oks",
+                                              "stage":  "delivery",
+                                              "short":  "проверка",
+                                              "title":  "Проверка в Синтезе, нейминг, JSON",
+                                              "line":  "tool",
+                                              "hours":  3.6,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          }
+                                      ],
+                         "saved_h":  0,
+                         "est_h":  0,
+                         "after_h":  40,
+                         "saving_pct":  0,
+                         "est_pct":  0,
+                         "cells":  [
+                                       "ground-npm",
+                                       "oks-npm-lite"
+                                   ],
+                         "described":  2,
+                         "total":  2
+                     },
+                     {
+                         "id":  "npm",
+                         "title":  "НПМ",
+                         "hours":  60,
+                         "days":  7.5,
+                         "note":  null,
+                         "parts":  [
+                                       {
+                                           "cell":  "ground-npm",
+                                           "share":  35
+                                       },
+                                       {
+                                           "cell":  "oks-npm",
+                                           "share":  65
+                                       }
+                                   ],
+                         "segments":  [
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "sources",
+                                              "short":  "исходники",
+                                              "title":  "Исходники: DWG, модель, альбом, координаты",
+                                              "line":  "contract",
+                                              "hours":  2.1,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  1
+                                          },
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "ground",
+                                              "short":  "земля",
+                                              "title":  "Земля по DWG: флет с ID → проекция на рельеф → атлас → нейминг, координаты",
+                                              "line":  "tool",
+                                              "hours":  4.2,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+                                                            "safro-ground-projection"
+                                                        ],
+                                              "tasks_open":  1
+                                          },
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "maf",
+                                              "short":  "МАФ",
+                                              "title":  "МАФ: из библиотеки или домоделирование, поворот, проекция",
+                                              "line":  "tool",
+                                              "hours":  4.2,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  true,
+                                              "tools":  [
+                                                            "maf-workflow"
+                                                        ],
+                                              "tasks_open":  6
+                                          },
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "flora",
+                                              "short":  "флора",
+                                              "title":  "Флора: точки из DWG → библиотека → расстановка → проекция",
+                                              "line":  "tool",
+                                              "hours":  4.2,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  true,
+                                              "tools":  [
+                                                            "album-plant-placement",
+                                                            "safro-plant-library"
+                                                        ],
+                                              "tasks_open":  4
+                                          },
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "optimize",
+                                              "short":  "оптимизация",
+                                              "title":  "Оптимизация полигонажа до лимита 180k",
+                                              "line":  "tool",
+                                              "hours":  2.1,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+                                                            "slava-retopo-bake"
+                                                        ],
+                                              "tasks_open":  0
+                                          },
+                                          {
+                                              "cell":  "ground-npm",
+                                              "kind":  "ground",
+                                              "stage":  "delivery",
+                                              "short":  "проверка",
+                                              "title":  "Материалы, карты, нейминг, сглаживание → FBX → Синтез → проверка",
+                                              "line":  "tool",
+                                              "hours":  4.2,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+                                                            "roman-checker"
+                                                        ],
+                                              "tasks_open":  8
+                                          },
+                                          {
+                                              "cell":  "oks-npm",
+                                              "kind":  "oks",
+                                              "stage":  "sources",
+                                              "short":  "исходники",
+                                              "title":  "Исходники и сверка с альбомом",
+                                              "line":  "contract",
+                                              "hours":  3.9,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  3
+                                          },
+                                          {
+                                              "cell":  "oks-npm",
+                                              "kind":  "oks",
+                                              "stage":  "geometry",
+                                              "short":  "геометрия",
+                                              "title":  "Геометрия: проёмы, окна, детали",
+                                              "line":  "tool",
+                                              "hours":  17.55,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  11
+                                          },
+                                          {
+                                              "cell":  "oks-npm",
+                                              "kind":  "oks",
+                                              "stage":  "textures",
+                                              "short":  "текстуры",
+                                              "title":  "UV, атлас окон и фасадов, текстуры, bake",
+                                              "line":  "tool",
+                                              "hours":  13.65,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+                                                            "npm-oks-scenario",
+                                                            "window-atlas"
+                                                        ],
+                                              "tasks_open":  8
+                                          },
+                                          {
+                                              "cell":  "oks-npm",
+                                              "kind":  "oks",
+                                              "stage":  "delivery",
+                                              "short":  "проверка",
+                                              "title":  "Проверка в Синтезе, нейминг, JSON",
+                                              "line":  "tool",
+                                              "hours":  3.9,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          }
+                                      ],
+                         "saved_h":  0,
+                         "est_h":  0,
+                         "after_h":  60,
+                         "saving_pct":  0,
+                         "est_pct":  0,
+                         "cells":  [
+                                       "ground-npm",
+                                       "oks-npm"
+                                   ],
+                         "described":  2,
+                         "total":  2
+                     },
+                     {
+                         "id":  "vpm",
+                         "title":  "ВПМ",
+                         "hours":  80,
+                         "days":  10,
+                         "note":  "≈2 недели: неделя ОКС, неделя Ground",
+                         "parts":  [
+                                       {
+                                           "cell":  "ground-vpm",
+                                           "share":  50
+                                       },
+                                       {
+                                           "cell":  "oks-vpm",
+                                           "share":  50
+                                       }
+                                   ],
+                         "segments":  [
+                                          {
+                                              "cell":  "ground-vpm",
+                                              "kind":  "ground",
+                                              "stage":  "sources",
+                                              "short":  "исходники",
+                                              "title":  "Исходники и анализ",
+                                              "line":  "contract",
+                                              "hours":  4,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          },
+                                          {
+                                              "cell":  "ground-vpm",
+                                              "kind":  "ground",
+                                              "stage":  "ground",
+                                              "short":  "земля",
+                                              "title":  "Моделирование земли по DWG",
+                                              "line":  "tool",
+                                              "hours":  8,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+                                                            "compact-circular-cut"
+                                                        ],
+                                              "tasks_open":  1
+                                          },
+                                          {
+                                              "cell":  "ground-vpm",
+                                              "kind":  "ground",
+                                              "stage":  "maf",
+                                              "short":  "МАФ",
+                                              "title":  "Моделирование МАФ",
+                                              "line":  "tool",
+                                              "hours":  10,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          },
+                                          {
+                                              "cell":  "ground-vpm",
+                                              "kind":  "ground",
+                                              "stage":  "flora",
+                                              "short":  "флора",
+                                              "title":  "Подбор и расстановка зелени",
+                                              "line":  "tool",
+                                              "hours":  8,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          },
+                                          {
+                                              "cell":  "ground-vpm",
+                                              "kind":  "ground",
+                                              "stage":  "collisions",
+                                              "short":  "коллизии",
+                                              "title":  "Коллизии UCX",
+                                              "line":  "contract",
+                                              "hours":  6,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          },
+                                          {
+                                              "cell":  "ground-vpm",
+                                              "kind":  "ground",
+                                              "stage":  "delivery",
+                                              "short":  "UV+проверка",
+                                              "title":  "UV/атлас МАФ под texel density, группы сглаживания, проверка в Синтезе",
+                                              "line":  "tool",
+                                              "hours":  4,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          },
+                                          {
+                                              "cell":  "oks-vpm",
+                                              "kind":  "oks",
+                                              "stage":  "sources",
+                                              "short":  "исходники",
+                                              "title":  "Чтение исходников",
+                                              "line":  "contract",
+                                              "hours":  4,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          },
+                                          {
+                                              "cell":  "oks-vpm",
+                                              "kind":  "oks",
+                                              "stage":  "geometry",
+                                              "short":  "геометрия",
+                                              "title":  "Моделирование геометрии (рамы, стекло, детали)",
+                                              "line":  "tool",
+                                              "hours":  14,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+                                                            "vpm-window-glass"
+                                                        ],
+                                              "tasks_open":  2
+                                          },
+                                          {
+                                              "cell":  "oks-vpm",
+                                              "kind":  "oks",
+                                              "stage":  "textures",
+                                              "short":  "текстуры",
+                                              "title":  "Карты ERM/Diffuse/Normal, текстурирование, укладка в UDIM",
+                                              "line":  "tool",
+                                              "hours":  12,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+                                                            "uv-texel-equalizer",
+                                                            "vpm-grid"
+                                                        ],
+                                              "tasks_open":  3
+                                          },
+                                          {
+                                              "cell":  "oks-vpm",
+                                              "kind":  "oks",
+                                              "stage":  "collisions",
+                                              "short":  "коллизии",
+                                              "title":  "Коллизии UCX",
+                                              "line":  "contract",
+                                              "hours":  6,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+                                                            "building-ucx"
+                                                        ],
+                                              "tasks_open":  1
+                                          },
+                                          {
+                                              "cell":  "oks-vpm",
+                                              "kind":  "oks",
+                                              "stage":  "delivery",
+                                              "short":  "проверка",
+                                              "title":  "Проверка в Синтезе (+ исправления), JSON",
+                                              "line":  "tool",
+                                              "hours":  4,
+                                              "saved":  0,
+                                              "est":  0,
+                                              "best":  null,
+                                              "est_tool":  null,
+                                              "inFocus":  false,
+                                              "tools":  [
+
+                                                        ],
+                                              "tasks_open":  0
+                                          }
+                                      ],
+                         "saved_h":  0,
+                         "est_h":  0,
+                         "after_h":  80,
+                         "saving_pct":  0,
+                         "est_pct":  0,
+                         "cells":  [
+                                       "ground-vpm",
+                                       "oks-vpm"
+                                   ],
+                         "described":  2,
+                         "total":  2
+                     }
+                 ],
+    "cells":  [
+                  {
+                      "id":  "ground-npm",
+                      "kind":  "ground",
+                      "title":  "Ground — НПМ (общий для НПМ и НПМ упрощённого)",
+                      "owner":  "artem-safro",
+                      "saving_pct":  0,
+                      "stages":  [
+                                     {
+                                         "id":  "sources",
+                                         "title":  "Исходники: DWG, модель, альбом, координаты",
+                                         "short":  "исходники",
+                                         "share":  10,
+                                         "line":  "contract",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  1,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "ground",
+                                         "title":  "Земля по DWG: флет с ID → проекция на рельеф → атлас → нейминг, координаты",
+                                         "short":  "земля",
+                                         "share":  20,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+                                                       "safro-ground-projection"
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  1,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "maf",
+                                         "title":  "МАФ: из библиотеки или домоделирование, поворот, проекция",
+                                         "short":  "МАФ",
+                                         "share":  20,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+                                                       "maf-workflow"
+                                                   ],
+                                         "baseline":  [
+                                                          {
+                                                              "value":  "low-poly МАФ ≈1 ч/шт, 20 видов — 2–3 дня",
+                                                              "who":  "artem-nagornov",
+                                                              "source":  "interview-2026-10-07"
+                                                          },
+                                                          {
+                                                              "value":  "лавочка ≈30 мин",
+                                                              "who":  "ivan",
+                                                              "source":  "interview-2026-10-02"
+                                                          }
+                                                      ],
+                                         "tasks_open":  6,
+                                         "tasks_ready":  1,
+                                         "inFocus":  true
+                                     },
+                                     {
+                                         "id":  "flora",
+                                         "title":  "Флора: точки из DWG → библиотека → расстановка → проекция",
+                                         "short":  "флора",
+                                         "share":  20,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+                                                       "album-plant-placement",
+                                                       "safro-plant-library"
+                                                   ],
+                                         "baseline":  [
+                                                          {
+                                                              "value":  "≈200 растений за 3–4 ч",
+                                                              "who":  "artem-nagornov",
+                                                              "source":  "interview-2026-10-07"
+                                                          }
+                                                      ],
+                                         "tasks_open":  4,
+                                         "tasks_ready":  0,
+                                         "inFocus":  true
+                                     },
+                                     {
+                                         "id":  "optimize",
+                                         "title":  "Оптимизация полигонажа до лимита 180k",
+                                         "short":  "оптимизация",
+                                         "share":  10,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+                                                       "slava-retopo-bake"
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "delivery",
+                                         "title":  "Материалы, карты, нейминг, сглаживание → FBX → Синтез → проверка",
+                                         "short":  "проверка",
+                                         "share":  20,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+                                                       "roman-checker"
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  8,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     }
+                                 ],
+                      "note":  "Texel density 10–40. Коллизий нет. МАФ и флора — из библиотеки НПМ по DWG.",
+                      "tools":  6,
+                      "tasks":  21
+                  },
+                  {
+                      "id":  "ground-vpm",
+                      "kind":  "ground",
+                      "title":  "Ground — ВПМ",
+                      "owner":  null,
+                      "saving_pct":  0,
+                      "stages":  [
+                                     {
+                                         "id":  "sources",
+                                         "title":  "Исходники и анализ",
+                                         "short":  "исходники",
+                                         "share":  10,
+                                         "line":  "contract",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "ground",
+                                         "title":  "Моделирование земли по DWG",
+                                         "short":  "земля",
+                                         "share":  20,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+                                                       "compact-circular-cut"
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  1,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "maf",
+                                         "title":  "Моделирование МАФ",
+                                         "short":  "МАФ",
+                                         "share":  25,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "flora",
+                                         "title":  "Подбор и расстановка зелени",
+                                         "short":  "флора",
+                                         "share":  20,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "collisions",
+                                         "title":  "Коллизии UCX",
+                                         "short":  "коллизии",
+                                         "share":  15,
+                                         "line":  "contract",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  1,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "delivery",
+                                         "title":  "UV/атлас МАФ под texel density, группы сглаживания, проверка в Синтезе",
+                                         "short":  "UV+проверка",
+                                         "share":  10,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     }
+                                 ],
+                      "note":  "Texel density 512–1706. Несколько UDIM под МАФ или атлас 4K под texel density.",
+                      "tools":  1,
+                      "tasks":  2
+                  },
+                  {
+                      "id":  "oks-npm-lite",
+                      "kind":  "oks",
+                      "title":  "ОКС — НПМ упрощённый",
+                      "owner":  null,
+                      "saving_pct":  0,
+                      "stages":  [
+                                     {
+                                         "id":  "sources",
+                                         "title":  "Исходники и сверка с альбомом",
+                                         "short":  "исходники",
+                                         "share":  10,
+                                         "line":  "contract",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "geometry",
+                                         "title":  "Геометрия оболочки",
+                                         "short":  "геометрия",
+                                         "share":  40,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  1,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "textures",
+                                         "title":  "UV, атлас, текстуры, bake",
+                                         "short":  "текстуры",
+                                         "share":  35,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  1,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "delivery",
+                                         "title":  "Проверка в Синтезе, нейминг, JSON",
+                                         "short":  "проверка",
+                                         "share":  15,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     }
+                                 ],
+                      "note":  "Облегчённая оболочка; есть сценарий Ромы light.",
+                      "tools":  0,
+                      "tasks":  2
+                  },
+                  {
+                      "id":  "oks-npm",
+                      "kind":  "oks",
+                      "title":  "ОКС — НПМ",
+                      "owner":  null,
+                      "saving_pct":  0,
+                      "stages":  [
+                                     {
+                                         "id":  "sources",
+                                         "title":  "Исходники и сверка с альбомом",
+                                         "short":  "исходники",
+                                         "share":  10,
+                                         "line":  "contract",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  3,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "geometry",
+                                         "title":  "Геометрия: проёмы, окна, детали",
+                                         "short":  "геометрия",
+                                         "share":  45,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  11,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "textures",
+                                         "title":  "UV, атлас окон и фасадов, текстуры, bake",
+                                         "short":  "текстуры",
+                                         "share":  35,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+                                                       "npm-oks-scenario",
+                                                       "window-atlas"
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  8,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "delivery",
+                                         "title":  "Проверка в Синтезе, нейминг, JSON",
+                                         "short":  "проверка",
+                                         "share":  10,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     }
+                                 ],
+                      "note":  "Детальнее упрощённого: проёмы, окна в атласе, насыщенный атлас.",
+                      "tools":  2,
+                      "tasks":  22
+                  },
+                  {
+                      "id":  "oks-vpm",
+                      "kind":  "oks",
+                      "title":  "ОКС — ВПМ",
+                      "owner":  null,
+                      "saving_pct":  0,
+                      "stages":  [
+                                     {
+                                         "id":  "sources",
+                                         "title":  "Чтение исходников",
+                                         "short":  "исходники",
+                                         "share":  10,
+                                         "line":  "contract",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "geometry",
+                                         "title":  "Моделирование геометрии (рамы, стекло, детали)",
+                                         "short":  "геометрия",
+                                         "share":  35,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+                                                       "vpm-window-glass"
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  2,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "textures",
+                                         "title":  "Карты ERM/Diffuse/Normal, текстурирование, укладка в UDIM",
+                                         "short":  "текстуры",
+                                         "share":  30,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+                                                       "uv-texel-equalizer",
+                                                       "vpm-grid"
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  3,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "collisions",
+                                         "title":  "Коллизии UCX",
+                                         "short":  "коллизии",
+                                         "share":  15,
+                                         "line":  "contract",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+                                                       "building-ucx"
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  1,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     },
+                                     {
+                                         "id":  "delivery",
+                                         "title":  "Проверка в Синтезе (+ исправления), JSON",
+                                         "short":  "проверка",
+                                         "share":  10,
+                                         "line":  "tool",
+                                         "saving":  0,
+                                         "est_saving":  0,
+                                         "best":  null,
+                                         "est_tool":  null,
+                                         "tools":  [
+
+                                                   ],
+                                         "baseline":  null,
+                                         "tasks_open":  0,
+                                         "tasks_ready":  0,
+                                         "inFocus":  false
+                                     }
+                                 ],
+                      "note":  "Карты ERM / Diffuse / Normal, укладка в UDIM.",
+                      "tools":  4,
+                      "tasks":  6
+                  }
+              ],
+    "tools":  [
+                  {
+                      "id":  "album-plant-placement",
+                      "title":  "Расстановка растений по альбому",
+                      "purpose":  "Расстановка растений по альбому/ведомости",
+                      "trello":  "Флора по ведомости и рельефу",
+                      "line":  "contract",
+                      "author":  "roman",
+                      "cell":  "ground-npm",
+                      "stage":  "flora",
+                      "dcc":  "blender",
+                      "status":  "draft",
+                      "where":  "ветка: Рома.Рассатновка-деревьев",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Агентский сценарий + .blend-плашка. Иван успешно брал флору Ромы через GitHub (06.11) — нужен отчёт о тесте.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "building-ucx",
+                      "title":  "Building UCX (коллизии зданий)",
+                      "purpose":  "Автоматические UCX-коллизии сложных корпусов",
+                      "trello":  "UCX сложных корпусов",
+                      "line":  "tool",
+                      "author":  "artem-safro",
+                      "cell":  "oks-vpm",
+                      "stage":  "collisions",
+                      "dcc":  "any",
+                      "status":  "draft",
+                      "where":  "ветка: work/nagornov-artem/building-ucx/draft-artem-009-ostrov",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Python CLI (NumPy/SciPy/Shapely). Человеком не принят.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "compact-circular-cut",
+                      "title":  "Compact Circular Cut 1.1.1 (круглые вырезы)",
+                      "purpose":  "Круглые вырезы на неровном ground ВПМ",
+                      "trello":  "Круглые вырезы на неровном Ground",
+                      "line":  "tool",
+                      "author":  "artem-nagornov",
+                      "cell":  "ground-vpm",
+                      "stage":  "ground",
+                      "dcc":  "blender",
+                      "status":  "draft",
+                      "where":  "main: tools/geometry/compact-circular-cut",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Аддон Blender 5.0, синтетические тесты есть. На реальном проекте коллегой не проверялся.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "maf-workflow",
+                      "title":  "Сценарий МАФ (UV, свет)",
+                      "purpose":  "Сценарий low-poly МАФ: UV и свет",
+                      "trello":  "Развёртка МАФ и Ground",
+                      "line":  "contract",
+                      "author":  "ivan",
+                      "cell":  "ground-npm",
+                      "stage":  "maf",
+                      "dcc":  "any",
+                      "status":  "draft",
+                      "where":  "ветка: Ваня",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Только документация, кода нет.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "npm-oks-scenario",
+                      "title":  "Сценарий НПМ ОКС light/medium (окна, маска, bake)",
+                      "purpose":  "Облегчённая оболочка НПМ ОКС, очистка окон, запекание карт",
+                      "trello":  "Облегчённая оболочка НПМ; Bake и карты материалов",
+                      "line":  "contract",
+                      "author":  "roman",
+                      "cell":  "oks-npm",
+                      "stage":  "textures",
+                      "dcc":  "blender",
+                      "status":  "draft",
+                      "where":  "main: tools/textures/npm-oks",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Агентский сценарий, выбор лёгкой/средней версии по сложности.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "push-skill",
+                      "title":  "Скилл /push (публикация работы)",
+                      "purpose":  "Публикация работы в GitHub одной командой",
+                      "trello":  "Выгрузка наработок AI в GitHub",
+                      "line":  "infra",
+                      "author":  "artem-nagornov",
+                      "cell":  "-",
+                      "stage":  "-",
+                      "dcc":  "any",
+                      "status":  "draft",
+                      "where":  "ветка: work/nagornov-artem/repository/draft-push-command (PR #30 открыт)",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Основа для ntr-submit.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "roman-checker",
+                      "title":  "Чекер перед сдачей (трансформы, развёртка, имена)",
+                      "purpose":  "Проверка сцены перед сдачей (до Синтеза)",
+                      "trello":  "Запуск Checker и мелкие исправления",
+                      "line":  "tool",
+                      "author":  "roman",
+                      "cell":  "ground-npm",
+                      "stage":  "delivery",
+                      "dcc":  "blender",
+                      "status":  "not-in-repo",
+                      "where":  "локально у Романа",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Должен ловить то, что потом ловит Синтез.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "safro-ground-projection",
+                      "title":  "Генерация граунда и проекция на рельеф (Max)",
+                      "purpose":  "Генерация граунда по DWG и проекция на рельеф",
+                      "trello":  "-",
+                      "line":  "tool",
+                      "author":  "artem-safro",
+                      "cell":  "ground-npm",
+                      "stage":  "ground",
+                      "dcc":  "max",
+                      "status":  "not-in-repo",
+                      "where":  "локально у Артёма Сафро",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Использовано на Касаткиной 06.11; граунд вышел 200k трис — нужна оптимизация.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "safro-plant-library",
+                      "title":  "Библиотека растений + расстановка и проекция (Max)",
+                      "purpose":  "Библиотека растений, замена и расстановка по рельефу",
+                      "trello":  "Флора по ведомости и рельефу",
+                      "line":  "tool",
+                      "author":  "artem-safro",
+                      "cell":  "ground-npm",
+                      "stage":  "flora",
+                      "dcc":  "max",
+                      "status":  "not-in-repo",
+                      "where":  "локально у Артёма Сафро",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "1500 инстансов по слоям (03.11), замена по названиям из библиотеки (06.11).",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "safro-replacer",
+                      "title":  "Replacer: замена родитель/дети (Max)",
+                      "purpose":  "Замена объектов родитель/дети",
+                      "trello":  "-",
+                      "line":  "tool",
+                      "author":  "artem-safro",
+                      "cell":  "-",
+                      "stage":  "-",
+                      "dcc":  "max",
+                      "status":  "not-in-repo",
+                      "where":  "локально у Артёма Сафро",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Мелкая утилита; кандидат во вкладку «Сцена» плагина.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "slava-retopo-bake",
+                      "title":  "Ретопология граунда с запеканием (Blender)",
+                      "purpose":  "Ретопология граунда с запеканием материалов",
+                      "trello":  "-",
+                      "line":  "contract",
+                      "author":  "slava",
+                      "cell":  "ground-npm",
+                      "stage":  "optimize",
+                      "dcc":  "blender",
+                      "status":  "not-in-repo",
+                      "where":  "промпт у Вячеслава",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Результат «изумительный» (06.11). Прогнать граунд Артёма — задача 06.11.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "uv-texel-equalizer",
+                      "title":  "UV texel equalizer 1.1.0 (стекло ВПМ)",
+                      "purpose":  "Выравнивание текселя UV стекла ВПМ",
+                      "trello":  "Подготовка UV под нарезку ВПМ",
+                      "line":  "tool",
+                      "author":  "artem-nagornov",
+                      "cell":  "oks-vpm",
+                      "stage":  "textures",
+                      "dcc":  "blender",
+                      "status":  "draft",
+                      "where":  "ветка: work/nagornov-artem/uv-texel-equalizer/draft-artem-n-20261007-009-texel",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Validated только на синтетике; последний реальный кейс — защитный отказ.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "vpm-grid",
+                      "title":  "VPM grid: нарезка и UV/UDIM фасадов",
+                      "purpose":  "Нарезка фасадов ВПМ по сетке и UV/UDIM",
+                      "trello":  "Нарезка и плитка — Blender",
+                      "line":  "tool",
+                      "author":  "artem-nagornov",
+                      "cell":  "oks-vpm",
+                      "stage":  "textures",
+                      "dcc":  "blender",
+                      "status":  "draft",
+                      "where":  "main: tools/uv/vpm-grid",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "8 скриптов Blender 5.0, отчёты на синтетике. Владелец записан не явно — уточнить.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "vpm-window-glass",
+                      "title":  "Рамы и стекло ВПМ",
+                      "purpose":  "Рамы и стекло ВПМ из исходной геометрии",
+                      "trello":  "Стекло ВПМ после рам",
+                      "line":  "tool",
+                      "author":  "artem-nagornov",
+                      "cell":  "oks-vpm",
+                      "stage":  "geometry",
+                      "dcc":  "blender",
+                      "status":  "draft",
+                      "where":  "ветка: work/nagornov-artem/vpm-window-glass/draft-artem-n-20261007-009-planes",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Набор скриптов, прототип.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "window-atlas",
+                      "title":  "Атлас окон НПМ",
+                      "purpose":  "Сборка атласа окон для НПМ",
+                      "trello":  "-",
+                      "line":  "tool",
+                      "author":  "artem-nagornov",
+                      "cell":  "oks-npm",
+                      "stage":  "textures",
+                      "dcc":  "blender",
+                      "status":  "draft",
+                      "where":  "ветка: work/nagornov-artem/npm-oks/ai-20261002-04-window-atlas",
+                      "minutes_before":  null,
+                      "minutes_after":  null,
+                      "time_source":  "",
+                      "saving":  null,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Результат выдан локально по объекту Савинская.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  }
+              ],
+    "tests":  [
+
+              ],
+    "contributions":  [
+                          {
+                              "user":  "artem-safro",
+                              "saving_pct":  0,
+                              "saving_contract":  0,
+                              "saving_tool":  0,
+                              "tools":  4,
+                              "contracts":  0,
+                              "scripts":  4,
+                              "by_status":  {
+                                                "not-in-repo":  3,
+                                                "draft":  1,
+                                                "measured":  0,
+                                                "cross-tested":  0,
+                                                "accepted":  0
+                                            },
+                              "tests_done":  0,
+                              "minutes_7d":  0,
+                              "minutes_total":  0
+                          },
+                          {
+                              "user":  "artem-nagornov",
+                              "saving_pct":  0,
+                              "saving_contract":  0,
+                              "saving_tool":  0,
+                              "tools":  6,
+                              "contracts":  0,
+                              "scripts":  5,
+                              "by_status":  {
+                                                "not-in-repo":  0,
+                                                "draft":  6,
+                                                "measured":  0,
+                                                "cross-tested":  0,
+                                                "accepted":  0
+                                            },
+                              "tests_done":  0,
+                              "minutes_7d":  0,
+                              "minutes_total":  0
+                          },
+                          {
+                              "user":  "roman",
+                              "saving_pct":  0,
+                              "saving_contract":  0,
+                              "saving_tool":  0,
+                              "tools":  3,
+                              "contracts":  2,
+                              "scripts":  1,
+                              "by_status":  {
+                                                "not-in-repo":  1,
+                                                "draft":  2,
+                                                "measured":  0,
+                                                "cross-tested":  0,
+                                                "accepted":  0
+                                            },
+                              "tests_done":  0,
+                              "minutes_7d":  0,
+                              "minutes_total":  0
+                          },
+                          {
+                              "user":  "ivan",
+                              "saving_pct":  0,
+                              "saving_contract":  0,
+                              "saving_tool":  0,
+                              "tools":  1,
+                              "contracts":  1,
+                              "scripts":  0,
+                              "by_status":  {
+                                                "not-in-repo":  0,
+                                                "draft":  1,
+                                                "measured":  0,
+                                                "cross-tested":  0,
+                                                "accepted":  0
+                                            },
+                              "tests_done":  0,
+                              "minutes_7d":  0,
+                              "minutes_total":  0
+                          },
+                          {
+                              "user":  "slava",
+                              "saving_pct":  0,
+                              "saving_contract":  0,
+                              "saving_tool":  0,
+                              "tools":  1,
+                              "contracts":  1,
+                              "scripts":  0,
+                              "by_status":  {
+                                                "not-in-repo":  1,
+                                                "draft":  0,
+                                                "measured":  0,
+                                                "cross-tested":  0,
+                                                "accepted":  0
+                                            },
+                              "tests_done":  0,
+                              "minutes_7d":  0,
+                              "minutes_total":  0
+                          }
+                      ],
+    "backlog":  {
+                    "snapshot":  "2026-11-07",
+                    "source":  "trello:yPLufW1r",
+                    "total":  57,
+                    "stations":  15,
+                    "by_status":  {
+                                      "help":  0,
+                                      "in-progress":  6,
+                                      "review":  11,
+                                      "queue":  36,
+                                      "ready":  4
+                                  },
+                    "by_owner":  {
+                                     "artem-safro":  {
+                                                         "in-progress":  1,
+                                                         "review":  3,
+                                                         "queue":  3,
+                                                         "ready":  0
+                                                     },
+                                     "artem-nagornov":  {
+                                                            "in-progress":  2,
+                                                            "review":  3,
+                                                            "queue":  2,
+                                                            "ready":  0
+                                                        },
+                                     "roman":  {
+                                                   "in-progress":  0,
+                                                   "review":  2,
+                                                   "queue":  0,
+                                                   "ready":  2
+                                               },
+                                     "ivan":  {
+                                                  "in-progress":  0,
+                                                  "review":  1,
+                                                  "queue":  0,
+                                                  "ready":  1
+                                              },
+                                     "slava":  {
+                                                   "in-progress":  1,
+                                                   "review":  1,
+                                                   "queue":  4,
+                                                   "ready":  1
+                                               },
+                                     "unassigned":  {
+                                                        "in-progress":  2,
+                                                        "review":  1,
+                                                        "queue":  27,
+                                                        "ready":  0
+                                                    }
+                                 },
+                    "items":  [
+                                  {
+                                      "n":  0,
+                                      "status":  "queue",
+                                      "prio":  1,
+                                      "area":  "ТЕКСТУРЫ",
+                                      "title":  "Атлас по Material ID",
+                                      "owner":  "artem-safro",
+                                      "upd":  "2026-10-08",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  35,
+                                      "score":  39,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  1,
+                                      "status":  "queue",
+                                      "prio":  1,
+                                      "area":  "ОТЧЁТНОСТЬ",
+                                      "title":  "Веб-дашборд автоматизации для руководителя",
+                                      "owner":  "artem-safro",
+                                      "upd":  "2026-10-22",
+                                      "check":  "0/6",
+                                      "cell":  "infra",
+                                      "stage":  "-",
+                                      "focus":  false,
+                                      "stage_share":  0,
+                                      "score":  32,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  2,
+                                      "status":  "in-progress",
+                                      "prio":  1,
+                                      "area":  "ИНФРАСТРУКТУРА",
+                                      "title":  "Выгрузка наработок AI в GitHub",
+                                      "owner":  "artem-safro",
+                                      "upd":  "2026-10-19",
+                                      "check":  "3/6",
+                                      "cell":  "infra",
+                                      "stage":  "-",
+                                      "focus":  false,
+                                      "stage_share":  0,
+                                      "score":  35,
+                                      "tool":  "push-skill"
+                                  },
+                                  {
+                                      "n":  3,
+                                      "status":  "in-progress",
+                                      "prio":  1,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Cut кривых покрытий Ground",
+                                      "owner":  "slava",
+                                      "upd":  "2026-10-19",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "ground",
+                                      "focus":  false,
+                                      "stage_share":  20,
+                                      "score":  39,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  4,
+                                      "status":  "in-progress",
+                                      "prio":  2,
+                                      "area":  "ПРОВЕРКА",
+                                      "title":  "Запуск Checker и мелкие исправления",
+                                      "owner":  null,
+                                      "upd":  "2026-10-19",
+                                      "check":  "2/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "delivery",
+                                      "focus":  false,
+                                      "stage_share":  20,
+                                      "score":  29,
+                                      "tool":  "roman-checker"
+                                  },
+                                  {
+                                      "n":  5,
+                                      "status":  "in-progress",
+                                      "prio":  2,
+                                      "area":  "КОЛЛИЗИИ",
+                                      "title":  "UCX сложных корпусов",
+                                      "owner":  "artem-nagornov",
+                                      "upd":  "2026-10-29",
+                                      "check":  "2/3",
+                                      "cell":  "oks-vpm",
+                                      "stage":  "collisions",
+                                      "focus":  false,
+                                      "stage_share":  15,
+                                      "score":  28,
+                                      "tool":  "building-ucx"
+                                  },
+                                  {
+                                      "n":  6,
+                                      "status":  "in-progress",
+                                      "prio":  2,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Стекло ВПМ после рам",
+                                      "owner":  "artem-nagornov",
+                                      "upd":  "2026-10-16",
+                                      "check":  "2/3",
+                                      "cell":  "oks-vpm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  35,
+                                      "score":  32,
+                                      "tool":  "vpm-window-glass"
+                                  },
+                                  {
+                                      "n":  7,
+                                      "status":  "review",
+                                      "prio":  2,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Круглые вырезы на неровном Ground",
+                                      "owner":  "artem-nagornov",
+                                      "upd":  "2026-10-16",
+                                      "check":  "2/3",
+                                      "cell":  "ground-vpm",
+                                      "stage":  "ground",
+                                      "focus":  false,
+                                      "stage_share":  20,
+                                      "score":  28,
+                                      "tool":  "compact-circular-cut"
+                                  },
+                                  {
+                                      "n":  8,
+                                      "status":  "review",
+                                      "prio":  1,
+                                      "area":  "UV",
+                                      "title":  "Подготовка UV под нарезку ВПМ",
+                                      "owner":  "artem-nagornov",
+                                      "upd":  "2026-10-16",
+                                      "check":  "2/3",
+                                      "cell":  "oks-vpm",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  30,
+                                      "score":  40,
+                                      "tool":  "uv-texel-equalizer"
+                                  },
+                                  {
+                                      "n":  9,
+                                      "status":  "review",
+                                      "prio":  1,
+                                      "area":  "UV",
+                                      "title":  "Нарезка и плитка — Blender",
+                                      "owner":  "artem-nagornov",
+                                      "upd":  "2026-10-16",
+                                      "check":  "2/3",
+                                      "cell":  "oks-vpm",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  30,
+                                      "score":  40,
+                                      "tool":  "vpm-grid"
+                                  },
+                                  {
+                                      "n":  10,
+                                      "status":  "review",
+                                      "prio":  1,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Новая сетка МАФ",
+                                      "owner":  "ivan",
+                                      "upd":  "2026-10-08",
+                                      "check":  "2/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "maf",
+                                      "focus":  true,
+                                      "stage_share":  20,
+                                      "score":  46,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  11,
+                                      "status":  "review",
+                                      "prio":  1,
+                                      "area":  "ТЕКСТУРЫ",
+                                      "title":  "Очистка стекла в атласе",
+                                      "owner":  "roman",
+                                      "upd":  "2026-10-13",
+                                      "check":  "2/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  35,
+                                      "score":  41,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  12,
+                                      "status":  "review",
+                                      "prio":  1,
+                                      "area":  "UV",
+                                      "title":  "Швы плитки — Max / Rizom",
+                                      "owner":  "artem-safro",
+                                      "upd":  "2026-10-05",
+                                      "check":  "2/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  35,
+                                      "score":  41,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  13,
+                                      "status":  "review",
+                                      "prio":  2,
+                                      "area":  "РАССТАНОВКА",
+                                      "title":  "Фасадные светильники",
+                                      "owner":  "artem-safro",
+                                      "upd":  "2026-10-19",
+                                      "check":  "2/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  45,
+                                      "score":  33,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  14,
+                                      "status":  "review",
+                                      "prio":  3,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Нижняя часть здания",
+                                      "owner":  "roman",
+                                      "upd":  "2026-10-13",
+                                      "check":  "2/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  45,
+                                      "score":  23,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  15,
+                                      "status":  "review",
+                                      "prio":  2,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Простой ОКС из Revit в НПМ / ВПМ",
+                                      "owner":  "artem-safro",
+                                      "upd":  "2026-10-08",
+                                      "check":  "2/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  45,
+                                      "score":  33,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  16,
+                                      "status":  "review",
+                                      "prio":  2,
+                                      "area":  "ПРОВЕРКА",
+                                      "title":  "Сверка НПМ с альбомом",
+                                      "owner":  null,
+                                      "upd":  "2026-10-15",
+                                      "check":  "2/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "sources",
+                                      "focus":  false,
+                                      "stage_share":  10,
+                                      "score":  26,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  17,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "ВЫДАЧА",
+                                      "title":  "Именование моделей и текстур",
+                                      "owner":  null,
+                                      "upd":  "2026-10-30",
+                                      "check":  "2/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "delivery",
+                                      "focus":  false,
+                                      "stage_share":  20,
+                                      "score":  26,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  18,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "МАТЕРИАЛЫ",
+                                      "title":  "Быстрое назначение ID",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  35,
+                                      "score":  29,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  19,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Типовые окна — библиотека",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  45,
+                                      "score":  31,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  20,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "РАССТАНОВКА",
+                                      "title":  "Окна по проёмам",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  45,
+                                      "score":  31,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  21,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "UV",
+                                      "title":  "UDIM ВПМ → атлас НПМ",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  35,
+                                      "score":  29,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  22,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "МАТЕРИАЛЫ",
+                                      "title":  "Каталог текстурных карт",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  35,
+                                      "score":  29,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  23,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "МАТЕРИАЛЫ",
+                                      "title":  "Подбор по PDF и визуализациям",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "sources",
+                                      "focus":  false,
+                                      "stage_share":  10,
+                                      "score":  24,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  24,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Моделирование типового этажа",
+                                      "owner":  null,
+                                      "upd":  "2026-10-30",
+                                      "check":  "1/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  45,
+                                      "score":  31,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  25,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "РАССТАНОВКА",
+                                      "title":  "Подбор МАФ по спецификации",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "maf",
+                                      "focus":  true,
+                                      "stage_share":  20,
+                                      "score":  34,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  26,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "РАССТАНОВКА",
+                                      "title":  "МАФ — позиции и повороты из DWG",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "maf",
+                                      "focus":  true,
+                                      "stage_share":  20,
+                                      "score":  34,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  27,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "ПРОВЕРКА",
+                                      "title":  "Щели, нормали и сглаживание",
+                                      "owner":  null,
+                                      "upd":  "2026-10-19",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "delivery",
+                                      "focus":  false,
+                                      "stage_share":  20,
+                                      "score":  26,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  28,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "ВЫДАЧА",
+                                      "title":  "Мост Max → Blender → Checker",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "delivery",
+                                      "focus":  false,
+                                      "stage_share":  20,
+                                      "score":  26,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  29,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "РАССТАНОВКА",
+                                      "title":  "Флора по ведомости и рельефу",
+                                      "owner":  null,
+                                      "upd":  "2026-10-30",
+                                      "check":  "1/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "flora",
+                                      "focus":  true,
+                                      "stage_share":  20,
+                                      "score":  34,
+                                      "tool":  "album-plant-placement"
+                                  },
+                                  {
+                                      "n":  30,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "UV",
+                                      "title":  "Группировка одинаковых окон",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  35,
+                                      "score":  29,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  31,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "ТЕКСТУРЫ",
+                                      "title":  "Чистая opacity растений",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "flora",
+                                      "focus":  true,
+                                      "stage_share":  20,
+                                      "score":  34,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  32,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "МАТЕРИАЛЫ",
+                                      "title":  "Подбор изображений растений",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "flora",
+                                      "focus":  true,
+                                      "stage_share":  20,
+                                      "score":  34,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  33,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Создание модульных элементов ОКС",
+                                      "owner":  "slava",
+                                      "upd":  "2026-10-06",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  45,
+                                      "score":  31,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  34,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Сборка ОКС из готовых модулей",
+                                      "owner":  "slava",
+                                      "upd":  "2026-10-06",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  45,
+                                      "score":  31,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  35,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "UV",
+                                      "title":  "Развёртка модулей и ОКС",
+                                      "owner":  "slava",
+                                      "upd":  "2026-10-06",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  35,
+                                      "score":  29,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  36,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Безопасный weld стыков ОКС",
+                                      "owner":  "slava",
+                                      "upd":  "2026-10-06",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  45,
+                                      "score":  31,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  37,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Рамы ВПМ из high-poly",
+                                      "owner":  "artem-nagornov",
+                                      "upd":  "2026-10-07",
+                                      "check":  "0/3",
+                                      "cell":  "oks-vpm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  35,
+                                      "score":  29,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  38,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "РАССТАНОВКА",
+                                      "title":  "Замена high-poly МАФ на low-poly",
+                                      "owner":  "artem-nagornov",
+                                      "upd":  "2026-10-07",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "maf",
+                                      "focus":  true,
+                                      "stage_share":  20,
+                                      "score":  34,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  39,
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "area":  "ИНТЕГРАЦИЯ",
+                                      "title":  "Zoom → проверяемые статусы Trello",
+                                      "owner":  "artem-safro",
+                                      "upd":  "2026-10-21",
+                                      "check":  "0/4",
+                                      "cell":  "infra",
+                                      "stage":  "-",
+                                      "focus":  false,
+                                      "stage_share":  0,
+                                      "score":  22,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  43,
+                                      "status":  "in-progress",
+                                      "prio":  3,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Растения — AI / SpeedTree",
+                                      "owner":  null,
+                                      "upd":  "2026-10-19",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "flora",
+                                      "focus":  true,
+                                      "stage_share":  20,
+                                      "score":  27,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  44,
+                                      "status":  "review",
+                                      "prio":  3,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Сетки МАФ и ограждения с opacity",
+                                      "owner":  "slava",
+                                      "upd":  "2026-10-15",
+                                      "check":  "2/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "maf",
+                                      "focus":  true,
+                                      "stage_share":  20,
+                                      "score":  26,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  45,
+                                      "status":  "ready",
+                                      "prio":  1,
+                                      "area":  "UV",
+                                      "title":  "Развёртка МАФ и Ground",
+                                      "owner":  "ivan",
+                                      "upd":  "2026-10-19",
+                                      "check":  "3/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "maf",
+                                      "focus":  true,
+                                      "stage_share":  20,
+                                      "score":  42,
+                                      "tool":  "maf-workflow"
+                                  },
+                                  {
+                                      "n":  46,
+                                      "status":  "ready",
+                                      "prio":  2,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Облегчённая оболочка НПМ",
+                                      "owner":  "roman",
+                                      "upd":  "2026-10-19",
+                                      "check":  "3/3",
+                                      "cell":  "oks-npm-lite",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  40,
+                                      "score":  28,
+                                      "tool":  "npm-oks-scenario"
+                                  },
+                                  {
+                                      "n":  47,
+                                      "status":  "ready",
+                                      "prio":  2,
+                                      "area":  "ТЕКСТУРЫ",
+                                      "title":  "Bake и карты материалов",
+                                      "owner":  "roman",
+                                      "upd":  "2026-10-19",
+                                      "check":  "3/3",
+                                      "cell":  "oks-npm-lite",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  35,
+                                      "score":  27,
+                                      "tool":  "npm-oks-scenario"
+                                  },
+                                  {
+                                      "n":  48,
+                                      "status":  "ready",
+                                      "prio":  1,
+                                      "area":  "КОЛЛИЗИИ",
+                                      "title":  "Ground — создание UCX",
+                                      "owner":  "slava",
+                                      "upd":  "2026-10-13",
+                                      "check":  "3/3",
+                                      "cell":  "ground-vpm",
+                                      "stage":  "collisions",
+                                      "focus":  false,
+                                      "stage_share":  15,
+                                      "score":  33,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  49,
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "area":  "UV",
+                                      "title":  "Атлас НПМ → UDIM ВПМ",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "oks-vpm",
+                                      "stage":  "textures",
+                                      "focus":  false,
+                                      "stage_share":  30,
+                                      "score":  18,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  50,
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "area":  "РАССТАНОВКА",
+                                      "title":  "Вентшахты на кровле",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  45,
+                                      "score":  21,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  51,
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Типовые ограждения",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "maf",
+                                      "focus":  true,
+                                      "stage_share":  20,
+                                      "score":  24,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  52,
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "area":  "ПРОВЕРКА",
+                                      "title":  "Дополнение проверок Синтез AGR",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "delivery",
+                                      "focus":  false,
+                                      "stage_share":  20,
+                                      "score":  16,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  53,
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "area":  "ИСХОДНИКИ",
+                                      "title":  "Извлечение окон из PDF",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "sources",
+                                      "focus":  false,
+                                      "stage_share":  10,
+                                      "score":  14,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  54,
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Кондиционеры и перфорация",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "oks-npm",
+                                      "stage":  "geometry",
+                                      "focus":  false,
+                                      "stage_share":  45,
+                                      "score":  21,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  55,
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "area":  "ГЕОМЕТРИЯ",
+                                      "title":  "Сглаживание по углам",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "delivery",
+                                      "focus":  false,
+                                      "stage_share":  20,
+                                      "score":  16,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  56,
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "area":  "ВЫДАЧА",
+                                      "title":  "JSON по данным заказчика",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "delivery",
+                                      "focus":  false,
+                                      "stage_share":  20,
+                                      "score":  16,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  57,
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "area":  "ИСХОДНИКИ",
+                                      "title":  "Анализ материалов и объёмов",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "sources",
+                                      "focus":  false,
+                                      "stage_share":  10,
+                                      "score":  14,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  58,
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "area":  "ВЫДАЧА",
+                                      "title":  "Координаты и origin модели",
+                                      "owner":  null,
+                                      "upd":  "2026-10-02",
+                                      "check":  "0/3",
+                                      "cell":  "ground-npm",
+                                      "stage":  "delivery",
+                                      "focus":  false,
+                                      "stage_share":  20,
+                                      "score":  16,
+                                      "tool":  null
+                                  },
+                                  {
+                                      "n":  59,
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "area":  "ЭКСПЕРИМЕНТ",
+                                      "title":  "Сравнение AI по времени, качеству и расходу",
+                                      "owner":  null,
+                                      "upd":  "2026-10-13",
+                                      "check":  "0/3",
+                                      "cell":  "infra",
+                                      "stage":  "-",
+                                      "focus":  false,
+                                      "stage_share":  0,
+                                      "score":  12,
+                                      "tool":  null
+                                  }
+                              ]
+                },
+    "top":  [
+                {
+                    "key":  "ground-npm/maf",
+                    "cell":  "ground-npm",
+                    "stage":  "maf",
+                    "title":  "МАФ: из библиотеки или домоделирование, поворот, проекция",
+                    "share":  20,
+                    "focus":  true,
+                    "saving":  0,
+                    "tasks":  7,
+                    "open":  6,
+                    "in_progress":  0,
+                    "review":  2,
+                    "ready":  1,
+                    "p1":  1,
+                    "owners":  [
+                                   "ivan",
+                                   "slava",
+                                   "artem-nagornov"
+                               ],
+                    "tools":  [
+                                  "maf-workflow"
+                              ],
+                    "score":  52,
+                    "items":  [
+                                  {
+                                      "title":  "Новая сетка МАФ",
+                                      "status":  "review",
+                                      "prio":  1,
+                                      "owner":  "ivan"
+                                  },
+                                  {
+                                      "title":  "Развёртка МАФ и Ground",
+                                      "status":  "ready",
+                                      "prio":  1,
+                                      "owner":  "ivan"
+                                  },
+                                  {
+                                      "title":  "Замена high-poly МАФ на low-poly",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  "artem-nagornov"
+                                  },
+                                  {
+                                      "title":  "Подбор МАФ по спецификации",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "МАФ — позиции и повороты из DWG",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Сетки МАФ и ограждения с opacity",
+                                      "status":  "review",
+                                      "prio":  3,
+                                      "owner":  "slava"
+                                  },
+                                  {
+                                      "title":  "Типовые ограждения",
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "owner":  null
+                                  }
+                              ]
+                },
+                {
+                    "key":  "oks-npm/textures",
+                    "cell":  "oks-npm",
+                    "stage":  "textures",
+                    "title":  "UV, атлас окон и фасадов, текстуры, bake",
+                    "share":  35,
+                    "focus":  false,
+                    "saving":  0,
+                    "tasks":  8,
+                    "open":  8,
+                    "in_progress":  0,
+                    "review":  2,
+                    "ready":  0,
+                    "p1":  3,
+                    "owners":  [
+                                   "artem-safro",
+                                   "slava",
+                                   "roman"
+                               ],
+                    "tools":  [
+                                  "npm-oks-scenario",
+                                  "window-atlas"
+                              ],
+                    "score":  47,
+                    "items":  [
+                                  {
+                                      "title":  "Очистка стекла в атласе",
+                                      "status":  "review",
+                                      "prio":  1,
+                                      "owner":  "roman"
+                                  },
+                                  {
+                                      "title":  "Швы плитки — Max / Rizom",
+                                      "status":  "review",
+                                      "prio":  1,
+                                      "owner":  "artem-safro"
+                                  },
+                                  {
+                                      "title":  "Атлас по Material ID",
+                                      "status":  "queue",
+                                      "prio":  1,
+                                      "owner":  "artem-safro"
+                                  },
+                                  {
+                                      "title":  "Группировка одинаковых окон",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Развёртка модулей и ОКС",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  "slava"
+                                  },
+                                  {
+                                      "title":  "Каталог текстурных карт",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Быстрое назначение ID",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "UDIM ВПМ → атлас НПМ",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  }
+                              ]
+                },
+                {
+                    "key":  "oks-vpm/textures",
+                    "cell":  "oks-vpm",
+                    "stage":  "textures",
+                    "title":  "Карты ERM/Diffuse/Normal, текстурирование, укладка в UDIM",
+                    "share":  30,
+                    "focus":  false,
+                    "saving":  0,
+                    "tasks":  3,
+                    "open":  3,
+                    "in_progress":  0,
+                    "review":  2,
+                    "ready":  0,
+                    "p1":  2,
+                    "owners":  [
+                                   "artem-nagornov"
+                               ],
+                    "tools":  [
+                                  "uv-texel-equalizer",
+                                  "vpm-grid"
+                              ],
+                    "score":  43,
+                    "items":  [
+                                  {
+                                      "title":  "Нарезка и плитка — Blender",
+                                      "status":  "review",
+                                      "prio":  1,
+                                      "owner":  "artem-nagornov"
+                                  },
+                                  {
+                                      "title":  "Подготовка UV под нарезку ВПМ",
+                                      "status":  "review",
+                                      "prio":  1,
+                                      "owner":  "artem-nagornov"
+                                  },
+                                  {
+                                      "title":  "Атлас НПМ → UDIM ВПМ",
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "owner":  null
+                                  }
+                              ]
+                },
+                {
+                    "key":  "ground-npm/ground",
+                    "cell":  "ground-npm",
+                    "stage":  "ground",
+                    "title":  "Земля по DWG: флет с ID → проекция на рельеф → атлас → нейминг, координаты",
+                    "share":  20,
+                    "focus":  false,
+                    "saving":  0,
+                    "tasks":  1,
+                    "open":  1,
+                    "in_progress":  1,
+                    "review":  0,
+                    "ready":  0,
+                    "p1":  1,
+                    "owners":  [
+                                   "slava"
+                               ],
+                    "tools":  [
+                                  "safro-ground-projection"
+                              ],
+                    "score":  40,
+                    "items":  [
+                                  {
+                                      "title":  "Cut кривых покрытий Ground",
+                                      "status":  "in-progress",
+                                      "prio":  1,
+                                      "owner":  "slava"
+                                  }
+                              ]
+                },
+                {
+                    "key":  "oks-npm/geometry",
+                    "cell":  "oks-npm",
+                    "stage":  "geometry",
+                    "title":  "Геометрия: проёмы, окна, детали",
+                    "share":  45,
+                    "focus":  false,
+                    "saving":  0,
+                    "tasks":  11,
+                    "open":  11,
+                    "in_progress":  0,
+                    "review":  3,
+                    "ready":  0,
+                    "p1":  0,
+                    "owners":  [
+                                   "slava",
+                                   "artem-safro",
+                                   "roman"
+                               ],
+                    "tools":  [
+
+                              ],
+                    "score":  39,
+                    "items":  [
+                                  {
+                                      "title":  "Простой ОКС из Revit в НПМ / ВПМ",
+                                      "status":  "review",
+                                      "prio":  2,
+                                      "owner":  "artem-safro"
+                                  },
+                                  {
+                                      "title":  "Фасадные светильники",
+                                      "status":  "review",
+                                      "prio":  2,
+                                      "owner":  "artem-safro"
+                                  },
+                                  {
+                                      "title":  "Создание модульных элементов ОКС",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  "slava"
+                                  },
+                                  {
+                                      "title":  "Сборка ОКС из готовых модулей",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  "slava"
+                                  },
+                                  {
+                                      "title":  "Безопасный weld стыков ОКС",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  "slava"
+                                  },
+                                  {
+                                      "title":  "Моделирование типового этажа",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Типовые окна — библиотека",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Окна по проёмам",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Нижняя часть здания",
+                                      "status":  "review",
+                                      "prio":  3,
+                                      "owner":  "roman"
+                                  },
+                                  {
+                                      "title":  "Кондиционеры и перфорация",
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Вентшахты на кровле",
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "owner":  null
+                                  }
+                              ]
+                },
+                {
+                    "key":  "ground-npm/flora",
+                    "cell":  "ground-npm",
+                    "stage":  "flora",
+                    "title":  "Флора: точки из DWG → библиотека → расстановка → проекция",
+                    "share":  20,
+                    "focus":  true,
+                    "saving":  0,
+                    "tasks":  4,
+                    "open":  4,
+                    "in_progress":  1,
+                    "review":  0,
+                    "ready":  0,
+                    "p1":  0,
+                    "owners":  [
+
+                               ],
+                    "tools":  [
+                                  "album-plant-placement",
+                                  "safro-plant-library"
+                              ],
+                    "score":  38,
+                    "items":  [
+                                  {
+                                      "title":  "Подбор изображений растений",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Чистая opacity растений",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Флора по ведомости и рельефу",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Растения — AI / SpeedTree",
+                                      "status":  "in-progress",
+                                      "prio":  3,
+                                      "owner":  null
+                                  }
+                              ]
+                },
+                {
+                    "key":  "ground-npm/delivery",
+                    "cell":  "ground-npm",
+                    "stage":  "delivery",
+                    "title":  "Материалы, карты, нейминг, сглаживание → FBX → Синтез → проверка",
+                    "share":  20,
+                    "focus":  false,
+                    "saving":  0,
+                    "tasks":  8,
+                    "open":  8,
+                    "in_progress":  1,
+                    "review":  0,
+                    "ready":  0,
+                    "p1":  0,
+                    "owners":  [
+
+                               ],
+                    "tools":  [
+                                  "roman-checker"
+                              ],
+                    "score":  35,
+                    "items":  [
+                                  {
+                                      "title":  "Запуск Checker и мелкие исправления",
+                                      "status":  "in-progress",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Мост Max → Blender → Checker",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Щели, нормали и сглаживание",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Именование моделей и текстур",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "JSON по данным заказчика",
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Координаты и origin модели",
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Дополнение проверок Синтез AGR",
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Сглаживание по углам",
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "owner":  null
+                                  }
+                              ]
+                },
+                {
+                    "key":  "oks-vpm/geometry",
+                    "cell":  "oks-vpm",
+                    "stage":  "geometry",
+                    "title":  "Моделирование геометрии (рамы, стекло, детали)",
+                    "share":  35,
+                    "focus":  false,
+                    "saving":  0,
+                    "tasks":  2,
+                    "open":  2,
+                    "in_progress":  1,
+                    "review":  0,
+                    "ready":  0,
+                    "p1":  0,
+                    "owners":  [
+                                   "artem-nagornov"
+                               ],
+                    "tools":  [
+                                  "vpm-window-glass"
+                              ],
+                    "score":  34,
+                    "items":  [
+                                  {
+                                      "title":  "Стекло ВПМ после рам",
+                                      "status":  "in-progress",
+                                      "prio":  2,
+                                      "owner":  "artem-nagornov"
+                                  },
+                                  {
+                                      "title":  "Рамы ВПМ из high-poly",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  "artem-nagornov"
+                                  }
+                              ]
+                },
+                {
+                    "key":  "oks-npm/sources",
+                    "cell":  "oks-npm",
+                    "stage":  "sources",
+                    "title":  "Исходники и сверка с альбомом",
+                    "share":  10,
+                    "focus":  false,
+                    "saving":  0,
+                    "tasks":  3,
+                    "open":  3,
+                    "in_progress":  0,
+                    "review":  1,
+                    "ready":  0,
+                    "p1":  0,
+                    "owners":  [
+
+                               ],
+                    "tools":  [
+
+                              ],
+                    "score":  29,
+                    "items":  [
+                                  {
+                                      "title":  "Сверка НПМ с альбомом",
+                                      "status":  "review",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Подбор по PDF и визуализациям",
+                                      "status":  "queue",
+                                      "prio":  2,
+                                      "owner":  null
+                                  },
+                                  {
+                                      "title":  "Извлечение окон из PDF",
+                                      "status":  "queue",
+                                      "prio":  3,
+                                      "owner":  null
+                                  }
+                              ]
+                },
+                {
+                    "key":  "oks-vpm/collisions",
+                    "cell":  "oks-vpm",
+                    "stage":  "collisions",
+                    "title":  "Коллизии UCX",
+                    "share":  15,
+                    "focus":  false,
+                    "saving":  0,
+                    "tasks":  1,
+                    "open":  1,
+                    "in_progress":  1,
+                    "review":  0,
+                    "ready":  0,
+                    "p1":  0,
+                    "owners":  [
+                                   "artem-nagornov"
+                               ],
+                    "tools":  [
+                                  "building-ucx"
+                              ],
+                    "score":  29,
+                    "items":  [
+                                  {
+                                      "title":  "UCX сложных корпусов",
+                                      "status":  "in-progress",
+                                      "prio":  2,
+                                      "owner":  "artem-nagornov"
+                                  }
+                              ]
+                }
+            ],
+    "activity":  [
+
+                 ],
+    "feed":  [
+
+             ]
+}

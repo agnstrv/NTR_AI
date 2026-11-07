@@ -1,0 +1,5 @@
+interface:
+  display_name: "NTR: скрипт / тулза"
+  short_description: "Инструмент для Max/Blender с замером времени"
+policy:
+  allow_implicit_invocation: true

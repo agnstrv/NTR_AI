@@ -1,0 +1,5 @@
+interface:
+  display_name: "NTR: начало сессии"
+  short_description: "Кто ты, режим, этап пайплайна, что уже есть"
+policy:
+  allow_implicit_invocation: true
