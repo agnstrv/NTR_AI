@@ -272,7 +272,7 @@ footer{margin-top:32px;font-size:12px;color:var(--muted)}
 </main>
 <script>
 const DATA = {
-    "generated":  "2026-11-07 10:59",
+    "generated":  "2026-11-10 12:42",
     "label":  "",
     "focus":  {
                   "period":  "2026-11-09 .. 2026-11-22",
@@ -309,15 +309,15 @@ const DATA = {
     "summary":  {
                     "avg_product_saving_pct":  0,
                     "tools_by_status":  {
-                                            "not-in-repo":  5,
-                                            "draft":  10,
+                                            "not-in-repo":  6,
+                                            "draft":  9,
                                             "measured":  0,
-                                            "cross-tested":  0,
+                                            "cross-tested":  1,
                                             "accepted":  0
                                         },
-                    "contracts":  4,
+                    "contracts":  5,
                     "tools":  10,
-                    "tests_7d":  0,
+                    "tests_7d":  1,
                     "sessions_7d":  0,
                     "tagged_7d":  0,
                     "minutes_7d":  0,
@@ -725,21 +725,21 @@ const DATA = {
                                               "line":  "tool",
                                               "hours":  3.9,
                                               "saved":  0,
-                                              "est":  0,
+                                              "est":  3.47,
                                               "best":  null,
-                                              "est_tool":  null,
+                                              "est_tool":  "slava-shading-fix",
                                               "inFocus":  false,
                                               "tools":  [
-
+                                                            "slava-shading-fix"
                                                         ],
                                               "tasks_open":  0
                                           }
                                       ],
                          "saved_h":  0,
-                         "est_h":  0,
+                         "est_h":  3.47,
                          "after_h":  60,
                          "saving_pct":  0,
-                         "est_pct":  0,
+                         "est_pct":  5.78,
                          "cells":  [
                                        "ground-npm",
                                        "oks-npm"
@@ -1112,7 +1112,7 @@ const DATA = {
                                          "inFocus":  false
                                      }
                                  ],
-                      "note":  "Texel density 10–40. Коллизий нет. МАФ и флора — из библиотеки НПМ по DWG.",
+                      "note":  "Texel density 10–40. Коллизий нет. МАФ и флора — из библиотеки НПМ по DWG. Правило 10.11: на ранней стадии концепции землю по полигонам не нарезать — покрытия + запечка (правки потом в разы проще).",
                       "tools":  6,
                       "tasks":  21
                   },
@@ -1389,11 +1389,11 @@ const DATA = {
                                          "share":  10,
                                          "line":  "tool",
                                          "saving":  0,
-                                         "est_saving":  0,
+                                         "est_saving":  0.889,
                                          "best":  null,
-                                         "est_tool":  null,
+                                         "est_tool":  "slava-shading-fix",
                                          "tools":  [
-
+                                                       "slava-shading-fix"
                                                    ],
                                          "baseline":  null,
                                          "tasks_open":  0,
@@ -1402,7 +1402,7 @@ const DATA = {
                                      }
                                  ],
                       "note":  "Детальнее упрощённого: проёмы, окна в атласе, насыщенный атлас.",
-                      "tools":  2,
+                      "tools":  3,
                       "tasks":  22
                   },
                   {
@@ -1520,7 +1520,7 @@ const DATA = {
                       "cell":  "ground-npm",
                       "stage":  "flora",
                       "dcc":  "blender",
-                      "status":  "draft",
+                      "status":  "cross-tested",
                       "where":  "ветка: Рома.Рассатновка-деревьев",
                       "minutes_before":  null,
                       "minutes_after":  null,
@@ -1528,11 +1528,11 @@ const DATA = {
                       "saving":  null,
                       "counts":  false,
                       "contribution_pct":  0,
-                      "note":  "Агентский сценарий + .blend-плашка. Иван успешно брал флору Ромы через GitHub (06.11) — нужен отчёт о тесте.",
+                      "note":  "Агентский сценарий + .blend-плашка. Иван успешно брал флору Ромы через GitHub (06.11) — нужен отчёт о тесте.\n\nПравило (10.11, тест Артёма Н.): дерево ставить **в центр круга** обозначения на плане озеленения, а не в случайную точку круга — иначе каждое дерево приходится сдвигать вручную. Внести в сценарий в ветке Ромы.",
                       "testers":  [
-
+                                      "artem-nagornov"
                                   ],
-                      "tests":  0
+                      "tests":  1
                   },
                   {
                       "id":  "building-ucx",
@@ -1672,7 +1672,7 @@ const DATA = {
                       "saving":  null,
                       "counts":  false,
                       "contribution_pct":  0,
-                      "note":  "Должен ловить то, что потом ловит Синтез.",
+                      "note":  "Должен ловить то, что потом ловит Синтез.\n\n10.11: Роман не узнал этот инструмент на встрече — уточнить, существует ли чекер и в каком виде (источник — интервью 22.10).",
                       "testers":  [
 
                                   ],
@@ -1768,7 +1768,31 @@ const DATA = {
                       "saving":  null,
                       "counts":  false,
                       "contribution_pct":  0,
-                      "note":  "Результат «изумительный» (06.11). Прогнать граунд Артёма — задача 06.11.",
+                      "note":  "Результат «изумительный» (06.11). Прогнать граунд Артёма — задача 06.11.\n\n10.11: генерация земли пока нестабильна — на другом проекте ломается, нужна доработка.",
+                      "testers":  [
+
+                                  ],
+                      "tests":  0
+                  },
+                  {
+                      "id":  "slava-shading-fix",
+                      "title":  "Исправление шейдинга на зданиях (промпт)",
+                      "purpose":  "Быстро исправляет шейдинг/нормали на зданиях",
+                      "trello":  "Щели, нормали и сглаживание",
+                      "line":  "contract",
+                      "author":  "slava",
+                      "cell":  "oks-npm",
+                      "stage":  "delivery",
+                      "dcc":  "blender",
+                      "status":  "not-in-repo",
+                      "where":  "промпт у Вячеслава, используется в разных чатах",
+                      "minutes_before":  90,
+                      "minutes_after":  10,
+                      "time_source":  "estimate",
+                      "saving":  0.889,
+                      "counts":  false,
+                      "contribution_pct":  0,
+                      "note":  "Со слов Вячеслава 10.11: «исправляется за считанные минуты то, на что потратил бы час-два». Оформить контрактом в репо и замерить.",
                       "testers":  [
 
                                   ],
@@ -1872,7 +1896,13 @@ const DATA = {
                   }
               ],
     "tests":  [
-
+                  {
+                      "tool":  "album-plant-placement",
+                      "tester":  "artem-nagornov",
+                      "date":  "2026-11-10",
+                      "project":  "уточнить",
+                      "result":  "issues"
+                  }
               ],
     "contributions":  [
                           {
@@ -1909,7 +1939,7 @@ const DATA = {
                                                 "cross-tested":  0,
                                                 "accepted":  0
                                             },
-                              "tests_done":  0,
+                              "tests_done":  1,
                               "minutes_7d":  0,
                               "minutes_total":  0
                           },
@@ -1923,9 +1953,9 @@ const DATA = {
                               "scripts":  1,
                               "by_status":  {
                                                 "not-in-repo":  1,
-                                                "draft":  2,
+                                                "draft":  1,
                                                 "measured":  0,
-                                                "cross-tested":  0,
+                                                "cross-tested":  1,
                                                 "accepted":  0
                                             },
                               "tests_done":  0,
@@ -1956,11 +1986,11 @@ const DATA = {
                               "saving_pct":  0,
                               "saving_contract":  0,
                               "saving_tool":  0,
-                              "tools":  1,
-                              "contracts":  1,
+                              "tools":  2,
+                              "contracts":  2,
                               "scripts":  0,
                               "by_status":  {
-                                                "not-in-repo":  1,
+                                                "not-in-repo":  2,
                                                 "draft":  0,
                                                 "measured":  0,
                                                 "cross-tested":  0,
@@ -2468,7 +2498,7 @@ const DATA = {
                                       "focus":  false,
                                       "stage_share":  20,
                                       "score":  26,
-                                      "tool":  null
+                                      "tool":  "slava-shading-fix"
                                   },
                                   {
                                       "n":  28,
