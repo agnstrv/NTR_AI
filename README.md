@@ -51,3 +51,5 @@
 - [Навигационный пилот NAV-001](tools/infrastructure/navigation-pilot/README.md).
 
 Разработки собраны в tools; [карта переноса и проверки](process/repository-migration.md). Пилот нового порядка на двух ПК ещё предстоит.
+
+Личная точка входа: [Рома — Перемоделирование МАФов](Рома/README.md).
