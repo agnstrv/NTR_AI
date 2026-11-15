@@ -5,6 +5,7 @@
 | Направление | Инструмент | Статус и следующий шаг |
 |---|---|---|
 | geometry | [compact-circular-cut](geometry/compact-circular-cut/README.md) | prototype; независимый повтор после успешного пользовательского примера |
+| geometry | [maf-remodel — МАФы Ромы](geometry/maf-remodel/README.md) | prototype; сценарий, поэтапная работа со сложными МАФами |
 | uv | [vpm-grid](uv/vpm-grid/README.md) | prototype; опубликованы испытания Blender 5.0, нужна проверка коллегой |
 | textures / geometry | [npm-oks — сценарии Ромы](textures/npm-oks/README.md) | prototype; тип — workflow. Выбор лёгкой/средней версии, независимая приёмка не установлена |
 | textures | [npm-window-bake](textures/npm-window-bake/README.md) | исторические протоколы; канонический рабочий сценарий — npm-oks |
