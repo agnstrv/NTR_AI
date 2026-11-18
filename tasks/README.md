@@ -1,5 +1,6 @@
 # Реестры участников
 
+- [Рома — сценарии](roman-kasyan/README.md).
 - [Иван](ivan/README.md).
 - [Артём Сафро — реестр интервью](artem-safro/README.md).
 
