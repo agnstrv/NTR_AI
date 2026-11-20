@@ -13,3 +13,7 @@
 [Правила структуры](../process/repository-structure.md) · [Начать работу](../docs/start-here.md)
 
 Авторство и исходные ID сохранены в документах инструментов. Набор не включает наработки, которые ещё остались только на ПК участников. Для их сбора используйте [промпт №1](../prompts/01-collect-local-work.md).
+
+## Установочные комплекты Артёма Нагорнова
+
+[UV Texel Equalizer 1.2.2](uv/uv-texel-equalizer/README.md), [VPM Auto UV 0.2.0](uv/vpm-grid/README.md) и [Compact Circular Cut 1.1.1](geometry/compact-circular-cut/README.md). Публикация ZIP не означает accepted. [Промпт сводки и прямые ссылки](../tasks/nagornov-artem/download-summary-prompt.md).
