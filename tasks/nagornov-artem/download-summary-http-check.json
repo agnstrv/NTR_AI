@@ -1,0 +1,41 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/agnstrv/NTR_AI/5e92fccf410b4177f78dab91610cbc270e2b5836/tools/uv/uv-texel-equalizer/dist/uv-texel-equalizer-v1-2-2.zip",
+    "status": 200,
+    "sha256": "fe519cc720bc71491b2efdf594457aa5da7e1cbcc63910d5c61fcc8a32b2535d",
+    "match": true
+  },
+  {
+    "url": "https://raw.githubusercontent.com/agnstrv/NTR_AI/5e92fccf410b4177f78dab91610cbc270e2b5836/tools/uv/uv-texel-equalizer/docs/guide-1-2-2.md",
+    "status": 200,
+    "sha256": "656f797048f404397686de1d135139dff28fb00af586a127cc4b4cc6dd96caaa",
+    "match": true
+  },
+  {
+    "url": "https://raw.githubusercontent.com/agnstrv/NTR_AI/5e92fccf410b4177f78dab91610cbc270e2b5836/tools/uv/vpm-grid/dist/VPM_Auto_UV_0_2.zip",
+    "status": 200,
+    "sha256": "428b1ad4eabe406eab2a42bb1030efbf3203307b74827ff80adca36022d59783",
+    "match": true
+  },
+  {
+    "url": "https://raw.githubusercontent.com/agnstrv/NTR_AI/5e92fccf410b4177f78dab91610cbc270e2b5836/tools/uv/vpm-grid/docs/instruction-0-2-0.txt",
+    "status": 200,
+    "sha256": "6234362c27ec1cb8d3a48a96dc391cea042ffe5e302251ff079c6efaa882f9f0",
+    "match": true
+  },
+  {
+    "url": "https://raw.githubusercontent.com/agnstrv/NTR_AI/efdf377de681400823a0d024747f40c7d2070b9c/tools/collisions/building-ucx/workflow.md",
+    "status": 200,
+    "bytes": 19508
+  },
+  {
+    "url": "https://raw.githubusercontent.com/agnstrv/NTR_AI/a507d2ddd77869388ee0761c1d22ca02bdc7bfb7/tools/geometry/compact-circular-cut/README.md",
+    "status": 200,
+    "bytes": 9836
+  },
+  {
+    "url": "https://raw.githubusercontent.com/agnstrv/NTR_AI/a507d2ddd77869388ee0761c1d22ca02bdc7bfb7/tools/geometry/compact-circular-cut/dist/compact_circular_cut_v1.1.1.zip",
+    "status": 200,
+    "bytes": 13860
+  }
+]

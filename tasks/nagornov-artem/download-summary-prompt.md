@@ -26,17 +26,17 @@
 
 Выравнивает плотность UV-островов активного меша, отдельно проверяет зеркальность и направление. Допуск плотности 0.00002 = 0,002%, это не значение целевого текселя. Панель UV Editor → N → Texel. По передаче автора пройден 51 тест; публикация не является повторным запуском тестов или приёмкой на проекте коллеги. Инструкция есть также внутри ZIP. Unwrap и упаковка не выполняются; подробные ограничения и происхождение адаптированных принципов — в инструкции.
 
-- [Скачать ZIP](https://raw.githubusercontent.com/agnstrv/NTR_AI/refs/heads/work/nagornov-artem/repository/draft-download-summary/tools/uv/uv-texel-equalizer/dist/uv-texel-equalizer-v1-2-2.zip)
-- [Инструкция](https://github.com/agnstrv/NTR_AI/blob/work/nagornov-artem/repository/draft-download-summary/tools/uv/uv-texel-equalizer/docs/guide-1-2-2.md)
-- [Скачать инструкцию](https://raw.githubusercontent.com/agnstrv/NTR_AI/refs/heads/work/nagornov-artem/repository/draft-download-summary/tools/uv/uv-texel-equalizer/docs/guide-1-2-2.md)
+- [Скачать ZIP](https://raw.githubusercontent.com/agnstrv/NTR_AI/5e92fccf410b4177f78dab91610cbc270e2b5836/tools/uv/uv-texel-equalizer/dist/uv-texel-equalizer-v1-2-2.zip)
+- [Инструкция](https://github.com/agnstrv/NTR_AI/blob/5e92fccf410b4177f78dab91610cbc270e2b5836/tools/uv/uv-texel-equalizer/docs/guide-1-2-2.md)
+- [Скачать инструкцию](https://raw.githubusercontent.com/agnstrv/NTR_AI/5e92fccf410b4177f78dab91610cbc270e2b5836/tools/uv/uv-texel-equalizer/docs/guide-1-2-2.md)
 
 ## 4 VPM Auto UV 0.2.0
 
 Исходный ZIP передан без изменения кода. Панель N → VPM. По инструкции регистрация, подготовка UV, нарезка и укладка в 1001 проверены в Blender 5.0.0 на синтетическом кубе; это не проверка на рабочем проекте. Остальные самостоятельные скрипты в архив не добавлены. Инструкция отдельная, скачайте оба файла. Специальная кнопка .009 требует точного имени объекта из инструкции, не является универсальной сваркой. Обычная последовательность применяется к активному мешу и заменяет его результатом; сначала сохранить копию .blend.
 
-- [Скачать ZIP](https://raw.githubusercontent.com/agnstrv/NTR_AI/refs/heads/work/nagornov-artem/repository/draft-download-summary/tools/uv/vpm-grid/dist/VPM_Auto_UV_0_2.zip)
-- [Инструкция](https://github.com/agnstrv/NTR_AI/blob/work/nagornov-artem/repository/draft-download-summary/tools/uv/vpm-grid/docs/instruction-0-2-0.txt)
-- [Скачать инструкцию](https://raw.githubusercontent.com/agnstrv/NTR_AI/refs/heads/work/nagornov-artem/repository/draft-download-summary/tools/uv/vpm-grid/docs/instruction-0-2-0.txt)
+- [Скачать ZIP](https://raw.githubusercontent.com/agnstrv/NTR_AI/5e92fccf410b4177f78dab91610cbc270e2b5836/tools/uv/vpm-grid/dist/VPM_Auto_UV_0_2.zip)
+- [Инструкция](https://github.com/agnstrv/NTR_AI/blob/5e92fccf410b4177f78dab91610cbc270e2b5836/tools/uv/vpm-grid/docs/instruction-0-2-0.txt)
+- [Скачать инструкцию](https://raw.githubusercontent.com/agnstrv/NTR_AI/5e92fccf410b4177f78dab91610cbc270e2b5836/tools/uv/vpm-grid/docs/instruction-0-2-0.txt)
 
 Для трёх аддонов установка: Edit → Preferences → Add-ons → Install from Disk → выбрать ZIP без распаковки и включить аддон. Уточнения обновления и ограничения версий Blender брать из соответствующих инструкций.
 
