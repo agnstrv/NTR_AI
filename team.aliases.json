@@ -1,0 +1,5 @@
+{
+  "_comment": "Имена в ветках work/<user>/... и в сессиях, которые отличаются от id в team.md. Ключ — как написано в ветке, значение — id из team.md.",
+  "roman-kasyan": "roman",
+  "nagornov-artem": "artem-nagornov"
+}

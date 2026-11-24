@@ -1,6 +1,6 @@
 ---
 name: ntr-tool
-description: Режим «скрипт / тулза» в NTR — сделать или доработать скрипт или функцию для 3ds Max или Blender. Используй после ntr-start при mode=tool.
+description: Режим «скрипт / тулза» в NTR — сделать или доработать скрипт или функцию для 3ds Max или Blender. Используй после ntr при mode=tool.
 ---
 
 # Режим: скрипт / тулза
@@ -13,4 +13,4 @@ description: Режим «скрипт / тулза» в NTR — сделать 
 4. **Проверка в DCC** — только если реально запускал; иначе пиши «не проверено в Max/Blender».
 5. **Время**: `minutes_before` (вручную) и `minutes_after` (с инструментом) на типовом объёме, с пометкой `measured` / `estimate`.
 6. Обнови или создай карточку `registry/tools/<id>.md` (`line: tool`, статус `draft` или `measured`).
-7. Передай `ntr-submit`.
+7. Передай `ntr-retro`.

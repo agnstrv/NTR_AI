@@ -1,0 +1,5 @@
+interface:
+  display_name: "NTR: takeover"
+  short_description: "Подхватить задачу в новом чате"
+policy:
+  allow_implicit_invocation: true

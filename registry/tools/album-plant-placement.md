@@ -9,11 +9,11 @@ dcc: blender
 status: cross-tested
 purpose: Расстановка растений по альбому/ведомости
 trello: Флора по ведомости и рельефу
-where: ветка: Рома.Рассатновка-деревьев
+where: ветка: work/nagornov-artem/album-plant-placement/trello-qogjcurh-page-1-validation (включает ветку Ромы)
 minutes_before:
 minutes_after:
 time_source:
-updated: 2026-11-07
+updated: 2026-11-20
 ---
 
 Агентский сценарий + .blend-плашка. Иван успешно брал флору Ромы через GitHub (06.11) — нужен отчёт о тесте.

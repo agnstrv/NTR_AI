@@ -212,6 +212,23 @@ footer{margin-top:32px;font-size:12px;color:var(--muted)}
 .bticks span{position:absolute;transform:translateX(-50%);top:3px}.bticks span:first-child{transform:none}
 @media (max-width:760px){ .brow summary{grid-template-columns:1fr auto;gap:8px} .bwrap{grid-column:1/-1;grid-row:2} .hchev{display:none} .b-was{display:none} }
 /* end header v3 */
+/* live activity, sessions, freshness */
+.tblw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl th{text-align:left;font-weight:600;color:var(--muted);font-size:11.5px;padding:6px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:8px 10px;border-top:1px solid var(--line);vertical-align:top}
+.tbl tbody tr:first-child td{border-top:0}
+.tbl a{color:var(--accent);text-decoration:none} .tbl a:hover{text-decoration:underline}
+.tbl .nw{white-space:nowrap}
+.badge{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px;white-space:nowrap;color:var(--ink-2);background:var(--panel-2);border:1px solid var(--line)}
+.badge.stale{color:#7a4b00;background:#fff1d6;border-color:#f1d39c}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.pc{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--panel-2);min-width:0}
+.pc.idle{opacity:.6}
+.pc .ph{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:6px}
+.pc .pn{display:flex;gap:12px;font-size:12px;color:var(--ink-2)} .pc .pn b{font-size:17px;display:block;color:var(--ink)}
+.empty{color:var(--muted);padding:18px 0}
+@media (max-width:760px){ .tbl{min-width:620px} }
 </style>
 </head>
 <body>
@@ -227,6 +244,18 @@ footer{margin-top:32px;font-size:12px;color:var(--muted)}
     <div class="maturity" id="maturity"></div>
   </section>
   <div id="tip" class="tip"></div>
+  <section class="kpis" id="live-kpis"></section>
+
+  <h2>Активность команды (GitHub, живые данные)</h2>
+  <p class="lead" id="lead-gh"></p>
+  <section class="card">
+    <div class="pgrid" id="gh-people"></div>
+    <div class="tblw" style="margin-top:14px" id="gh-branches"></div>
+  </section>
+
+  <h2>Сессии</h2>
+  <p class="lead">Одна строка — одна рабочая сессия с агентом: файл <code>sessions/&lt;дата&gt;_&lt;кто&gt;_&lt;тема&gt;.md</code>, который агент пишет в рабочей ветке. Собирается со всех веток GitHub. «Вручную → с ИИ» — минуты на ту же задачу; в счётчик замеров идут только строки с пометкой «замер».</p>
+  <section class="card"><div class="tblw" id="sessions"></div></section>
 
   <h2>1. Откуда экономия</h2>
   <p class="lead" id="lead-econ"></p>
@@ -268,7 +297,7 @@ footer{margin-top:32px;font-size:12px;color:var(--muted)}
     <div class="card"><h3>Задачи по людям</h3><div id="trello-people"></div></div>
   </section>
 
-  <footer>Генерируется <code>scripts/ntr-status.ps1</code> из реестра, roadmap, Trello-снимка и журналов. Руками не править.</footer>
+  <footer>Генерируется <code>scripts/ntr-status.ps1</code> из веток GitHub (сессии, реестр, выгрузки), roadmap, Trello-снимка и журналов. Руками не править.</footer>
 </main>
 <script>
 const DATA = /*__DATA__*/null;
@@ -288,7 +317,75 @@ const pcol = id => { const i = Object.keys(DATA.team || {}).indexOf(id); return 
 const av = id => `<span class="av" style="background:${pcol(id)}" title="${esc(name(id))}">${esc(ini(id))}</span>`;
 const target = (DATA.target && DATA.target.project_saving_pct) || 10;
 
-document.getElementById('gen').textContent = 'Обновлено ' + DATA.generated;
+/* freshness: generated time, Trello snapshot age */
+const NOW = new Date();
+const SNAP = DATA.backlog && DATA.backlog.snapshot;
+const SNAP_AGE = SNAP ? Math.floor((NOW - new Date(SNAP + 'T00:00:00')) / 86400000) : null;
+const STALE = SNAP_AGE != null && SNAP_AGE > 3 ? ` <span class="badge stale">устарел · ${SNAP_AGE} дн</span>` : '';
+const dm = d => d && d.length >= 10 ? d.slice(8, 10) + '.' + d.slice(5, 7) : '—';
+(function(){
+  const g = DATA.generated_utc ? new Date(DATA.generated_utc) : null;
+  const m = g ? Math.max(0, Math.round((NOW - g) / 60000)) : null;
+  const ago = m == null ? '' : m < 60 ? `${m} мин назад` : m < 2880 ? `${Math.round(m / 60)} ч назад` : `${Math.round(m / 1440)} дн назад`;
+  const when = g ? g.toLocaleString('ru-RU', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'}) : DATA.generated;
+  document.getElementById('gen').innerHTML = `Обновлено ${esc(when)}${ago ? ` (${ago})` : ''}${m != null && m > 180 ? ' <span class="badge stale">данные не обновлялись больше 3 ч</span>' : ''} · Trello: ${SNAP ? 'снимок от ' + esc(SNAP) + STALE : 'снимка нет'}`;
+})();
+
+/* live: counters, GitHub activity, sessions */
+(function(){
+  const G = DATA.github || {}, L = DATA.live || {}, ses = arr(DATA.sessions), real = ses.filter(s => !s.example);
+  const git = !!G.available;
+  document.getElementById('live-kpis').innerHTML = [
+    [L.sessions_7d ?? 0, 'сессий с агентом за 7 дней'],
+    [git ? L.uploads_7d : '—', 'выгрузок в GitHub за 7 дней (коммиты в рабочих ветках)'],
+    [git || real.length ? L.active_people_7d : '—', 'человек работали за 7 дней'],
+    [L.measurements ?? 0, 'замеров времени «вручную → с ИИ»'],
+  ].map(([v,k]) => `<div class="card kpi"><div class="v num">${esc(v)}</div><div class="k">${esc(k)}</div></div>`).join('');
+
+  const link = (path, text) => G.repo ? `<a href="${esc(G.repo)}/${path}" target="_blank" rel="noopener">${text}</a>` : text;
+  const br = arr(G.branches), ppl = arr(G.people_7d);
+  document.getElementById('lead-gh').innerHTML = git
+    ? `Считается прямо из веток <code>work/&lt;кто&gt;/…</code> на GitHub — ждать вливания в main не нужно. Выгрузка = коммит в рабочей ветке, которого ещё нет в main. Веток: <b>${br.length}</b>.${G.gh ? '' : ' <span class="badge stale">PR не загружены: gh недоступен</span>'}`
+    : 'Сборка запущена без доступа к git (<code>-NoGit</code>) — данных о ветках и выгрузках нет.';
+  document.getElementById('gh-people').innerHTML = ppl.map(p => {
+    const idle = !p.sessions && !p.uploads && !p.prs;
+    return `<div class="pc${idle ? ' idle' : ''}"><div class="ph">${av(p.user)}<span>${esc(first(p.user))}</span></div>
+      <div class="pn num"><span><b>${p.sessions}</b>сессий</span><span><b>${git ? p.uploads : '—'}</b>выгрузок</span><span><b>${G.gh ? p.prs : '—'}</b>PR</span></div>
+      <div class="xs muted" style="margin-top:6px">${p.minutes_saved ? `<b style="color:var(--good)">−${p.minutes_saved} мин</b> по замерам за 7 дн` : 'замеров за 7 дн нет'}${p.prs_open ? ` · открытых PR: ${p.prs_open}` : ''}</div>
+      <div class="xs muted">${idle ? 'за 7 дней активности нет' : 'за 7 дней'}${p.last_activity ? ` · последняя: ${esc(dm(p.last_activity))}` : ''}</div></div>`;
+  }).join('');
+  const prCell = b => { const p = b.pr; if (!p) return '<span class="muted">—</span>';
+    const st = p.state === 'OPEN' ? (p.draft ? ['черновик','var(--s1)'] : ['открыт','var(--s2)']) : p.state === 'MERGED' ? ['влит','var(--s4)'] : ['закрыт','var(--s0)'];
+    return `${link('pull/' + p.number, '#' + p.number)} <span class="pill" style="background:${st[1]}" title="${esc(p.title)}">${st[0]}</span>`; };
+  document.getElementById('gh-branches').innerHTML = !git ? '' : !br.length
+    ? '<div class="empty">Рабочих веток work/&lt;кто&gt;/… на GitHub пока нет.</div>'
+    : `<table class="tbl"><thead><tr><th>Кто</th><th>Тема (ветка)</th><th>Последняя выгрузка</th><th>Коммитов 7 / 14 дн</th><th>Не влито в main</th><th>PR</th></tr></thead><tbody>${br.map(b => `<tr>
+        <td class="nw">${av(b.user)} ${esc(first(b.user))}</td>
+        <td>${link('tree/' + b.branch.split('/').map(encodeURIComponent).join('/'), esc(b.topic))}</td>
+        <td><span class="nw num">${esc(dm(b.last_date))}</span> <span class="muted">${esc(b.subject)}</span></td>
+        <td class="num nw">${b.commits_7d ? `<b>${b.commits_7d}</b>` : '0'} / ${b.commits_14d}</td>
+        <td class="num">${b.ahead}</td><td class="nw">${prCell(b)}</td></tr>`).join('')}</tbody></table>`;
+
+  const SS = {open:['в работе','var(--s2)'], handover:['передано','var(--s3)'], done:['готово','var(--s4)'], failed:['не получилось','var(--warn)']};
+  const DCC = {blender:'Blender', max:'3ds Max', other:'другое'};
+  const dash = v => v && v !== '-' ? esc(v) : '<span class="muted">—</span>';
+  const mins = s => s.minutes_manual == null && s.minutes_ai == null ? '<span class="muted">—</span>'
+    : `<span class="nw num">${s.minutes_manual ?? '?'} → ${s.minutes_ai ?? '?'}${s.minutes_saved != null ? ` <b style="color:${s.minutes_saved > 0 ? 'var(--good)' : 'var(--muted)'}">(${s.minutes_saved > 0 ? '−' : '+'}${Math.abs(s.minutes_saved)})</b>` : ''}</span>
+       <div class="xs muted">${s.time_source === 'measured' ? 'замер' : s.time_source === 'estimate' ? 'оценка' : 'источник не указан'}</div>`;
+  const note = !real.length && ses.length ? '<div class="xs muted" style="margin-bottom:8px">Настоящих сессий пока нет — ниже только пример записи. В счётчики он не входит.</div>' : '';
+  document.getElementById('sessions').innerHTML = !ses.length
+    ? '<div class="empty">Сессий пока нет — появятся после первого /ntr.</div>'
+    : note + `<table class="tbl"><thead><tr><th>Дата</th><th>Кто</th><th>Задача</th><th>Ячейка / этап</th><th>DCC</th><th>Статус</th><th>Вручную → с ИИ, мин</th><th>Сценарий</th></tr></thead><tbody>${ses.slice(0, 40).map(s => { const st = SS[s.status];
+        return `<tr><td class="nw num">${esc(dm(s.date))}</td>
+        <td class="nw">${av(s.user)} ${esc(first(s.user))}</td>
+        <td>${s.example ? '<span class="badge">пример</span> ' : ''}${esc(s.task || s.id || '')}${s.in_branch ? `<div class="xs muted">ветка ${esc(s.in_branch)}</div>` : ''}</td>
+        <td>${dash(s.cell)}${s.stage && s.stage !== '-' ? ' / ' + esc(s.stage) : ''}</td>
+        <td class="nw">${s.dcc && s.dcc !== '-' ? esc(DCC[s.dcc] || s.dcc) : '<span class="muted">—</span>'}</td>
+        <td>${st ? `<span class="pill" style="background:${st[1]}">${st[0]}</span>` : dash(s.status)}</td>
+        <td>${mins(s)}</td>
+        <td>${dash(s.scenario)}${s.scenario_version && s.scenario_version !== '-' ? ` <span class="muted">v${esc(String(s.scenario_version).replace(/^v/i, ''))}</span>` : ''}</td></tr>`; }).join('')}</tbody></table>`
+      + (ses.length > 40 ? `<div class="xs muted" style="margin-top:8px">Показаны последние 40 из ${ses.length}.</div>` : '');
+})();
 if (DATA.label) document.getElementById('banner').innerHTML = `<span class="demo">● ${esc(DATA.label)}</span>`;
 
 /* header: pipeline rows */
@@ -466,6 +563,7 @@ document.getElementById('kanban').innerHTML = ST.map(s => {
   return `<div class="kcol"><div class="kh"><span><i class="dot" style="background:${STC[s]}"></i>${STN[s]}</span><span class="num muted">${list.length}</span></div>` +
     (list.map(t => `<div class="kcard l-${esc(t.line)}"><div class="n">${esc(t.title)}</div><div class="p">${esc(t.purpose || '')}</div>
       <div class="f">${av(t.author)}<span>${esc(first(t.author))}</span><span style="margin-left:auto">${esc(t.stage && t.stage !== '-' ? t.stage : '')}</span></div>
+      ${t.in_branch ? `<div class="xs muted" style="margin-top:5px">пока только в ветке ${esc(t.in_branch)}</div>` : ''}
       ${arr(t.testers).length ? `<div class="f" style="margin-top:5px">проверили: ${arr(t.testers).map(av).join('')}</div>` : ''}</div>`).join('') || '<div class="muted xs">пусто</div>') + '</div>';
 }).join('');
 
@@ -505,7 +603,7 @@ lineChart('contract', 'line1'); lineChart('tool', 'line2');
 /* 8. trello */
 (function(){
   const B = DATA.backlog; if (!B) return;
-  document.getElementById('lead-trello').textContent = `Снимок доски от ${B.snapshot}: ${B.total} задач. Агент, ведущий Trello, синхронизирует её с реестром по правилам ntr-trello-sync.`;
+  document.getElementById('lead-trello').innerHTML = `Снимок доски от ${esc(B.snapshot)}${STALE}: ${B.total} задач${B.unmapped ? `, из них без привязки к этапу: ${B.unmapped}` : ''}. Обновляется скриптом <code>scripts/ntr-trello-pull.ps1</code>, когда заданы ключи Trello; без них остаётся последний снимок.`;
   const TS = {'help':['нужна помощь','var(--warn)'],'in-progress':['в работе','var(--s2)'],'review':['на проверке','var(--s3)'],'queue':['в очереди','var(--s0)'],'ready':['готово','var(--s4)']};
   const bs = B.by_status;
   document.getElementById('trello-bar').innerHTML = Object.keys(TS).filter(k => bs[k]).map(k => `<div style="flex:${bs[k]};background:${TS[k][1]}" title="${TS[k][0]}">${bs[k]}</div>`).join('');

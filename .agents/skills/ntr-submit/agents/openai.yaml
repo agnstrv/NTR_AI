@@ -1,5 +1,0 @@
-interface:
-  display_name: "NTR: сдаю"
-  short_description: "Шаблон, реестр, коммит, PR, текст для чата"
-policy:
-  allow_implicit_invocation: true

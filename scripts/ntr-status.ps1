@@ -8,21 +8,33 @@
     team.md                    people (id, name, Trello code, shown in report)
     roadmap/pipeline.json      products, cells, stages, shares, focus, target
     roadmap/backlog.json       Trello snapshot: tasks, priorities, owners, mapped to cells/stages
+                               (refreshed by scripts/ntr-trello-pull.ps1 when Trello keys are set)
     registry/tools/*.md        tool / contract cards (front matter)
     registry/tests/*.md        cross-test reports (front matter)
     journal/<date>/<user>.md   daily journals from scripts/ntr-daily.ps1 (branch 'journal')
+    sessions/<date>_<user>_<slug>.md   one record per work session (front matter), written by the agent
+    team.aliases.json          branch / session user names that differ from team.md ids
+
+  sessions/, registry/tools/ and registry/tests/ are read from the working tree AND from every
+  origin/* branch (git ls-tree / git show, nothing is checked out), so work that lives only in a
+  colleague's branch is visible. Cards: working tree and main win, branch-only cards get in_branch.
+  Sessions: de-duplicated by path, newest commit wins. Remote work/<user>/... branches and pull
+  requests (gh, optional) form the 'github' block. Run 'git fetch' first for fresh data; -NoGit
+  skips all of this.
 
   Savings count only cards with status measured|cross-tested|accepted and time_source: measured.
   Per stage only the best tool counts (no double counting); its author gets the contribution.
 
   Usage (maintainer PC, nightly or before the weekly meeting):
-    powershell -ExecutionPolicy Bypass -File scripts\ntr-status.ps1 [-JournalRoot ..\NTR_AI-journal\journal] [-Days 14]
+    powershell -ExecutionPolicy Bypass -File scripts\ntr-status.ps1 [-JournalRoot ..\NTR_AI-journal\journal] [-Days 14] [-NoGit]
+  With -OutDir <dir> everything (including STATUS.md) goes to <dir>; the repo is not modified.
 #>
 param(
   [string]$JournalRoot = '',
   [int]$Days = 14,
   [string]$OutDir = '',
-  [string]$Label = ''
+  [string]$Label = '',
+  [switch]$NoGit
 )
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
@@ -34,10 +46,12 @@ if (-not $OutDir) { $OutDir = Join-Path $repo 'status' }
 $utf8 = New-Object Text.UTF8Encoding $false
 $enc = [Text.Encoding]::UTF8
 
-function Read-FrontMatter([string]$path) {
+function Read-FrontMatter([string]$path) { return ConvertFrom-FrontMatter ([IO.File]::ReadAllLines($path, $enc)) }
+function ConvertFrom-FrontMatter([string[]]$lines) {
   $h = [ordered]@{}; $body = New-Object System.Collections.Generic.List[string]
   $in = $false; $done = $false
-  foreach ($l in [IO.File]::ReadAllLines($path, $enc)) {
+  foreach ($l in $lines) {
+    if (-not $in) { $l = $l.TrimStart([char]0xFEFF) }
     if (-not $done -and $l.Trim() -eq '---') { if ($in) { $done = $true } else { $in = $true }; continue }
     if ($in -and -not $done) {
       $i = $l.IndexOf(':'); if ($i -gt 0) { $h[$l.Substring(0,$i).Trim()] = $l.Substring($i+1).Trim() }
@@ -67,16 +81,109 @@ foreach ($l in [IO.File]::ReadAllLines((Join-Path $repo 'team.md'), $enc)) {
   if ($l -match '\|\s*да\s*\|\s*$' -and $l -match '^\|\s*([a-z][a-z0-9-]+)\s*\|') { $people += $Matches[1] }
 }
 
+# branch / session user names that are not team.md ids (work/roman-kasyan/... -> roman)
+$aliases = @{}
+$aliasPath = Join-Path $repo 'team.aliases.json'
+if (Test-Path $aliasPath) {
+  $aj = [IO.File]::ReadAllText($aliasPath, $enc) | ConvertFrom-Json
+  foreach ($p in $aj.PSObject.Properties) { if ($p.Name -notlike '_*') { $aliases[$p.Name.ToLower()] = [string]$p.Value } }
+}
+function Resolve-User([string]$raw) {
+  if (-not $raw) { return $null }
+  $k = $raw.Trim().ToLower()
+  if ($team.Contains($k)) { return $k }
+  if ($aliases.ContainsKey($k)) { return $aliases[$k] }
+  return $raw.Trim()
+}
+$weekAgo = (Get-Date).Date.AddDays(-6).ToString('yyyy-MM-dd')
+$twoWeeksAgo = (Get-Date).Date.AddDays(-13).ToString('yyyy-MM-dd')
+
+# ---- git: remote branches, files that live only in branches ------------------------------------
+$useGit = -not $NoGit
+try { [Console]::OutputEncoding = $enc } catch { }
+function Invoke-Git { $ErrorActionPreference = 'Continue'; & git.exe -C $repo -c core.quotepath=false @args 2>$null }
+if ($useGit) {
+  if (-not (Get-Command git.exe -ErrorAction SilentlyContinue)) { $useGit = $false }
+  else { $null = Invoke-Git rev-parse --git-dir; if ($LASTEXITCODE -ne 0) { $useGit = $false } }
+}
+$refs = @(); $mainRef = $null; $repoUrl = $null
+$cand = @{}                                              # repo path -> candidates (ref, blob)
+$dirty = New-Object System.Collections.Generic.HashSet[string]
+if ($useGit) {
+  foreach ($l in @(Invoke-Git for-each-ref '--sort=-committerdate' '--format=%(refname:short)%09%(committerdate:iso-strict)%09%(objectname)%09%(subject)' refs/remotes/origin)) {
+    $p = $l -split "`t", 4
+    if ($p.Count -lt 4 -or $p[0] -notlike 'origin/*' -or $p[0] -eq 'origin/HEAD' -or $p[0] -eq 'origin/gh-pages') { continue }
+    $refs += [pscustomobject]@{ ref=$p[0]; branch=$p[0].Substring(7); date=$p[1]; sha=$p[2]; subject=$p[3] }
+  }
+  foreach ($m in 'origin/main','origin/master') { if (-not $mainRef -and @($refs | Where-Object { $_.ref -eq $m }).Count) { $mainRef = $m } }
+  $url = [string](Invoke-Git remote get-url origin)
+  if ($url -match 'github\.com[:/]([\w.-]+/[\w.-]+?)(\.git)?/?$') { $repoUrl = "https://github.com/$($Matches[1])" }
+  foreach ($l in @(Invoke-Git status --porcelain -- sessions)) { if ($l.Length -gt 3) { [void]$dirty.Add($l.Substring(3).Trim('"')) } }
+  # HEAD first, then main, then the rest (newest first); identical tips are scanned once
+  $scan = @([pscustomobject]@{ ref='HEAD'; sha=[string](Invoke-Git rev-parse HEAD) })
+  $scan += @($refs | Where-Object { $_.ref -eq $mainRef }) + @($refs | Where-Object { $_.ref -ne $mainRef })
+  $seenTip = @{}
+  foreach ($r in $scan) {
+    if (-not $r.sha -or $seenTip.ContainsKey($r.sha)) { continue }
+    $seenTip[$r.sha] = $true
+    foreach ($l in @(Invoke-Git ls-tree -r $r.ref -- sessions registry/tools registry/tests)) {
+      if ($l -notmatch '^\d+ blob ([0-9a-f]+)\t(.+\.md)$') { continue }
+      $path = $Matches[2]
+      if (-not $cand.ContainsKey($path)) { $cand[$path] = New-Object System.Collections.ArrayList }
+      [void]$cand[$path].Add([pscustomobject]@{ ref=$r.ref; blob=$Matches[1] })
+    }
+  }
+}
+# Front matter of every <dir>/*.md, from the working tree and from branches.
+#   $localWins = $true  (cards):    working tree, then main, then the newest branch copy
+#   $localWins = $false (sessions): uncommitted local file, else the copy with the newest commit
+# in_branch = branch name when the chosen copy is neither in the working tree / HEAD nor in main.
+function Get-RepoDocs([string]$dir, [bool]$localWins) {
+  $paths = New-Object System.Collections.Generic.SortedSet[string]
+  foreach ($f in Get-ChildItem (Join-Path $repo $dir) -Filter *.md -File -ErrorAction SilentlyContinue) { [void]$paths.Add("$dir/$($f.Name)") }
+  foreach ($k in @($cand.Keys)) { if ($k.StartsWith("$dir/") -and $k.IndexOf('/', $dir.Length + 1) -lt 0) { [void]$paths.Add($k) } }
+  $out = @()
+  foreach ($p in $paths) {
+    if ($p -like '*/README.md') { continue }
+    $local = Join-Path $repo ($p -replace '/', '\')
+    $c = if ($cand.ContainsKey($p)) { @($cand[$p]) } else { @() }
+    $inBranch = $null
+    if ((Test-Path -LiteralPath $local) -and ($localWins -or $c.Count -eq 0 -or $dirty.Contains($p))) {
+      $fm = Read-FrontMatter $local
+    } else {
+      $pick = $null
+      if ($localWins) { $pick = $c | Where-Object { $_.ref -eq $mainRef } | Select-Object -First 1 }
+      if (-not $pick) {
+        $blobs = @($c | Group-Object blob)
+        if ($blobs.Count -eq 1) { $pick = $c[0] }
+        else {
+          $bestT = -1
+          foreach ($g in $blobs) {
+            $t = [int64]0; [void][int64]::TryParse([string](Invoke-Git log -1 '--format=%ct' $g.Group[0].ref -- $p), [ref]$t)
+            if ($t -gt $bestT) { $bestT = $t; $pick = $g.Group[0] }
+          }
+        }
+      }
+      $fm = ConvertFrom-FrontMatter @(Invoke-Git show "$($pick.ref):$p")
+      $merged = @($c | Where-Object { $_.blob -eq $pick.blob -and ($_.ref -eq 'HEAD' -or $_.ref -eq $mainRef) }).Count
+      if (-not $merged) { $inBranch = $pick.ref -replace '^origin/', '' }
+    }
+    $out += [pscustomobject]@{ path=$p; fm=$fm; in_branch=$inBranch }
+  }
+  return $out
+}
+
 # ---- registry -------------------------------------------------------------------------------
 $tests = @()
-foreach ($f in Get-ChildItem (Join-Path $repo 'registry\tests') -Filter *.md -ErrorAction SilentlyContinue) {
-  $t = Read-FrontMatter $f.FullName
-  if ($t.tool) { $tests += [pscustomobject]@{ tool=$t.tool; tester=$t.tester; date=$t.date; project=$t.project; result=$t.result } }
+foreach ($d in Get-RepoDocs 'registry/tests' $true) {
+  $t = $d.fm
+  if ($t.tool) { $tests += [pscustomobject]@{ tool=$t.tool; tester=$t.tester; date=$t.date; project=$t.project; result=$t.result; in_branch=$d.in_branch } }
 }
 $measuredStatuses = @('measured','cross-tested','accepted')
 $tools = @()
-foreach ($f in Get-ChildItem (Join-Path $repo 'registry\tools') -Filter *.md) {
-  $c = Read-FrontMatter $f.FullName
+foreach ($d in @(Get-RepoDocs 'registry/tools' $true) | Sort-Object { [bool]$_.in_branch }) {
+  $c = $d.fm
+  if (-not $c.id -or @($tools | Where-Object { $_.id -eq $c.id }).Count) { continue }
   $mb = Num $c.minutes_before; $ma = Num $c.minutes_after
   $saving = $null
   if ($mb -and $ma -ne $null -and $mb -gt 0) { $saving = [math]::Round(($mb - $ma) / $mb, 3) }
@@ -88,6 +195,7 @@ foreach ($f in Get-ChildItem (Join-Path $repo 'registry\tools') -Filter *.md) {
     minutes_before=$mb; minutes_after=$ma; time_source=$c.time_source
     saving=$saving; counts=$counts; contribution_pct=0.0; note=$c._body
     testers=@($myTests | ForEach-Object { $_.tester } | Sort-Object -Unique); tests=$myTests.Count
+    in_branch=$d.in_branch
   }
 }
 
@@ -166,7 +274,7 @@ if ($backlog) {
   }
   # stations = cell x stage; Trello micro-tasks are grouped inside
   $stations = @()
-  foreach ($g in ($items | Where-Object { $_.cell -ne 'infra' } | Group-Object { "$($_.cell)/$($_.stage)" })) {
+  foreach ($g in ($items | Where-Object { $_.cell -and $_.cell -ne 'infra' } | Group-Object { "$($_.cell)/$($_.stage)" })) {
     $its = @($g.Group); $first = $its[0]
     $open = @($its | Where-Object { $_.status -ne 'ready' })
     $stTools = @($tools | Where-Object { $_.cell -eq $first.cell -and $_.stage -eq $first.stage })
@@ -196,7 +304,7 @@ if ($backlog) {
     $o = [ordered]@{}; foreach ($s in 'in-progress','review','queue','ready') { $o[$s] = @($mine | Where-Object { $_.status -eq $s }).Count }
     $byOwner[$u] = $o
   }
-  $backlogOut = [ordered]@{ snapshot=$backlog.snapshot; source=$backlog.source; total=$items.Count; stations=$stations.Count; by_status=$byList; by_owner=$byOwner; items=$items }
+  $backlogOut = [ordered]@{ snapshot=$backlog.snapshot; source=$backlog.source; total=$items.Count; unmapped=@($items | Where-Object { -not $_.cell }).Count; stations=$stations.Count; by_status=$byList; by_owner=$byOwner; items=$items }
 }
 
 # ---- journals -----------------------------------------------------------------------------
@@ -221,8 +329,96 @@ if (Test-Path $JournalRoot) {
 }
 $feed = @($feed | Where-Object { $_.mode -ne 'untagged' } | Sort-Object date, time -Descending | Select-Object -First 15)
 
+# ---- sessions (sessions/<date>_<user>_<slug>.md) ------------------------------------------------
+$sessions = @()
+foreach ($d in Get-RepoDocs 'sessions' $false) {
+  $s = $d.fm
+  foreach ($k in @($s.Keys)) { if ($k -ne '_body') { $s[$k] = ([string]$s[$k]).Trim('"', "'") } }
+  $date = $s.date; $rawUser = $s.user
+  if ($d.path -match '/(\d{4}-\d{2}-\d{2})_([^_]+)_') { if (-not $date) { $date = $Matches[1] }; if (-not $rawUser) { $rawUser = $Matches[2] } }
+  if ($date -notmatch '^\d{4}-\d{2}-\d{2}$') { continue }
+  $mm = Num $s.minutes_manual; $mai = Num $s.minutes_ai
+  $both = ($null -ne $mm) -and ($null -ne $mai)
+  $sessions += [pscustomobject]@{
+    id=$s.id; user=(Resolve-User $rawUser); date=$date; mode=$s.mode; cell=$s.cell; stage=$s.stage; dcc=$s.dcc
+    task=$s.task; status=$s.status; scenario=$s.scenario; scenario_version=$s.scenario_version; based_on=$s.based_on
+    minutes_manual=$mm; minutes_ai=$mai; time_source=$s.time_source; tool_needed=$s.tool_needed
+    handovers=$s.handovers; updated=$s.updated
+    minutes_saved= if ($both) { $mm - $mai } else { $null }
+    measured=($both -and $s.time_source -eq 'measured')
+    example=(([string]$s.id) -like 'example-*')
+    in_branch=$d.in_branch; path=$d.path
+  }
+}
+$sessions = @($sessions | Sort-Object date, updated -Descending | Select-Object -First 200)
+$realSessions = @($sessions | Where-Object { -not $_.example })
+
+# ---- github: work/<user>/... branches, pull requests, 7-day summary per person ------------------
+$branches = @(); $prs = @(); $ghOk = $false
+if ($useGit) {
+  if (Get-Command gh -ErrorAction SilentlyContinue) {
+    $raw = & { $ErrorActionPreference = 'Continue'; Push-Location $repo
+      try { gh pr list --state all --limit 200 --json number,title,headRefName,state,isDraft,updatedAt,author 2>$null } finally { Pop-Location } }
+    if ($LASTEXITCODE -eq 0 -and $raw) {
+      try {
+        $pj = ($raw -join "`n") | ConvertFrom-Json
+        foreach ($p in @($pj)) {
+          $u = if ($p.headRefName -like 'work/*/*') { Resolve-User ($p.headRefName.Split('/')[1]) } else { $null }
+          $prs += [pscustomobject]@{ number=$p.number; title=$p.title; branch=$p.headRefName; state=$p.state; draft=[bool]$p.isDraft
+            updated=([datetime]$p.updatedAt).ToUniversalTime().ToString('yyyy-MM-dd'); author=$p.author.login; user=$u }
+        }
+        $ghOk = $true
+      } catch { $prs = @() }
+    }
+  }
+  $notMain = if ($mainRef) { @('--not', $mainRef) } else { @() }
+  foreach ($r in $refs | Where-Object { $_.branch -like 'work/*/*' }) {
+    $seg = $r.branch.Split('/')
+    $pr = $prs | Where-Object { $_.branch -eq $r.branch } | Sort-Object { $_.state -ne 'OPEN' }, { -$_.number } | Select-Object -First 1
+    $branches += [pscustomobject]@{
+      branch=$r.branch; user=(Resolve-User $seg[1]); user_raw=$seg[1]; topic=($seg[2..($seg.Count - 1)] -join '/')
+      last_commit=$r.date; last_date=$r.date.Substring(0, 10); subject=$r.subject
+      commits_7d=[int](Invoke-Git rev-list --count "--since=${weekAgo}T00:00:00" $r.ref @notMain)
+      commits_14d=[int](Invoke-Git rev-list --count "--since=${twoWeeksAgo}T00:00:00" $r.ref @notMain)
+      ahead=[int](Invoke-Git rev-list --count $r.ref @notMain)
+      pr= if ($pr) { [pscustomobject]@{ number=$pr.number; state=$pr.state; draft=$pr.draft; title=$pr.title } } else { $null }
+    }
+  }
+}
+$people7 = @()
+$seenUsers = @($people) + @($branches | ForEach-Object { $_.user }) + @($realSessions | ForEach-Object { $_.user }) | Where-Object { $_ } | Select-Object -Unique
+foreach ($u in $seenUsers) {
+  $mine = @($branches | Where-Object { $_.user -eq $u })
+  $uploads = 0
+  if ($mine.Count) { $ur = @($mine | ForEach-Object { "origin/$($_.branch)" }); $uploads = [int](Invoke-Git rev-list --count "--since=${weekAgo}T00:00:00" @ur @notMain) }
+  $ses = @($realSessions | Where-Object { $_.user -eq $u -and $_.date -ge $weekAgo })
+  $dates = @(@($mine | ForEach-Object { $_.last_date }) + @($realSessions | Where-Object { $_.user -eq $u } | ForEach-Object { $_.date }) | Sort-Object -Descending)
+  $last = if ($dates.Count) { $dates[0] } else { $null }
+  $people7 += [pscustomobject]@{
+    user=$u; known=$team.Contains($u); sessions=$ses.Count; uploads=$uploads
+    prs=@($prs | Where-Object { $_.user -eq $u -and $_.updated -ge $weekAgo }).Count
+    prs_open=@($prs | Where-Object { $_.user -eq $u -and $_.state -eq 'OPEN' }).Count
+    minutes_saved=[int](($ses | Where-Object { $_.measured } | Measure-Object minutes_saved -Sum).Sum)
+    branches=$mine.Count; last_activity=$last
+  }
+}
+$github = [ordered]@{
+  available = $useGit; gh = $ghOk; repo = $repoUrl; main = $mainRef; refs_scanned = $refs.Count
+  branches = $branches
+  prs_open = @($prs | Where-Object { $_.state -eq 'OPEN' })
+  people_7d = $people7
+}
+$live = [ordered]@{
+  sessions_7d = @($realSessions | Where-Object { $_.date -ge $weekAgo }).Count
+  sessions_total = $realSessions.Count
+  examples = $sessions.Count - $realSessions.Count
+  uploads_7d = [int](($people7 | Measure-Object uploads -Sum).Sum)
+  active_people_7d = @($people7 | Where-Object { $_.sessions -gt 0 -or $_.uploads -gt 0 }).Count
+  measurements = @($realSessions | Where-Object { $_.measured }).Count
+  minutes_saved_7d = [int](($people7 | Measure-Object minutes_saved -Sum).Sum)
+}
+
 # ---- people contributions ------------------------------------------------------------------
-$weekAgo = (Get-Date).Date.AddDays(-6).ToString('yyyy-MM-dd')
 $contrib = @()
 foreach ($u in $people) {
   $mine = @($tools | Where-Object { $_.author -eq $u })
@@ -252,7 +448,11 @@ $avgSaving = if ($products.Count) { R2 (($products | Measure-Object saving_pct -
 
 $data = [ordered]@{
   generated = (Get-Date -Format 'yyyy-MM-dd HH:mm')
+  generated_utc = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
   label = $Label
+  live = $live
+  github = $github
+  sessions = $sessions
   focus = $pipeline.focus
   target = $pipeline.target
   team = $team
@@ -327,4 +527,4 @@ foreach ($line in @(@('contract','Линия 1 — контракты для а�
 }
 $statusPath = if ($OutDir -eq (Join-Path $repo 'status')) { Join-Path $repo 'STATUS.md' } else { Join-Path $OutDir 'STATUS.md' }
 [IO.File]::WriteAllText($statusPath, $sb.ToString(), $utf8)
-Write-Output "status: $statusPath; $OutDir\dashboard.html ($($tools.Count) tools, $($activity.Count) journal days, top $($top.Count))"
+Write-Output "status: $statusPath; $OutDir\dashboard.html ($($tools.Count) tools, $(@($tools | Where-Object { $_.in_branch }).Count) only in branches; $($sessions.Count) sessions, $($live.examples) example; $($branches.Count) work branches of $($refs.Count) remote, $(@($github.prs_open).Count) open PRs, gh=$ghOk; $($activity.Count) journal days, top $($top.Count))"

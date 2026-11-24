@@ -16,4 +16,4 @@ time_source:
 updated: 2026-11-07
 ---
 
-Основа для ntr-submit.
+Основа для ntr-retro.
