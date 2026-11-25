@@ -35,7 +35,7 @@
 | Команда и id | `team.md` |
 | Пайплайн, доли времени, фокус | `roadmap/pipeline.json`, описание — `roadmap/README.md` |
 | Паспорта и состояние задач | `sessions/` (шаблон `templates/ntr/session.md`) |
-| Сценарии с версиями | `scenarios/<автор>_<тема>_<dcc>_v<X.Y.Z>.md` |
+| Сценарии с версиями | `scenarios/<автор>_<тема>_<исходник>_<dcc>_v<X.Y.Z>.md` |
 | Тулзы | `tools/` |
 | Реестр и отчёты о применении | `registry/tools/`, `registry/tests/` |
 | Дашборд (генерируется, руками не править) | `STATUS.md`, `status/` |

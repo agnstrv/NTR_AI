@@ -5,6 +5,7 @@ date: <YYYY-MM-DD>
 mode: <discuss|contract|tool|apply>
 cell: <cell>
 stage: <stage>
+input: <dwg|pdf|model|photo|pointcloud|->
 dcc: <blender|max|other>
 project: <короткий код проекта, без имени клиента>
 task: <задача одной фразой>

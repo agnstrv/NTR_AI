@@ -1,8 +1,9 @@
 ---
-id: <автор>_<тема>_<dcc>
+id: <автор>_<тема>_<исходник>_<dcc>
 version: 0.0.1
 author: <id из team.md>
 dcc: <blender|max>
+input: <dwg|pdf|model|photo|pointcloud>
 dcc_version: <например 4.2>
 cell: <cell>
 stage: <stage>

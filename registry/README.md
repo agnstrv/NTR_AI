@@ -12,6 +12,7 @@
 | `author` | id из `team.md` |
 | `cell`, `stage` | ячейка и этап из `roadmap/pipeline.json` (`-`, если не привязан) |
 | `dcc` | `max` · `blender` · `any` |
+| `input` | тип исходников: `dwg` · `pdf` · `model` · `photo` · `pointcloud` · `any` |
 | `status` | см. ниже |
 | `where` | где лежит: `main: путь`, `ветка: имя` или «локально у …» |
 | `minutes_before`, `minutes_after` | время этапа на типовом объёме без и с инструментом |
