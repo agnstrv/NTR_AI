@@ -247,6 +247,19 @@ code{font-family:Consolas,"Cascadia Mono",monospace;font-size:.92em;background:v
 .badge.fail{color:var(--bad);border-color:var(--bad);white-space:normal}
 .badge.iss{color:var(--warn);border-color:var(--warn);white-space:normal}
 @media (max-width:760px){ .att{grid-template-columns:1fr} }
+/* copy task for the agent, in work now */
+.cp{font:inherit;font-size:11.5px;font-weight:600;color:var(--accent);background:var(--accent-soft);border:1px solid transparent;border-radius:7px;padding:4px 9px;cursor:pointer;max-width:100%}
+.cp:hover{border-color:var(--accent)} .cp:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cp.ok{color:var(--good);background:var(--good-soft)}
+.cp.sm{font-size:11px;padding:1px 7px;margin-left:4px;white-space:nowrap}
+.st .cp.main{display:block;width:100%;margin-top:10px}
+.att-act .cp{margin-top:6px}
+.now{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:4px 16px;padding:9px 0;border-top:1px solid var(--line);align-items:center;font-size:12.5px}
+.now-who{display:flex;align-items:center;gap:8px;font-weight:700;min-width:0}
+.now-t{min-width:0;overflow-wrap:anywhere}
+.now-s{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;align-items:center}
+.badge.warn{color:var(--muted);border-style:dashed}
+@media (max-width:760px){ .now{grid-template-columns:1fr} .now-s{justify-content:flex-start} }
 </style>
 </head>
 <body>
@@ -263,6 +276,12 @@ code{font-family:Consolas,"Cascadia Mono",monospace;font-size:.92em;background:v
   </section>
   <div id="tip" class="tip"></div>
   <section class="kpis" id="live-kpis"></section>
+
+  <section class="card" style="margin-top:14px">
+    <h3>Сейчас в работе</h3>
+    <div class="muted small">Незакрытые сессии из всех веток GitHub: задача открыта или передана в новый чат.</div>
+    <div id="now" style="margin-top:6px"></div>
+  </section>
 
   <section class="card" style="margin-top:14px">
     <h3>Кому напомнить</h3>
@@ -328,6 +347,8 @@ code{font-family:Consolas,"Cascadia Mono",monospace;font-size:.92em;background:v
 const DATA = /*__DATA__*/null;
 const arr = v => v == null ? [] : (Array.isArray(v) ? v : [v]);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CP = [];   /* prompts for the copy buttons; a button refers to its text by index */
+const cpBtn = (text, label, cls) => text ? `<button type="button" class="cp${cls ? ' ' + cls : ''}" data-cp="${CP.push(text) - 1}" data-l="${esc(label)}" title="Скопировать задачу агенту — вставь в новую сессию Codex в репозитории" aria-label="Скопировать задачу агенту">${esc(label)}</button>` : '';
 const fmt = n => String(Math.round(n * 100) / 100).replace('.', ',');
 const S = DATA.summary, tools = arr(DATA.tools), cells = arr(DATA.cells), people = arr(DATA.people);
 const ST = ['not-in-repo','draft','measured','cross-tested','accepted'];
@@ -348,13 +369,15 @@ const SNAP = DATA.backlog && DATA.backlog.snapshot;
 const SNAP_AGE = SNAP ? Math.floor((NOW - new Date(SNAP + 'T00:00:00')) / 86400000) : null;
 const STALE = SNAP_AGE != null && SNAP_AGE > 3 ? ` <span class="badge stale">устарел · ${SNAP_AGE} дн</span>` : '';
 const dm = d => d && d.length >= 10 ? d.slice(8, 10) + '.' + d.slice(5, 7) : '—';
-(function(){
+const HTTP = /^https?:$/.test(location.protocol);
+function showGen(){
   const g = DATA.generated_utc ? new Date(DATA.generated_utc) : null;
-  const m = g ? Math.max(0, Math.round((NOW - g) / 60000)) : null;
+  const m = g ? Math.max(0, Math.round((new Date() - g) / 60000)) : null;
   const ago = m == null ? '' : m < 60 ? `${m} мин назад` : m < 2880 ? `${Math.round(m / 60)} ч назад` : `${Math.round(m / 1440)} дн назад`;
   const when = g ? g.toLocaleString('ru-RU', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'}) : DATA.generated;
-  document.getElementById('gen').innerHTML = `Обновлено ${esc(when)}${ago ? ` (${ago})` : ''}${m != null && m > 180 ? ' <span class="badge stale">данные не обновлялись больше 3 ч</span>' : ''} · Trello: ${SNAP ? 'снимок от ' + esc(SNAP) + STALE : 'снимка нет'}`;
-})();
+  document.getElementById('gen').innerHTML = `данные от ${esc(when)}${ago ? ` (${ago})` : ''}${m != null && m > 120 ? ` <span class="badge stale">${HTTP ? 'автообновление не сработало' : 'данные не обновлялись больше 2 ч'}</span>` : ''} · Trello: ${SNAP ? 'снимок от ' + esc(SNAP) + STALE : 'снимка нет'}`;
+}
+showGen(); setInterval(showGen, 60000);
 
 /* live: counters, GitHub activity, sessions */
 (function(){
@@ -374,7 +397,7 @@ const dm = d => d && d.length >= 10 ? d.slice(8, 10) + '.' + d.slice(5, 7) : '�
   document.getElementById('attention').innerHTML = att.length ? att.map(a => `<div class="att">
       <div class="att-who"><span class="sdot ${esc(a.level)}" title="${esc(LV[a.level] || '')}"></span>${av(a.user)}<span>${esc(first(a.user))}</span></div>
       <ul>${arr(a.facts).map(f => `<li>${md(f)}</li>`).join('')}</ul>
-      <div class="att-act"><span class="k">что сделать</span>${a.action ? md(a.action) : '<span class="muted">—</span>'}</div></div>`).join('')
+      <div class="att-act"><span class="k">что сделать</span>${a.action ? md(a.action) : '<span class="muted">—</span>'}${a.cross_test && a.action === a.cross_test.text ? '<div>' + cpBtn(a.cross_test.prompt, 'Скопировать задачу агенту') + '</div>' : ''}</div></div>`).join('')
     : '<div class="empty">В team.md нет людей с пометкой «В отчёте = да».</div>';
 
   const link = (path, text) => G.repo ? `<a href="${esc(G.repo)}/${path}" target="_blank" rel="noopener">${text}</a>` : text;
@@ -404,18 +427,28 @@ const dm = d => d && d.length >= 10 ? d.slice(8, 10) + '.' + d.slice(5, 7) : '�
 
   const SS = {open:['в работе','var(--s2)'], handover:['передано','var(--s3)'], done:['готово','var(--s4)'], failed:['не получилось','var(--bad)']};
   const DCC = {blender:'Blender', max:'3ds Max', other:'другое'};
+  const INP = {dwg:'DWG', pdf:'PDF', model:'модель', photo:'фото', pointcloud:'облако точек'};
   const dash = v => v && v !== '-' ? esc(v) : '<span class="muted">—</span>';
+  const has = v => v && v !== '-';
+  const act = arr(DATA.active);
+  document.getElementById('now').innerHTML = !act.length
+    ? '<div class="empty">Открытых задач нет — задача появится здесь после <code>ntr</code> и первой выгрузки</div>'
+    : act.map(s => `<div class="now">
+        <div class="now-who">${av(s.user)}<span>${esc(first(s.user))}</span></div>
+        <div class="now-t"><b>${esc(s.task || s.id || '')}</b><div class="xs muted">${[has(s.cell) ? esc(s.cell) + (has(s.stage) ? ' / ' + esc(s.stage) : '') : '', has(s.input) ? 'исходники: ' + esc(INP[s.input] || s.input) : '', has(s.dcc) ? esc(DCC[s.dcc] || s.dcc) : ''].filter(Boolean).join(' · ')}</div></div>
+        <div class="now-s">${s.status === 'handover' ? '<span class="pill" style="background:var(--s3)">передано в новый чат</span>' : ''}${s.stale ? `<span class="badge warn">нет движения ${s.days} дн</span>` : ''}<span class="xs muted nw num">${s.days == null || s.stale ? '' : s.days === 0 ? 'обновлено сегодня' : 'обновлено ' + s.days + ' дн назад'}</span></div></div>`).join('');
   const mins = s => s.minutes_manual == null && s.minutes_ai == null ? '<span class="muted">—</span>'
     : `<span class="nw num">${s.minutes_manual ?? '?'} → ${s.minutes_ai ?? '?'}${s.minutes_saved != null ? ` <b style="color:${s.minutes_saved > 0 ? 'var(--good)' : 'var(--muted)'}">(${s.minutes_saved > 0 ? '−' : '+'}${Math.abs(s.minutes_saved)})</b>` : ''}</span>
        <div class="xs muted">${s.time_source === 'measured' ? 'замер' : s.time_source === 'estimate' ? 'оценка' : 'источник не указан'}</div>`;
   const note = !real.length && ses.length ? '<div class="xs muted" style="margin-bottom:8px">Настоящих сессий пока нет — ниже только пример записи. В счётчики он не входит.</div>' : '';
   document.getElementById('sessions').innerHTML = !ses.length
     ? '<div class="empty">Сессий пока нет — появятся после первого /ntr.</div>'
-    : note + `<table class="tbl"><thead><tr><th>Дата</th><th>Кто</th><th>Задача</th><th>Ячейка / этап</th><th>DCC</th><th>Статус</th><th>Вручную → с ИИ, мин</th><th>Сценарий</th></tr></thead><tbody>${ses.slice(0, 40).map(s => { const st = SS[s.status];
+    : note + `<table class="tbl"><thead><tr><th>Дата</th><th>Кто</th><th>Задача</th><th>Ячейка / этап</th><th>Исходники</th><th>DCC</th><th>Статус</th><th>Вручную → с ИИ, мин</th><th>Сценарий</th></tr></thead><tbody>${ses.slice(0, 40).map(s => { const st = SS[s.status];
         return `<tr><td class="nw num">${esc(dm(s.date))}</td>
         <td class="nw">${av(s.user)} ${esc(first(s.user))}</td>
         <td>${s.example ? '<span class="badge">пример</span> ' : ''}${esc(s.task || s.id || '')}${s.in_branch ? `<div class="xs muted">ветка ${esc(s.in_branch)}</div>` : ''}</td>
         <td>${dash(s.cell)}${s.stage && s.stage !== '-' ? ' / ' + esc(s.stage) : ''}</td>
+        <td class="nw">${has(s.input) ? esc(INP[s.input] || s.input) : '<span class="muted">—</span>'}</td>
         <td class="nw">${s.dcc && s.dcc !== '-' ? esc(DCC[s.dcc] || s.dcc) : '<span class="muted">—</span>'}</td>
         <td>${st ? `<span class="pill" style="background:${st[1]}">${st[0]}</span>` : dash(s.status)}</td>
         <td>${mins(s)}</td>
@@ -561,7 +594,8 @@ document.getElementById('lead-econ').innerHTML = `Из чего сложилис
       <div class="sbar">${bar}</div>
       <div style="display:flex;justify-content:space-between;align-items:center"><div class="avs">${own.map(av).join('') || '<span class="muted xs">нет ответственного</span>'}</div>
         <span class="xs muted">${arr(s.tools).length} инстр.</span></div>
-      <ul>${its.filter(x => x.status !== 'ready').slice(0,3).map(x => `<li>${esc(x.title)}</li>`).join('')}</ul></div>`;
+      <ul>${its.filter(x => x.status !== 'ready').slice(0,3).map(x => `<li>${esc(x.title)}${cpBtn(x.prompt, 'агенту', 'sm')}</li>`).join('')}</ul>
+      ${cpBtn(s.prompt, 'Скопировать задачу агенту', 'main')}</div>`;
   }).join('');
 })();
 
@@ -657,6 +691,28 @@ lineChart('contract', 'line1'); lineChart('tool', 'line2');
   h += '</div><div class="vlabels">' + keys.map(k => `<div class="xs">${k === 'unassigned' ? '<span class="muted">без исполнителя</span>' : esc(first(k))}</div>`).join('') + '</div>';
   document.getElementById('trello-people').innerHTML = h;
 })();
+
+/* copy the task for the agent: clipboard API, textarea fallback for file:// and non-secure pages */
+document.addEventListener('click', ev => {
+  const b = ev.target.closest && ev.target.closest('.cp'); if (!b) return;
+  const text = CP[+b.dataset.cp];
+  const done = ok => { b.textContent = ok ? 'Скопировано' : 'Не удалось скопировать'; b.classList.toggle('ok', ok);
+    clearTimeout(b._t); b._t = setTimeout(() => { b.textContent = b.dataset.l; b.classList.remove('ok'); }, 1500); };
+  const legacy = () => { const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0'; document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch (e) { }
+    ta.remove(); b.focus(); done(ok); };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done(true), legacy); else legacy();
+});
+
+/* live refresh: only over http(s); the page reloads when a newer data.json appears next to it */
+if (HTTP) setInterval(() => {
+  fetch('data.json?t=' + Date.now(), {cache: 'no-store'}).then(r => r.ok ? r.json() : null).then(d => {
+    const g = d && (d.generated_utc || d.generated); if (!g || g === (DATA.generated_utc || DATA.generated)) return;
+    try { if (sessionStorage.getItem('ntr-reloaded') === g) return; sessionStorage.setItem('ntr-reloaded', g); } catch (e) { }
+    location.reload();
+  }).catch(() => { });
+}, window.NTR_REFRESH_MS || 300000);
 </script>
 </body>
 </html>

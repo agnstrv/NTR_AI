@@ -217,7 +217,7 @@ foreach ($d in @(Get-RepoDocs 'registry/tools' $true) | Sort-Object { [bool]$_.i
   $lt = $myTests | Sort-Object date -Descending | Select-Object -First 1
   $tools += [pscustomobject]@{
     id=$c.id; title=$c.title; purpose=$c.purpose; trello=$c.trello; line=$c.line; author=$c.author
-    cell=$c.cell; stage=$c.stage; dcc=$c.dcc; status=$c.status; where=$c.where
+    cell=$c.cell; stage=$c.stage; input=$c.input; dcc=$c.dcc; status=$c.status; where=$c.where
     minutes_before=$mb; minutes_after=$ma; time_source=$c.time_source
     saving=$saving; counts=$counts; contribution_pct=0.0; note=$c._body
     testers=@($myTests | ForEach-Object { $_.tester } | Sort-Object -Unique); tests=$myTests.Count
@@ -367,7 +367,7 @@ foreach ($d in Get-RepoDocs 'sessions' $false) {
   $mm = Num $s.minutes_manual; $mai = Num $s.minutes_ai
   $both = ($null -ne $mm) -and ($null -ne $mai)
   $sessions += [pscustomobject]@{
-    id=$s.id; user=(Resolve-User $rawUser); date=$date; mode=$s.mode; cell=$s.cell; stage=$s.stage; dcc=$s.dcc
+    id=$s.id; user=(Resolve-User $rawUser); date=$date; mode=$s.mode; cell=$s.cell; stage=$s.stage; input=$s.input; dcc=$s.dcc
     task=$s.task; status=$s.status; scenario=$s.scenario; scenario_version=$s.scenario_version; based_on=$s.based_on
     minutes_manual=$mm; minutes_ai=$mai; time_source=$s.time_source; tool_needed=$s.tool_needed
     handovers=$s.handovers; updated=$s.updated
@@ -379,6 +379,15 @@ foreach ($d in Get-RepoDocs 'sessions' $false) {
 }
 $sessions = @($sessions | Sort-Object date, updated -Descending | Select-Object -First 200)
 $realSessions = @($sessions | Where-Object { -not $_.example })
+# in work right now: open / handed-over sessions from all branches; stale = no movement for more than 3 days
+$active = @()
+foreach ($s in $realSessions | Where-Object { @('open','handover') -contains $_.status }) {
+  $upd = if ($s.updated -match '^\d{4}-\d{2}-\d{2}') { $s.updated.Substring(0, 10) } else { $s.date }
+  $age = Get-DaysSince $upd
+  $active += [pscustomobject]@{ id=$s.id; user=$s.user; task=$s.task; cell=$s.cell; stage=$s.stage; input=$s.input; dcc=$s.dcc
+    status=$s.status; updated=$upd; days=$age; stale=($age -gt 3); in_branch=$s.in_branch }
+}
+$active = @($active | Sort-Object days, user)
 
 # ---- github: all remote branches except main, pull requests, 7-day summary per person -----------
 $branches = @(); $unmapped = @(); $prs = @(); $ghOk = $false
@@ -461,6 +470,39 @@ $live = [ordered]@{
 # ---- attention: per-person reminders (facts + one suggested action), team-level gaps ----------
 $prsWaiting = @($prs | Where-Object { $_.state -eq 'OPEN' -and $_.age_days -gt 7 } | Sort-Object age_days -Descending)
 $untested = @($tools | Where-Object { @('draft','measured') -contains $_.status -and $_.tests -eq 0 })
+
+# ---- prompts for the dashboard buttons "copy the task for the agent" -----------------------------
+# Pasted into a fresh agent session attached to the repo; starts with "ntr" so the entry skill runs.
+$statusRu = @{ 'not-in-repo'='нет в репо'; 'draft'='черновик'; 'measured'='замерен'; 'cross-tested'='проверен коллегой'; 'accepted'='принят' }
+$dccRu = @{ 'blender'='Blender'; 'max'='3ds Max'; 'any'='любая программа' }
+function PName($id) { if ($id -and $team.Contains([string]$id)) { $team[[string]$id] } else { [string]$id } }
+function Get-TaskPrompt($cell, $stage, $stageTitle, $task, $card, $prio) {
+  $stTools = @($tools | Where-Object { $_.cell -eq $cell -and $_.stage -eq $stage })
+  $wait = @($untested | Where-Object { $_.cell -eq $cell -and $_.stage -eq $stage } | Select-Object -First 2 | ForEach-Object { "$($_.title) ($(PName $_.author))" })
+  $timed = @($stTools | Where-Object { $_.time_source -eq 'measured' }).Count + @($realSessions | Where-Object { $_.measured -and $_.cell -eq $cell -and $_.stage -eq $stage }).Count
+  $text = ''
+  foreach ($n in 4, 2, 1) {                                  # fewer tools if the text gets too long
+    $have = @($stTools | Select-Object -First $n | ForEach-Object {
+      $bits = @((PName $_.author), $statusRu[[string]$_.status], $(if ($dccRu.ContainsKey([string]$_.dcc)) { $dccRu[[string]$_.dcc] } else { $_.dcc })) | Where-Object { $_ -and $_ -ne '-' }
+      "$($_.title) — $($bits -join ', ')" })
+    if ($stTools.Count -gt $n) { $have += "и ещё $($stTools.Count - $n)" }
+    $l = @('ntr. Беру приоритетную задачу с дашборда.')
+    $l += "Этап: $cell / $stage$(if ($stageTitle) { " — $stageTitle" })"
+    $l += "Задача: $task (Trello$(if ($card) { ": $card" }), приоритет P$prio)"
+    $l += "Что уже есть по этапу: $(if ($have.Count) { $have -join '; ' } else { 'в реестре ничего нет' })"
+    if ($wait.Count) { $l += "Ждёт проверки коллегой: $($wait -join '; ')" }
+    $l += "Замеров времени по этапу: $(if ($timed) { 'есть' } else { 'нет' })"
+    $l += 'Проведи аудит по скиллу ntr: спроси тип исходников, папку проекта, программу и время вручную, затем предложи — применить готовое, доработать или создать новый сценарий.'
+    $text = $l -join "`n"
+    if ($text.Length -le 900) { break }
+  }
+  return $text
+}
+foreach ($t in $top) {
+  $openItems = @($t.items | Where-Object { $_.status -ne 'ready' })
+  $t | Add-Member prompt (Get-TaskPrompt $t.cell $t.stage $t.title $(if ($t.title) { $t.title } else { "$($t.cell) / $($t.stage)" }) $openItems[0].title $openItems[0].prio)
+  foreach ($it in $openItems) { $it | Add-Member prompt (Get-TaskPrompt $t.cell $t.stage $t.title $it.title $null $it.prio) }
+}
 $suggested = @{}
 $attention = @()
 foreach ($u in $people) {
@@ -500,7 +542,8 @@ foreach ($u in $people) {
     sessions_7d=$ses7; sessions_total=$sesAll
     cards_unmeasured=$noTime.Count; cards_unmeasured_titles=@($noTime | Select-Object -First 2 | ForEach-Object { $_.title })
     prs_waiting=@($myPrs | ForEach-Object { [pscustomobject]@{ number=$_.number; age_days=$_.age_days; draft=$_.draft; title=$_.title } })
-    cross_test= if ($pick) { [pscustomobject]@{ id=$pick.id; title=$pick.title; author=$pick.author; cell=$pick.cell; same_cell=($myCells -contains $pick.cell); text=$crossText } } else { $null }
+    cross_test= if ($pick) { [pscustomobject]@{ id=$pick.id; title=$pick.title; author=$pick.author; cell=$pick.cell; same_cell=($myCells -contains $pick.cell); text=$crossText
+      prompt="ntr. Хочу проверить на своём проекте наработку коллеги: $($pick.title) ($(PName $pick.author)), этап $($pick.cell)/$($pick.stage). Режим apply." } } else { $null }
     facts=$facts; action=$action
   }
 }
@@ -552,6 +595,7 @@ $data = [ordered]@{
   github = $github
   gaps = $gaps
   attention = $attention
+  active = $active
   sessions = $sessions
   focus = $pipeline.focus
   target = $pipeline.target
@@ -601,6 +645,12 @@ L "|---|---|---|---|---|"
 foreach ($p in $products) { L "| $($p.title) | $($p.hours) ч | $($p.after_h) ч | **$($p.saving_pct)%** (−$($p.saved_h) ч) | −$($p.est_h) ч |" }
 L ""
 L "Цель: $($pipeline.target.project_saving_pct)% — $($pipeline.target.why)"
+L ""
+L "## Сейчас в работе"
+if (-not $active.Count) { L 'Открытых задач нет — задача появится здесь после `ntr` и первой выгрузки.' }
+foreach ($a in $active) {
+  L "- **$(Who $a.user)** — $($a.task) ($($a.cell)/$($a.stage)); обновлено $(Dm $a.updated)$(if ($a.status -eq 'handover') { '; передано в новый чат' })$(if ($a.stale) { "; нет движения $($a.days) дн" })"
+}
 L ""
 L "## Кому напомнить"
 L (($gaps | ForEach-Object { "$($_.label): **$($_.value)**" }) -join ' · ')
