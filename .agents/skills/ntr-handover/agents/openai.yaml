@@ -1,0 +1,5 @@
+interface:
+  display_name: "NTR: handover"
+  short_description: "Сохранить состояние задачи на GitHub"
+policy:
+  allow_implicit_invocation: true

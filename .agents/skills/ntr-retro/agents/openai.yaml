@@ -1,0 +1,5 @@
+interface:
+  display_name: "NTR: ретро и выгрузка"
+  short_description: "Время, сценарий с версией, реестр, push, PR"
+policy:
+  allow_implicit_invocation: true

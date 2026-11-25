@@ -1,0 +1,5 @@
+interface:
+  display_name: "NTR: применить готовое"
+  short_description: "Кросс-тест чужого инструмента на своём проекте"
+policy:
+  allow_implicit_invocation: true

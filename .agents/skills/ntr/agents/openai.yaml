@@ -1,0 +1,5 @@
+interface:
+  display_name: "NTR: начать задачу"
+  short_description: "Аудит, готовые сценарии коллег, паспорт, план с приёмкой"
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,85 @@
+# Live dashboard: rebuilds the status site from all branches (+ Trello, if keys are set)
+# and publishes it to the gh-pages branch. Never writes to main or to work branches.
+name: dashboard
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write        # push to gh-pages only
+  pull-requests: read    # gh pr list
+
+concurrency:
+  group: dashboard-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: powershell
+    env:
+      GH_TOKEN: ${{ github.token }}
+      DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # all branches: sessions and cards are read from origin/*
+
+      # One generator version for every trigger: use the default branch as soon as it has the
+      # live-dashboard scripts; until then build with the branch that triggered the run.
+      - name: Use generator from the default branch
+        run: |
+          $def = $env:DEFAULT_BRANCH
+          if (-not $def) { $def = 'main' }
+          git cat-file -e "origin/${def}:scripts/ntr-trello-pull.ps1"
+          if ($LASTEXITCODE -eq 0) {
+            git checkout --detach "origin/$def"
+            if ($LASTEXITCODE -ne 0) { throw 'checkout failed' }
+          } else {
+            Write-Output "live-dashboard scripts are not in $def yet - building with $env:GITHUB_REF_NAME"
+            $global:LASTEXITCODE = 0
+          }
+
+      - name: Pull Trello board (skipped without secrets)
+        continue-on-error: true
+        env:
+          TRELLO_KEY: ${{ secrets.TRELLO_KEY }}
+          TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
+        run: .\scripts\ntr-trello-pull.ps1
+
+      - name: Build site
+        run: |
+          $site = Join-Path $env:RUNNER_TEMP 'site'
+          .\scripts\ntr-status.ps1 -OutDir $site
+          Move-Item (Join-Path $site 'dashboard.html') (Join-Path $site 'index.html') -Force
+          Get-ChildItem $site | ForEach-Object { "$($_.Name)  $($_.Length)" }
+
+      - name: Publish to gh-pages
+        run: |
+          $site = Join-Path $env:RUNNER_TEMP 'site'
+          $pub = Join-Path $env:RUNNER_TEMP 'pub'
+          git rev-parse --verify --quiet refs/remotes/origin/gh-pages | Out-Null
+          if ($LASTEXITCODE -eq 0) {
+            git worktree add --detach $pub origin/gh-pages
+          } else {
+            git worktree add --detach $pub
+            if ($LASTEXITCODE -eq 0) { git -C $pub checkout --orphan gh-pages }
+          }
+          if ($LASTEXITCODE -ne 0) { throw 'cannot prepare the gh-pages worktree' }
+          # the branch holds only the generated site
+          Get-ChildItem $pub -Force | Where-Object { $_.Name -ne '.git' } | Remove-Item -Recurse -Force
+          Copy-Item (Join-Path $site '*') $pub -Recurse -Force
+          New-Item (Join-Path $pub '.nojekyll') -ItemType File -Force | Out-Null
+          git -C $pub add -A
+          git -C $pub -c "user.name=github-actions[bot]" -c "user.email=github-actions[bot]@users.noreply.github.com" commit -m "dashboard: $((Get-Date).ToUniversalTime().ToString('yyyy-MM-dd HH:mm')) UTC"
+          if ($LASTEXITCODE -ne 0) { throw 'commit failed' }
+          git -C $pub push origin HEAD:refs/heads/gh-pages
+          if ($LASTEXITCODE -ne 0) { throw 'push to gh-pages failed' }

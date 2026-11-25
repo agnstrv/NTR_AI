@@ -1,0 +1,5 @@
+interface:
+  display_name: "NTR: обсуждение"
+  short_description: "Идеи и решения → заметка"
+policy:
+  allow_implicit_invocation: true

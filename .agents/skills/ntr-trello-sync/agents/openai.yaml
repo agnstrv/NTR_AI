@@ -1,0 +1,5 @@
+interface:
+  display_name: "NTR: синхронизация Trello"
+  short_description: "Trello как зеркало реестра и roadmap"
+policy:
+  allow_implicit_invocation: false

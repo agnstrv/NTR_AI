@@ -29,3 +29,6 @@ client-data/
 local-data/
 tmp/
 # Already tracked files are unaffected
+
+# NTR v2: local identity of this PC (not shared)
+.ntr-user

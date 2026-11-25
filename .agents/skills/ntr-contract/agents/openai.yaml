@@ -1,0 +1,5 @@
+interface:
+  display_name: "NTR: контракт для агента"
+  short_description: "Задача только для нейросети → contract.md"
+policy:
+  allow_implicit_invocation: true
