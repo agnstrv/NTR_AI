@@ -229,6 +229,24 @@ footer{margin-top:32px;font-size:12px;color:var(--muted)}
 .pc .pn{display:flex;gap:12px;font-size:12px;color:var(--ink-2)} .pc .pn b{font-size:17px;display:block;color:var(--ink)}
 .empty{color:var(--muted);padding:18px 0}
 @media (max-width:760px){ .tbl{min-width:620px} }
+/* who to remind, team gaps, failed applications */
+:root{--bad:#c2410c}
+:root[data-theme="dark"]{--bad:#e8745a;--warn:#e0a13c}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--bad:#e8745a;--warn:#e0a13c} }
+code{font-family:Consolas,"Cascadia Mono",monospace;font-size:.92em;background:var(--panel-2);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+.gaps{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+.gap{border:1px solid var(--line);background:var(--panel-2);border-radius:10px;padding:7px 12px;font-size:12.5px;color:var(--muted);min-width:0}
+.gap b{display:block;color:var(--ink);font-size:14px}
+.att{display:grid;grid-template-columns:180px minmax(0,1fr) minmax(0,300px);gap:6px 20px;padding:12px 0;border-top:1px solid var(--line);align-items:start}
+.att-who{display:flex;align-items:center;gap:8px;font-weight:700;min-width:0}
+.sdot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--s0)}
+.sdot.red{background:var(--bad)} .sdot.amber{background:var(--warn)} .sdot.green{background:var(--good)}
+.att ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink-2);overflow-wrap:anywhere} .att li{margin:1px 0}
+.att-act{font-size:12.5px;overflow-wrap:anywhere}
+.att-act .k{display:block;font-size:11.5px;color:var(--muted)}
+.badge.fail{color:var(--bad);border-color:var(--bad);white-space:normal}
+.badge.iss{color:var(--warn);border-color:var(--warn);white-space:normal}
+@media (max-width:760px){ .att{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -245,6 +263,13 @@ footer{margin-top:32px;font-size:12px;color:var(--muted)}
   </section>
   <div id="tip" class="tip"></div>
   <section class="kpis" id="live-kpis"></section>
+
+  <section class="card" style="margin-top:14px">
+    <h3>Кому напомнить</h3>
+    <div class="muted small">Факты из GitHub и реестра на момент сборки и одно предложение на человека. Точка — давность последней выгрузки: зелёная — меньше 7 дней, жёлтая — 7–13, красная — 14 и больше или выгрузок не было.</div>
+    <div class="gaps" id="gaps"></div>
+    <div id="attention"></div>
+  </section>
 
   <h2>Активность команды (GitHub, живые данные)</h2>
   <p class="lead" id="lead-gh"></p>
@@ -342,10 +367,20 @@ const dm = d => d && d.length >= 10 ? d.slice(8, 10) + '.' + d.slice(5, 7) : '�
     [L.measurements ?? 0, 'замеров времени «вручную → с ИИ»'],
   ].map(([v,k]) => `<div class="card kpi"><div class="v num">${esc(v)}</div><div class="k">${esc(k)}</div></div>`).join('');
 
+  const md = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>');
+  document.getElementById('gaps').innerHTML = arr(DATA.gaps).map(g => `<div class="gap">${esc(g.label)}<b class="num">${esc(g.value)}</b></div>`).join('');
+  const LV = {red:'выгрузок нет 14 дней и больше', amber:'последняя выгрузка 7–13 дней назад', green:'выгрузка меньше 7 дней назад', none:'нет данных git'};
+  const att = arr(DATA.attention);
+  document.getElementById('attention').innerHTML = att.length ? att.map(a => `<div class="att">
+      <div class="att-who"><span class="sdot ${esc(a.level)}" title="${esc(LV[a.level] || '')}"></span>${av(a.user)}<span>${esc(first(a.user))}</span></div>
+      <ul>${arr(a.facts).map(f => `<li>${md(f)}</li>`).join('')}</ul>
+      <div class="att-act"><span class="k">что сделать</span>${a.action ? md(a.action) : '<span class="muted">—</span>'}</div></div>`).join('')
+    : '<div class="empty">В team.md нет людей с пометкой «В отчёте = да».</div>';
+
   const link = (path, text) => G.repo ? `<a href="${esc(G.repo)}/${path}" target="_blank" rel="noopener">${text}</a>` : text;
-  const br = arr(G.branches), ppl = arr(G.people_7d);
+  const brAll = arr(G.branches), br = brAll.filter(b => b.ahead > 0), ppl = arr(G.people_7d), unm = arr(G.unmapped_branches);
   document.getElementById('lead-gh').innerHTML = git
-    ? `Считается прямо из веток <code>work/&lt;кто&gt;/…</code> на GitHub — ждать вливания в main не нужно. Выгрузка = коммит в рабочей ветке, которого ещё нет в main. Веток: <b>${br.length}</b>.${G.gh ? '' : ' <span class="badge stale">PR не загружены: gh недоступен</span>'}`
+    ? `Считается прямо из всех веток на GitHub, кроме main, — ждать вливания не нужно. Чья ветка — по <code>work/&lt;кто&gt;/…</code> или по списку в <code>team.aliases.json</code>. Выгрузка = коммит в ветке, которого ещё нет в main. Веток с выгрузками: <b>${br.length}</b>${brAll.length > br.length ? `, без новых коммитов: ${brAll.length - br.length}` : ''}.${G.gh ? '' : ' <span class="badge stale">PR не загружены: gh недоступен</span>'}`
     : 'Сборка запущена без доступа к git (<code>-NoGit</code>) — данных о ветках и выгрузках нет.';
   document.getElementById('gh-people').innerHTML = ppl.map(p => {
     const idle = !p.sessions && !p.uploads && !p.prs;
@@ -358,15 +393,16 @@ const dm = d => d && d.length >= 10 ? d.slice(8, 10) + '.' + d.slice(5, 7) : '�
     const st = p.state === 'OPEN' ? (p.draft ? ['черновик','var(--s1)'] : ['открыт','var(--s2)']) : p.state === 'MERGED' ? ['влит','var(--s4)'] : ['закрыт','var(--s0)'];
     return `${link('pull/' + p.number, '#' + p.number)} <span class="pill" style="background:${st[1]}" title="${esc(p.title)}">${st[0]}</span>`; };
   document.getElementById('gh-branches').innerHTML = !git ? '' : !br.length
-    ? '<div class="empty">Рабочих веток work/&lt;кто&gt;/… на GitHub пока нет.</div>'
+    ? '<div class="empty">Веток с выгрузками на GitHub пока нет.</div>'
     : `<table class="tbl"><thead><tr><th>Кто</th><th>Тема (ветка)</th><th>Последняя выгрузка</th><th>Коммитов 7 / 14 дн</th><th>Не влито в main</th><th>PR</th></tr></thead><tbody>${br.map(b => `<tr>
         <td class="nw">${av(b.user)} ${esc(first(b.user))}</td>
         <td>${link('tree/' + b.branch.split('/').map(encodeURIComponent).join('/'), esc(b.topic))}</td>
         <td><span class="nw num">${esc(dm(b.last_date))}</span> <span class="muted">${esc(b.subject)}</span></td>
         <td class="num nw">${b.commits_7d ? `<b>${b.commits_7d}</b>` : '0'} / ${b.commits_14d}</td>
         <td class="num">${b.ahead}</td><td class="nw">${prCell(b)}</td></tr>`).join('')}</tbody></table>`;
+  if (git && unm.length) document.getElementById('gh-branches').innerHTML += `<div class="xs muted" style="margin-top:10px">Ветки, которые ${esc(G.unmapped_label || 'не распознаны')} (не привязаны к человеку в <code>team.aliases.json</code>): ${unm.map(u => `<code>${esc(u.branch)}</code>${u.ahead ? ` · не влито: ${u.ahead}` : ''}`).join(', ')}</div>`;
 
-  const SS = {open:['в работе','var(--s2)'], handover:['передано','var(--s3)'], done:['готово','var(--s4)'], failed:['не получилось','var(--warn)']};
+  const SS = {open:['в работе','var(--s2)'], handover:['передано','var(--s3)'], done:['готово','var(--s4)'], failed:['не получилось','var(--bad)']};
   const DCC = {blender:'Blender', max:'3ds Max', other:'другое'};
   const dash = v => v && v !== '-' ? esc(v) : '<span class="muted">—</span>';
   const mins = s => s.minutes_manual == null && s.minutes_ai == null ? '<span class="muted">—</span>'
@@ -558,12 +594,18 @@ document.getElementById('lead-econ').innerHTML = `Из чего сложилис
 })();
 
 /* 5. kanban */
+function testBadge(t) {
+  const lt = t.last_test; if (!lt || (lt.result !== 'fail' && lt.result !== 'issues')) return '';
+  const who = `${esc(first(lt.tester))}, ${esc(dm(lt.date))}`, tip = lt.reason ? ` title="${esc(lt.reason)}"` : '';
+  return `<div style="margin-top:5px"><span class="badge ${lt.result === 'fail' ? 'fail' : 'iss'}"${tip}>${lt.result === 'fail' ? 'не подошёл' : 'с замечаниями'}: ${who}</span>${lt.reason ? `<div class="xs muted" style="margin-top:3px">${esc(lt.reason)}</div>` : ''}</div>`;
+}
 document.getElementById('kanban').innerHTML = ST.map(s => {
   const list = tools.filter(t => t.status === s);
   return `<div class="kcol"><div class="kh"><span><i class="dot" style="background:${STC[s]}"></i>${STN[s]}</span><span class="num muted">${list.length}</span></div>` +
     (list.map(t => `<div class="kcard l-${esc(t.line)}"><div class="n">${esc(t.title)}</div><div class="p">${esc(t.purpose || '')}</div>
       <div class="f">${av(t.author)}<span>${esc(first(t.author))}</span><span style="margin-left:auto">${esc(t.stage && t.stage !== '-' ? t.stage : '')}</span></div>
       ${t.in_branch ? `<div class="xs muted" style="margin-top:5px">пока только в ветке ${esc(t.in_branch)}</div>` : ''}
+      ${testBadge(t)}
       ${arr(t.testers).length ? `<div class="f" style="margin-top:5px">проверили: ${arr(t.testers).map(av).join('')}</div>` : ''}</div>`).join('') || '<div class="muted xs">пусто</div>') + '</div>';
 }).join('');
 

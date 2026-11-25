@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NTR_AI: работа с Codex</title>
+<style>
+:root{
+  --bg:#121211; --panel:#1b1b19; --panel-2:#211f1d; --ink:#efeee9; --ink-2:#cbc9c1; --muted:#9b998f; --line:#2e2d2a;
+  --accent:#7ea4f3; --accent-soft:#1e2a42; --good:#4cc08a; --good-soft:#163427; --track:#2a2926;
+  --warn:#d4932a; --warn-soft:#33260f; --line1:#a988e6; --line1-soft:#2a2238;
+  --edge:#4a4843;
+  --sans:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+  --mono:Consolas,"Cascadia Mono","SF Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans)}
+body{overflow:hidden}
+.stage{position:fixed;inset:0;background:#0b0b0a;cursor:pointer}
+.slide{position:absolute;left:0;top:0;width:1920px;height:1080px;background:var(--bg);overflow:hidden;
+  transform-origin:0 0;display:none;font-size:24px;line-height:1.3}
+.slide.on{display:block}
+.slide>svg.wires{position:absolute;left:0;top:0;width:1920px;height:1080px;pointer-events:none}
+.kick{position:absolute;left:80px;top:48px;font-size:21px;color:var(--muted);letter-spacing:.04em}
+.pn{position:absolute;right:80px;top:48px;font-size:21px;color:var(--muted)}
+h1{position:absolute;left:80px;top:80px;margin:0;font-size:54px;line-height:1.1;font-weight:650;letter-spacing:-.01em}
+h1 .sub{color:var(--muted);font-weight:400}
+code,.mono{font-family:var(--mono)}
+code{color:var(--accent);background:var(--accent-soft);padding:1px 9px 3px;border-radius:7px;font-size:.94em;white-space:nowrap}
+.b{position:absolute;background:var(--panel);border:2px solid var(--edge);border-radius:16px;padding:22px 26px;
+  display:flex;flex-direction:column;justify-content:center}
+.b.top{justify-content:flex-start}
+.b h3{margin:0 0 12px;font-size:30px;line-height:1.15;font-weight:650}
+.b p{margin:0;color:var(--ink-2)}
+.b p+p{margin-top:10px}
+.b.acc{border-color:var(--accent);background:var(--accent-soft)}
+.b.acc code{background:var(--bg)}
+.b.good{border-color:var(--good);background:var(--good-soft)}
+.b.good code{background:var(--bg)}
+.b.warn{border-color:var(--warn);background:var(--warn-soft)}
+.num{font-size:21px;color:var(--muted);margin-bottom:8px;letter-spacing:.04em}
+.b.acc .num,.b.good .num{color:var(--ink-2)}
+ul{margin:0;padding:0;list-style:none}
+ul li{position:relative;padding-left:26px;color:var(--ink-2);margin:5px 0}
+ul li:before{content:"";position:absolute;left:4px;top:.55em;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.quote{border-left:4px solid var(--accent);padding:4px 0 4px 18px;color:var(--ink)!important;font-style:italic}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:2px solid var(--edge);background:var(--panel-2);border-radius:999px;padding:5px 16px 7px;font-size:22px;color:var(--ink)}
+.chip.a{border-color:var(--accent);color:var(--accent)}
+.chip.w{border-color:var(--warn);color:var(--warn)}
+.strip{position:absolute;background:var(--panel-2);border:2px solid var(--line);border-radius:16px;padding:0 30px;
+  display:flex;align-items:center;gap:26px}
+.strip.w{border-color:var(--warn);background:var(--warn-soft)}
+.strip b{font-weight:650}
+.dim{color:var(--muted)!important}
+.panel{position:absolute;border:2px dashed var(--edge);border-radius:20px;padding:22px 26px;background:#161615}
+.panel.w{border-color:var(--warn)}
+.panel.v{border-color:var(--line1)}
+.panel h4{margin:0;font-size:27px;line-height:1.2;font-weight:650}
+.panel .cap{color:var(--muted);font-size:21px;margin-top:6px}
+.tag{display:inline-block;font-size:21px;font-weight:700;border-radius:8px;padding:0 10px 2px;margin-right:10px}
+.tag.w{background:var(--warn);color:#1a1205}
+.tag.v{background:var(--line1);color:#150d24}
+.col{display:flex;flex-direction:column;align-items:stretch}
+.row{display:flex;align-items:stretch}
+.mini{background:var(--panel);border:2px solid var(--edge);border-radius:14px;padding:12px 18px;font-size:22px;color:var(--ink)}
+.mini .s{display:block;color:var(--muted);font-size:20px;margin-top:2px}
+.mini h5{margin:0 0 12px;font-size:25px;line-height:1.2;font-weight:650}
+.mini p{margin:0;color:var(--ink-2)}
+svg.dn{display:block;margin:3px auto;flex:none}
+svg.rt{flex:none;align-self:center;margin:0 6px}
+svg.dn path,svg.rt path{stroke:var(--ink-2);stroke-width:2.5;fill:none}
+svg.dn path.h,svg.rt path.h{fill:var(--ink-2);stroke:none}
+.wires path{fill:none;stroke:var(--ink-2);stroke-width:3}
+.wires path.w{stroke:var(--warn);stroke-dasharray:9 7}
+.wires path.v{stroke:var(--line1);stroke-dasharray:9 7}
+.wires path.g{stroke:var(--good)}
+.wires text{font-family:var(--sans);font-size:21px;fill:var(--ink-2)}
+.wires text.w{fill:var(--warn)}
+.wires text.v{fill:var(--line1)}
+.wires text.g{fill:var(--good)}
+.big{font-size:30px;font-weight:650;color:var(--ink)}
+.cmd{font-family:var(--mono);font-size:27px;color:var(--accent);background:var(--accent-soft);border:2px solid var(--accent);
+  border-radius:12px;padding:8px 20px 10px;white-space:nowrap}
+.hint{position:fixed;right:14px;bottom:10px;font:13px var(--sans);color:#6d6b63;pointer-events:none}
+@page{size:1920px 1080px;margin:0}
+@media print{
+  html,body{width:1920px;background:var(--bg);overflow:visible}
+  .stage{position:static;background:none}
+  .slide{position:relative;display:block!important;transform:none!important;break-after:page;page-break-after:always;break-inside:avoid}
+  .slide:last-child{break-after:auto;page-break-after:auto}
+  .hint{display:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+<!-- ================= 1 ================= -->
+<section class="slide on">
+  <div class="kick">NTR_AI · работа с Codex</div><div class="pn">1 / 4</div>
+  <h1>Старт: <code>ntr</code></h1>
+
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <defs><marker id="a1" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L12 6L0 12z" style="fill:#cbc9c1;stroke:none"/></marker></defs>
+    <path d="M620 360H686" marker-end="url(#a1)"/>
+    <path d="M1230 360H1296" marker-end="url(#a1)"/>
+    <path d="M1570 505V545H350V581" marker-end="url(#a1)"/>
+    <path d="M620 730H686" marker-end="url(#a1)"/>
+    <path d="M1230 730H1296" marker-end="url(#a1)"/>
+  </svg>
+
+  <div class="b top" style="left:80px;top:215px;width:540px;height:290px">
+    <div class="num">ШАГ 1</div>
+    <h3>Новый чат</h3>
+    <p>Пишешь <code>ntr</code> — или просто свою задачу обычными словами.</p>
+    <p class="dim">Одна задача — один чат.</p>
+  </div>
+  <div class="b top" style="left:690px;top:215px;width:540px;height:290px">
+    <div class="num">ШАГ 2</div>
+    <h3>Аудит: 4 вопроса</h3>
+    <ul>
+      <li>чем занимаемся</li>
+      <li>где папка проекта</li>
+      <li>Blender или Max</li>
+      <li>сколько это занимает вручную</li>
+    </ul>
+  </div>
+  <div class="b top" style="left:1300px;top:215px;width:540px;height:290px">
+    <div class="num">ШАГ 3</div>
+    <h3>Агент сам ищет сценарии коллег</h3>
+    <p class="quote">«Нашёл два сценария от Ромы и один от Артёма. Тестируем готовый или идём новым путём?»</p>
+  </div>
+
+  <div class="b top" style="left:80px;top:585px;width:540px;height:290px">
+    <div class="num">ШАГ 4</div>
+    <h3>Твой выбор</h3>
+    <div class="chips" style="margin-bottom:14px">
+      <span class="chip a">применить</span><span class="chip a">доработать</span><span class="chip a">новый путь</span>
+    </div>
+    <p>Способ: <b>сценарий</b> или <b>тулза</b> — агент предлагает и объясняет почему.</p>
+  </div>
+  <div class="b top acc" style="left:690px;top:585px;width:540px;height:290px">
+    <div class="num">ШАГ 5</div>
+    <h3>Паспорт задачи</h3>
+    <ul>
+      <li>название и этапы</li>
+      <li>способ</li>
+      <li>время вручную</li>
+      <li>приёмка: по чему проверяем</li>
+    </ul>
+  </div>
+  <div class="b top good" style="left:1300px;top:585px;width:540px;height:290px">
+    <div class="num">ШАГ 6</div>
+    <h3>Твоё «да»</h3>
+    <p>Или правки к паспорту.</p>
+    <p>Пока паспорт не подтверждён, агент к работе не приступает.</p>
+  </div>
+
+  <div class="strip" style="left:80px;top:915px;width:1760px;height:100px">
+    <span class="dim">В папке проекта агент создаёт</span>
+    <span><code>AI/input</code> копии исходников</span>
+    <span><code>AI/output</code> черновики</span>
+    <span><code>AI/finish</code> то, что ты принял</span>
+    <span class="dim">Сами исходники не трогает.</span>
+  </div>
+</section>
+
+<!-- ================= 2 ================= -->
+<section class="slide">
+  <div class="kick">NTR_AI · работа с Codex</div><div class="pn">2 / 4</div>
+  <h1>Работа: шаг → приёмка</h1>
+
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <defs>
+      <marker id="a2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L12 6L0 12z" style="fill:#cbc9c1;stroke:none"/></marker>
+      <marker id="a2g" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L12 6L0 12z" style="fill:#4cc08a;stroke:none"/></marker>
+      <marker id="a2w" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L12 6L0 12z" style="fill:#d4932a;stroke:none"/></marker>
+      <marker id="a2v" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L12 6L0 12z" style="fill:#a988e6;stroke:none"/></marker>
+    </defs>
+    <path d="M460 320H536" marker-end="url(#a2)"/>
+    <path d="M920 320H996" marker-end="url(#a2)"/>
+    <path class="g" d="M1380 320H1456" marker-end="url(#a2g)"/>
+    <path class="g" d="M1650 250V212H270V246" marker-end="url(#a2g)"/>
+    <text class="g" x="960" y="200" text-anchor="middle">следующий шаг</text>
+    <path d="M1100 390V430H730V394" marker-end="url(#a2)"/>
+    <text x="915" y="462" text-anchor="middle">правки → агент переделывает</text>
+    <path class="w" d="M1280 390V496" marker-end="url(#a2w)"/>
+    <path class="v" d="M1650 390V496" marker-end="url(#a2v)"/>
+  </svg>
+
+  <div class="b" style="left:80px;top:250px;width:380px;height:140px"><h3 style="margin:0">Шаг плана</h3><p class="dim" style="font-size:21px;margin-top:6px">в плане 3–7 шагов</p></div>
+  <div class="b" style="left:540px;top:250px;width:380px;height:140px"><h3 style="margin:0">Агент показывает результат</h3></div>
+  <div class="b acc" style="left:1000px;top:250px;width:380px;height:140px"><h3 style="margin:0">Ты проверяешь в Blender / Max</h3></div>
+  <div class="b good" style="left:1460px;top:250px;width:380px;height:140px"><h3 style="margin:0">«Принято»</h3><p style="margin-top:6px">результат → <code>AI/finish</code></p></div>
+
+  <div class="panel w" style="left:80px;top:500px;width:1250px;height:465px">
+    <h4>Сценарий или тулза не подошли</h4>
+    <div class="cap">два возврата по одному шагу · ошибка · не те исходники</div>
+    <div class="row" style="margin-top:20px;height:300px">
+      <div class="mini" style="flex:1">
+        <h5>Агент останавливается и говорит причину</h5>
+        <div class="chips">
+          <span class="chip w">исходники</span><span class="chip w">сценарий</span><span class="chip w">тулза</span><span class="chip w">программа</span><span class="chip w">модель</span>
+        </div>
+      </div>
+      <svg class="rt" width="44" height="20"><path d="M0 10H34"/><path class="h" d="M30 3l12 7-12 7z"/></svg>
+      <div class="mini" style="flex:1">
+        <h5>Запись «не подошёл» автору</h5>
+        <p>Отчёт в общем реестре: причина и на каком шаге.</p>
+        <p style="margin-top:10px">Файл автора остаётся как есть.</p>
+      </div>
+      <svg class="rt" width="44" height="20"><path d="M0 10H34"/><path class="h" d="M30 3l12 7-12 7z"/></svg>
+      <div class="mini" style="flex:1.12">
+        <h5>Ты выбираешь</h5>
+        <ul>
+          <li>доработать под своим именем (<span class="mono">based_on</span>)</li>
+          <li>свой сценарий</li>
+          <li>сделать шаг вручную</li>
+          <li>остановить задачу</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel v" style="left:1400px;top:500px;width:440px;height:465px">
+    <h4>Контекст заполнен на <span style="white-space:nowrap">40–50%</span></h4>
+    <div class="col" style="margin-top:16px">
+      <div class="mini"><span class="mono" style="color:var(--accent)">ntr-handover</span><span class="s">состояние уходит на GitHub</span></div>
+      <svg class="dn" width="20" height="24"><path d="M10 0V16"/><path class="h" d="M3 13l7 10 7-10z"/></svg>
+      <div class="mini">новый чат</div>
+      <svg class="dn" width="20" height="24"><path d="M10 0V16"/><path class="h" d="M3 13l7 10 7-10z"/></svg>
+      <div class="mini"><span class="mono" style="color:var(--accent)">ntr-takeover</span></div>
+      <svg class="dn" width="20" height="24"><path d="M10 0V16"/><path class="h" d="M3 13l7 10 7-10z"/></svg>
+      <div class="mini" style="border-color:var(--good)">продолжаем с того же шага</div>
+    </div>
+  </div>
+
+  <div class="strip w" style="left:80px;top:985px;width:1760px;height:62px">
+    <span><b>«Не подошёл» — это тоже результат, он записывается.</b> <span class="dim">&nbsp;Коллега не пойдёт тем же путём.</span></span>
+  </div>
+</section>
+
+<!-- ================= 3 ================= -->
+<section class="slide">
+  <div class="kick">NTR_AI · работа с Codex</div><div class="pn">3 / 4</div>
+  <h1>Финиш: <code>ntr-retro</code> <span class="sub">— или просто «сдаю»</span></h1>
+
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <defs><marker id="a3" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L12 6L0 12z" style="fill:#cbc9c1;stroke:none"/></marker></defs>
+    <path d="M280 410H321" marker-end="url(#a3)"/>
+    <path d="M670 410H711" marker-end="url(#a3)"/>
+    <path d="M1060 410H1101" marker-end="url(#a3)"/>
+    <path d="M1450 410H1491" marker-end="url(#a3)"/>
+  </svg>
+
+  <div class="b acc" style="left:80px;top:330px;width:200px;height:160px;align-items:center;text-align:center;padding:10px">
+    <div class="big">«сдаю»</div>
+  </div>
+  <div class="b top" style="left:325px;top:225px;width:345px;height:370px">
+    <div class="num">1 · ОПРОС</div>
+    <h3>Три вопроса</h3>
+    <ul>
+      <li>что получилось и что нет</li>
+      <li>сколько ушло с нейронкой</li>
+      <li>делать ли из этого тулзу</li>
+    </ul>
+  </div>
+  <div class="b top" style="left:715px;top:225px;width:345px;height:370px">
+    <div class="num">2 · СЦЕНАРИЙ</div>
+    <h3>Сценарий с версией</h3>
+    <p class="mono" style="color:var(--accent);font-size:21px;margin-bottom:12px">roma_maf_blender_v0.0.2</p>
+    <p>Автор · тема · программа · версия. Прошлая версия остаётся.</p>
+  </div>
+  <div class="b top" style="left:1105px;top:225px;width:345px;height:370px">
+    <div class="num">3 · ВЫГРУЗКА</div>
+    <h3>Своя ветка + PR</h3>
+    <p>Агент сам отправляет твою ветку на GitHub и открывает PR.</p>
+    <p class="dim">Только текст и скрипты: модели и текстуры остаются на ПК.</p>
+  </div>
+  <div class="b top good" style="left:1495px;top:225px;width:345px;height:370px">
+    <div class="num">4 · ИТОГ</div>
+    <h3>Дашборд обновился</h3>
+    <p>Сам, после выгрузки.</p>
+    <p>Агент даёт 2–3 строки для чата команды: что появилось и где лежит.</p>
+  </div>
+
+  <div class="panel" style="left:80px;top:655px;width:980px;height:360px;padding:0">
+    <svg viewBox="0 0 980 360" width="976" height="356" style="display:block">
+      <defs>
+        <marker id="a3b" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L12 6L0 12z" fill="#7ea4f3"/></marker>
+      </defs>
+      <text x="60" y="78" font-size="24" fill="#efeee9" font-family="Segoe UI,system-ui,sans-serif"><tspan font-family="Consolas,monospace" fill="#4cc08a">main</tspan> — общая проверенная версия</text>
+      <path d="M60 120H920" stroke="#4cc08a" stroke-width="5" fill="none"/>
+      <circle cx="110" cy="120" r="10" fill="#4cc08a"/><circle cx="210" cy="120" r="10" fill="#4cc08a"/><circle cx="800" cy="120" r="12" fill="#121211" stroke="#4cc08a" stroke-width="5"/>
+      <path d="M210 120C290 120 250 240 330 240H620" stroke="#7ea4f3" stroke-width="5" fill="none"/>
+      <path d="M620 240C720 240 690 126 782 121" stroke="#7ea4f3" stroke-width="4" stroke-dasharray="10 8" fill="none" marker-end="url(#a3b)"/>
+      <circle cx="380" cy="240" r="10" fill="#7ea4f3"/><circle cx="500" cy="240" r="10" fill="#7ea4f3"/><circle cx="620" cy="240" r="10" fill="#7ea4f3"/>
+      <text x="330" y="292" font-size="24" fill="#efeee9" font-family="Segoe UI,system-ui,sans-serif"><tspan font-family="Consolas,monospace" fill="#7ea4f3">work/твой id/тема</tspan> — твоя ветка</text>
+      <text x="726" y="212" font-size="24" fill="#7ea4f3" font-family="Segoe UI,system-ui,sans-serif">PR — заявка</text>
+      <text x="800" y="78" font-size="22" fill="#cbc9c1" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif">вливает Артём Сафро</text>
+    </svg>
+  </div>
+
+  <div class="b" style="left:1110px;top:655px;width:730px;height:106px"><p style="color:var(--ink)">В <code>main</code> вливает только <b>Артём Сафро</b>.</p></div>
+  <div class="b" style="left:1110px;top:782px;width:730px;height:106px"><p style="color:var(--ink)">Сломать общее из своей ветки нельзя.</p></div>
+  <div class="b warn" style="left:1110px;top:909px;width:730px;height:106px"><p style="color:var(--ink)"><b>Неудача сдаётся так же, как успех.</b></p></div>
+</section>
+
+<!-- ================= 4 ================= -->
+<section class="slide">
+  <div class="kick">NTR_AI · работа с Codex</div><div class="pn">4 / 4</div>
+  <h1>Что нужно от тебя — и что видно на дашборде</h1>
+
+  <svg class="wires" viewBox="0 0 1920 1080">
+    <defs><marker id="a4" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L12 6L0 12z" style="fill:#cbc9c1;stroke:none"/></marker></defs>
+    <path d="M860 352H1056" marker-end="url(#a4)"/>
+    <path d="M860 522H1056" marker-end="url(#a4)"/>
+    <path d="M860 692H1056" marker-end="url(#a4)"/>
+  </svg>
+
+  <div style="position:absolute;left:80px;top:205px;font-size:26px;color:var(--muted);letter-spacing:.04em">ОТ ТЕБЯ — ТРИ ВЕЩИ</div>
+  <div style="position:absolute;left:1060px;top:205px;font-size:26px;color:var(--muted);letter-spacing:.04em">НА ДАШБОРДЕ ПОЯВЛЯЕТСЯ</div>
+
+  <div class="b acc" style="left:80px;top:280px;width:780px;height:144px">
+    <h3 style="margin-bottom:6px">Два числа времени</h3>
+    <p>на старте — сколько вручную · в конце — сколько с нейронкой</p>
+  </div>
+  <div class="b acc" style="left:80px;top:450px;width:780px;height:144px">
+    <h3 style="margin-bottom:6px">«Принято» на каждом шаге</h3>
+    <p>проверил в Blender или Max — ответил «принято» или что поправить</p>
+  </div>
+  <div class="b acc" style="left:80px;top:620px;width:780px;height:144px">
+    <h3 style="margin-bottom:6px">«Сдаю» в конце</h3>
+    <p>даже если не получилось</p>
+  </div>
+
+  <div class="b" style="left:1060px;top:280px;width:780px;height:144px">
+    <h3 style="margin-bottom:6px">Замеры</h3>
+    <p>было вручную → стало с нейронкой. Без двух чисел экономия остаётся нулевой.</p>
+  </div>
+  <div class="b" style="left:1060px;top:450px;width:780px;height:144px">
+    <h3 style="margin-bottom:6px">Кто что проверил</h3>
+    <p>чей сценарий или тулза, кто применил, подошло или нет</p>
+  </div>
+  <div class="b" style="left:1060px;top:620px;width:780px;height:144px">
+    <h3 style="margin-bottom:6px">Сессии и выгрузки</h3>
+    <p>кто над чем работал и что выгрузил: сценарии, тулзы, неудачи с причиной</p>
+  </div>
+
+  <div class="strip" style="left:80px;top:830px;width:1760px;height:180px;gap:18px;padding:0 34px">
+    <div class="dim" style="flex:none;font-size:24px;line-height:1.25">Четыре<br>команды</div>
+    <div style="flex:1;display:flex;justify-content:center;align-items:flex-start;gap:16px">
+      <div style="text-align:center"><div class="cmd">ntr</div><div class="dim" style="font-size:21px;margin-top:10px">старт</div></div>
+      <div class="dim" style="font-size:30px;margin-top:10px">·</div>
+      <div style="text-align:center"><div class="cmd">ntr-handover</div><div class="dim" style="font-size:21px;margin-top:10px">контекст 40–50%</div></div>
+      <div class="dim" style="font-size:30px;margin-top:10px">·</div>
+      <div style="text-align:center"><div class="cmd">ntr-takeover</div><div class="dim" style="font-size:21px;margin-top:10px">новый чат, продолжить</div></div>
+      <div class="dim" style="font-size:30px;margin-top:10px">·</div>
+      <div style="text-align:center"><div class="cmd">ntr-retro</div><div class="dim" style="font-size:21px;margin-top:10px">сдать («сдаю»)</div></div>
+    </div>
+    <div class="big" style="flex:none;border-left:2px solid var(--edge);padding-left:30px">Одна задача —<br>один чат</div>
+  </div>
+</section>
+
+</div>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),i=0;
+  function fit(){
+    var s=Math.min(innerWidth/1920,innerHeight/1080),x=(innerWidth-1920*s)/2,y=(innerHeight-1080*s)/2;
+    slides.forEach(function(el){el.style.transform='translate('+x+'px,'+y+'px) scale('+s+')'});
+  }
+  function go(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(el,k){el.classList.toggle('on',k===i)});
+    try{history.replaceState(null,'','#'+(i+1))}catch(e){}
+  }
+  addEventListener('resize',fit);
+  addEventListener('keydown',function(e){
+    if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].indexOf(e.key)>=0){go(i+1);e.preventDefault()}
+    else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].indexOf(e.key)>=0){go(i-1);e.preventDefault()}
+    else if(e.key==='Home')go(0); else if(e.key==='End')go(slides.length-1);
+  });
+  document.getElementById('stage').addEventListener('click',function(e){go(e.clientX<innerWidth*0.3?i-1:i+1)});
+  var h=parseInt(location.hash.slice(1),10); fit(); go(h>0?h-1:0);
+})();
+</script>
+</body>
+</html>

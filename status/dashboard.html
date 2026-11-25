@@ -229,6 +229,24 @@ footer{margin-top:32px;font-size:12px;color:var(--muted)}
 .pc .pn{display:flex;gap:12px;font-size:12px;color:var(--ink-2)} .pc .pn b{font-size:17px;display:block;color:var(--ink)}
 .empty{color:var(--muted);padding:18px 0}
 @media (max-width:760px){ .tbl{min-width:620px} }
+/* who to remind, team gaps, failed applications */
+:root{--bad:#c2410c}
+:root[data-theme="dark"]{--bad:#e8745a;--warn:#e0a13c}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--bad:#e8745a;--warn:#e0a13c} }
+code{font-family:Consolas,"Cascadia Mono",monospace;font-size:.92em;background:var(--panel-2);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+.gaps{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+.gap{border:1px solid var(--line);background:var(--panel-2);border-radius:10px;padding:7px 12px;font-size:12.5px;color:var(--muted);min-width:0}
+.gap b{display:block;color:var(--ink);font-size:14px}
+.att{display:grid;grid-template-columns:180px minmax(0,1fr) minmax(0,300px);gap:6px 20px;padding:12px 0;border-top:1px solid var(--line);align-items:start}
+.att-who{display:flex;align-items:center;gap:8px;font-weight:700;min-width:0}
+.sdot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--s0)}
+.sdot.red{background:var(--bad)} .sdot.amber{background:var(--warn)} .sdot.green{background:var(--good)}
+.att ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink-2);overflow-wrap:anywhere} .att li{margin:1px 0}
+.att-act{font-size:12.5px;overflow-wrap:anywhere}
+.att-act .k{display:block;font-size:11.5px;color:var(--muted)}
+.badge.fail{color:var(--bad);border-color:var(--bad);white-space:normal}
+.badge.iss{color:var(--warn);border-color:var(--warn);white-space:normal}
+@media (max-width:760px){ .att{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -245,6 +263,13 @@ footer{margin-top:32px;font-size:12px;color:var(--muted)}
   </section>
   <div id="tip" class="tip"></div>
   <section class="kpis" id="live-kpis"></section>
+
+  <section class="card" style="margin-top:14px">
+    <h3>Кому напомнить</h3>
+    <div class="muted small">Факты из GitHub и реестра на момент сборки и одно предложение на человека. Точка — давность последней выгрузки: зелёная — меньше 7 дней, жёлтая — 7–13, красная — 14 и больше или выгрузок не было.</div>
+    <div class="gaps" id="gaps"></div>
+    <div id="attention"></div>
+  </section>
 
   <h2>Активность команды (GitHub, живые данные)</h2>
   <p class="lead" id="lead-gh"></p>
@@ -301,8 +326,8 @@ footer{margin-top:32px;font-size:12px;color:var(--muted)}
 </main>
 <script>
 const DATA = {
-    "generated":  "2026-11-25 00:26",
-    "generated_utc":  "2026-11-24T23:26:29Z",
+    "generated":  "2026-11-25 01:13",
+    "generated_utc":  "2026-11-25T00:13:08Z",
     "label":  "",
     "live":  {
                  "sessions_7d":  0,
@@ -386,6 +411,19 @@ const DATA = {
                                         "pr":  null
                                     },
                                     {
+                                        "branch":  "proposal/v2-harness",
+                                        "user":  "artem-safro",
+                                        "user_raw":  null,
+                                        "topic":  "proposal/v2-harness",
+                                        "last_commit":  "2026-11-16T23:07:32+01:00",
+                                        "last_date":  "2026-11-16",
+                                        "subject":  "NTR v2: 16.11 meeting — Roman\u0027s NPM-building contract, MK 01.12 requirements note",
+                                        "commits_7d":  0,
+                                        "commits_14d":  1,
+                                        "ahead":  3,
+                                        "pr":  null
+                                    },
+                                    {
                                         "branch":  "work/roman-kasyan/maf-remodel/publish-workflow",
                                         "user":  "roman",
                                         "user_raw":  "roman-kasyan",
@@ -430,6 +468,19 @@ const DATA = {
                                         "pr":  null
                                     },
                                     {
+                                        "branch":  "Рома.Рассатновка-деревьев",
+                                        "user":  "roman",
+                                        "user_raw":  null,
+                                        "topic":  "Рома.Рассатновка-деревьев",
+                                        "last_commit":  "2026-10-30T15:01:09+03:00",
+                                        "last_date":  "2026-10-30",
+                                        "subject":  "Add album plant placement workflow and reusable card",
+                                        "commits_7d":  0,
+                                        "commits_14d":  0,
+                                        "ahead":  1,
+                                        "pr":  null
+                                    },
+                                    {
                                         "branch":  "work/nagornov-artem/repository/draft-push-command",
                                         "user":  "artem-nagornov",
                                         "user_raw":  "nagornov-artem",
@@ -446,6 +497,19 @@ const DATA = {
                                                    "draft":  true,
                                                    "title":  "Добавить проектную команду /push для публикации наработок чата"
                                                }
+                                    },
+                                    {
+                                        "branch":  "Ваня",
+                                        "user":  "ivan",
+                                        "user_raw":  null,
+                                        "topic":  "Ваня",
+                                        "last_commit":  "2026-10-19T18:30:56+07:00",
+                                        "last_date":  "2026-10-19",
+                                        "subject":  "docs: register Vanya MAF workflow in tool catalog",
+                                        "commits_7d":  0,
+                                        "commits_14d":  0,
+                                        "ahead":  6,
+                                        "pr":  null
                                     },
                                     {
                                         "branch":  "work/nagornov-artem/repository/mtg-20261013-01-collection",
@@ -498,8 +562,30 @@ const DATA = {
                                         "commits_14d":  0,
                                         "ahead":  0,
                                         "pr":  null
+                                    },
+                                    {
+                                        "branch":  "Рома-НПМ-ОКС",
+                                        "user":  "roman",
+                                        "user_raw":  null,
+                                        "topic":  "Рома-НПМ-ОКС",
+                                        "last_commit":  "2026-10-13T15:38:44+02:00",
+                                        "last_date":  "2026-10-13",
+                                        "subject":  "Merge pull request #29 from agnstrv/work/artem-safro/repository/team-handoff-20261013",
+                                        "commits_7d":  0,
+                                        "commits_14d":  0,
+                                        "ahead":  0,
+                                        "pr":  null
                                     }
                                 ],
+                   "unmapped_branches":  [
+                                             {
+                                                 "branch":  "создание-облегченной-сетки-Маф",
+                                                 "last_date":  "2026-10-13",
+                                                 "ahead":  0,
+                                                 "subject":  "Merge pull request #29 from agnstrv/work/artem-safro/repository/team-handoff-20261013"
+                                             }
+                                         ],
+                   "unmapped_label":  "не распознаны",
                    "prs_open":  [
                                     {
                                         "number":  31,
@@ -507,6 +593,8 @@ const DATA = {
                                         "branch":  "work/roman-kasyan/maf-remodel/publish-workflow",
                                         "state":  "OPEN",
                                         "draft":  false,
+                                        "created":  "2026-11-13",
+                                        "age_days":  12,
                                         "updated":  "2026-11-13",
                                         "author":  "agnstrv",
                                         "user":  "roman"
@@ -517,6 +605,8 @@ const DATA = {
                                         "branch":  "work/nagornov-artem/repository/draft-push-command",
                                         "state":  "OPEN",
                                         "draft":  true,
+                                        "created":  "2026-10-23",
+                                        "age_days":  33,
                                         "updated":  "2026-10-23",
                                         "author":  "agnstrv",
                                         "user":  "artem-nagornov"
@@ -532,7 +622,8 @@ const DATA = {
                                          "prs_open":  0,
                                          "minutes_saved":  0,
                                          "branches":  1,
-                                         "last_activity":  "2026-10-13"
+                                         "last_activity":  "2026-11-16",
+                                         "last_upload":  "2026-11-16"
                                      },
                                      {
                                          "user":  "artem-nagornov",
@@ -543,7 +634,8 @@ const DATA = {
                                          "prs_open":  1,
                                          "minutes_saved":  0,
                                          "branches":  9,
-                                         "last_activity":  "2026-11-23"
+                                         "last_activity":  "2026-11-23",
+                                         "last_upload":  "2026-11-23"
                                      },
                                      {
                                          "user":  "roman",
@@ -553,8 +645,9 @@ const DATA = {
                                          "prs":  0,
                                          "prs_open":  1,
                                          "minutes_saved":  0,
-                                         "branches":  3,
-                                         "last_activity":  "2026-11-24"
+                                         "branches":  4,
+                                         "last_activity":  "2026-11-24",
+                                         "last_upload":  "2026-11-24"
                                      },
                                      {
                                          "user":  "ivan",
@@ -564,8 +657,9 @@ const DATA = {
                                          "prs":  0,
                                          "prs_open":  0,
                                          "minutes_saved":  0,
-                                         "branches":  0,
-                                         "last_activity":  null
+                                         "branches":  1,
+                                         "last_activity":  "2026-10-19",
+                                         "last_upload":  "2026-10-19"
                                      },
                                      {
                                          "user":  "slava",
@@ -576,10 +670,201 @@ const DATA = {
                                          "prs_open":  0,
                                          "minutes_saved":  0,
                                          "branches":  0,
-                                         "last_activity":  null
+                                         "last_activity":  null,
+                                         "last_upload":  null
                                      }
                                  ]
                },
+    "gaps":  [
+                 {
+                     "key":  "measured",
+                     "label":  "Замеров времени",
+                     "value":  "0 из 19 инструментов"
+                 },
+                 {
+                     "key":  "cross_tested",
+                     "label":  "Проверено коллегой",
+                     "value":  "1 из 19"
+                 },
+                 {
+                     "key":  "prs",
+                     "label":  "PR ждут мейнтейнера",
+                     "value":  "2 (старший — 33 дн)"
+                 },
+                 {
+                     "key":  "sessions",
+                     "label":  "Сессий записано",
+                     "value":  "0"
+                 }
+             ],
+    "attention":  [
+                      {
+                          "user":  "slava",
+                          "level":  "red",
+                          "last_upload":  null,
+                          "days_since_upload":  null,
+                          "uploads_7d":  0,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  2,
+                          "cards_unmeasured_titles":  [
+                                                          "Ретопология граунда с запеканием (Blender)",
+                                                          "Исправление шейдинга на зданиях (промпт)"
+                                                      ],
+                          "prs_waiting":  [
+
+                                          ],
+                          "cross_test":  {
+                                             "id":  "roman-interior-walls",
+                                             "title":  "Внутренние стены и лестницы (сценарий Ромы)",
+                                             "author":  "roman",
+                                             "cell":  "oks-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Внутренние стены и лестницы (сценарий Ромы) (Роман Касьян)"
+                                         },
+                          "facts":  [
+                                        "ни одной выгрузки в GitHub",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 2 — Ретопология граунда с запеканием (Blender); Исправление шейдинга на зданиях (промпт)"
+                                    ],
+                          "action":  "выгрузи первую наработку в ветку work/slava/… — начни задачу с `ntr`"
+                      },
+                      {
+                          "user":  "ivan",
+                          "level":  "red",
+                          "last_upload":  "2026-10-19",
+                          "days_since_upload":  37,
+                          "uploads_7d":  0,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  1,
+                          "cards_unmeasured_titles":  [
+                                                          "Сценарий МАФ (UV, свет)"
+                                                      ],
+                          "prs_waiting":  [
+
+                                          ],
+                          "cross_test":  {
+                                             "id":  "roman-maf-remodel",
+                                             "title":  "Перемоделирование МАФ (сценарий Ромы)",
+                                             "author":  "roman",
+                                             "cell":  "ground-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Перемоделирование МАФ (сценарий Ромы) (Роман Касьян)"
+                                         },
+                          "facts":  [
+                                        "последняя выгрузка: 37 дн назад (19.10); за 7 дней выгрузок: 0",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 1 — Сценарий МАФ (UV, свет)"
+                                    ],
+                          "action":  "выгрузи текущую работу в свою ветку"
+                      },
+                      {
+                          "user":  "artem-safro",
+                          "level":  "amber",
+                          "last_upload":  "2026-11-16",
+                          "days_since_upload":  9,
+                          "uploads_7d":  0,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  3,
+                          "cards_unmeasured_titles":  [
+                                                          "Replacer: замена родитель/дети (Max)",
+                                                          "Генерация граунда и проекция на рельеф (Max)"
+                                                      ],
+                          "prs_waiting":  [
+                                              {
+                                                  "number":  30,
+                                                  "age_days":  33,
+                                                  "draft":  true,
+                                                  "title":  "Добавить проектную команду /push для публикации наработок чата"
+                                              },
+                                              {
+                                                  "number":  31,
+                                                  "age_days":  12,
+                                                  "draft":  false,
+                                                  "title":  "Правила перемоделирования МАФов Ромы и запуск сценария Codex"
+                                              }
+                                          ],
+                          "cross_test":  {
+                                             "id":  "maf-workflow",
+                                             "title":  "Сценарий МАФ (UV, свет)",
+                                             "author":  "ivan",
+                                             "cell":  "ground-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Сценарий МАФ (UV, свет) (Иван Проселков)"
+                                         },
+                          "facts":  [
+                                        "последняя выгрузка: 9 дн назад (16.11); за 7 дней выгрузок: 0",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 3 — Replacer: замена родитель/дети (Max); Генерация граунда и проекция на рельеф (Max) и ещё 1",
+                                        "PR ждут ревью больше 7 дней: #30 (33 дн, черновик), #31 (12 дн)"
+                                    ],
+                          "action":  "посмотри PR #30, #31"
+                      },
+                      {
+                          "user":  "artem-nagornov",
+                          "level":  "green",
+                          "last_upload":  "2026-11-23",
+                          "days_since_upload":  2,
+                          "uploads_7d":  4,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  7,
+                          "cards_unmeasured_titles":  [
+                                                          "Рамы и стекло ВПМ",
+                                                          "Атлас окон НПМ"
+                                                      ],
+                          "prs_waiting":  [
+
+                                          ],
+                          "cross_test":  {
+                                             "id":  "npm-oks-scenario",
+                                             "title":  "Сценарий НПМ ОКС light/medium (окна, маска, bake)",
+                                             "author":  "roman",
+                                             "cell":  "oks-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Сценарий НПМ ОКС light/medium (окна, маска, bake) (Роман Касьян)"
+                                         },
+                          "facts":  [
+                                        "последняя выгрузка: 2 дн назад (23.11); за 7 дней выгрузок: 4",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 7 — Рамы и стекло ВПМ; Атлас окон НПМ и ещё 5"
+                                    ],
+                          "action":  "проверь у коллеги: Сценарий НПМ ОКС light/medium (окна, маска, bake) (Роман Касьян)"
+                      },
+                      {
+                          "user":  "roman",
+                          "level":  "green",
+                          "last_upload":  "2026-11-24",
+                          "days_since_upload":  1,
+                          "uploads_7d":  1,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  6,
+                          "cards_unmeasured_titles":  [
+                                                          "НПМ-здание через нейронку (сценарий Ромы)",
+                                                          "Расстановка растений по альбому"
+                                                      ],
+                          "prs_waiting":  [
+
+                                          ],
+                          "cross_test":  {
+                                             "id":  "window-atlas",
+                                             "title":  "Атлас окон НПМ",
+                                             "author":  "artem-nagornov",
+                                             "cell":  "oks-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Атлас окон НПМ (Артём Нагорнов)"
+                                         },
+                          "facts":  [
+                                        "последняя выгрузка: 1 дн назад (24.11); за 7 дней выгрузок: 1",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 6 — НПМ-здание через нейронку (сценарий Ромы); Расстановка растений по альбому и ещё 4"
+                                    ],
+                          "action":  "проверь у коллеги: Атлас окон НПМ (Артём Нагорнов)"
+                      }
+                  ],
     "sessions":  [
                      {
                          "id":  "example-2026-11-25-dashboard-pipeline",
@@ -1871,6 +2156,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1896,6 +2182,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1921,6 +2208,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1946,6 +2234,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1971,6 +2260,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1996,6 +2286,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2021,6 +2312,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2046,6 +2338,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2071,6 +2364,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2096,6 +2390,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2121,6 +2416,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2146,6 +2442,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2171,6 +2468,12 @@ const DATA = {
                                       "artem-nagornov"
                                   ],
                       "tests":  1,
+                      "last_test":  {
+                                        "result":  "issues",
+                                        "tester":  "artem-nagornov",
+                                        "date":  "2026-11-10",
+                                        "reason":  null
+                                    },
                       "in_branch":  null
                   },
                   {
@@ -2196,6 +2499,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2221,6 +2525,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2246,6 +2551,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2271,6 +2577,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2296,6 +2603,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2321,6 +2629,7 @@ const DATA = {
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   }
               ],
@@ -2331,6 +2640,7 @@ const DATA = {
                       "date":  "2026-11-10",
                       "project":  "уточнить",
                       "result":  "issues",
+                      "reason":  null,
                       "in_branch":  null
                   }
               ],
@@ -3986,10 +4296,20 @@ const dm = d => d && d.length >= 10 ? d.slice(8, 10) + '.' + d.slice(5, 7) : '�
     [L.measurements ?? 0, 'замеров времени «вручную → с ИИ»'],
   ].map(([v,k]) => `<div class="card kpi"><div class="v num">${esc(v)}</div><div class="k">${esc(k)}</div></div>`).join('');
 
+  const md = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>');
+  document.getElementById('gaps').innerHTML = arr(DATA.gaps).map(g => `<div class="gap">${esc(g.label)}<b class="num">${esc(g.value)}</b></div>`).join('');
+  const LV = {red:'выгрузок нет 14 дней и больше', amber:'последняя выгрузка 7–13 дней назад', green:'выгрузка меньше 7 дней назад', none:'нет данных git'};
+  const att = arr(DATA.attention);
+  document.getElementById('attention').innerHTML = att.length ? att.map(a => `<div class="att">
+      <div class="att-who"><span class="sdot ${esc(a.level)}" title="${esc(LV[a.level] || '')}"></span>${av(a.user)}<span>${esc(first(a.user))}</span></div>
+      <ul>${arr(a.facts).map(f => `<li>${md(f)}</li>`).join('')}</ul>
+      <div class="att-act"><span class="k">что сделать</span>${a.action ? md(a.action) : '<span class="muted">—</span>'}</div></div>`).join('')
+    : '<div class="empty">В team.md нет людей с пометкой «В отчёте = да».</div>';
+
   const link = (path, text) => G.repo ? `<a href="${esc(G.repo)}/${path}" target="_blank" rel="noopener">${text}</a>` : text;
-  const br = arr(G.branches), ppl = arr(G.people_7d);
+  const brAll = arr(G.branches), br = brAll.filter(b => b.ahead > 0), ppl = arr(G.people_7d), unm = arr(G.unmapped_branches);
   document.getElementById('lead-gh').innerHTML = git
-    ? `Считается прямо из веток <code>work/&lt;кто&gt;/…</code> на GitHub — ждать вливания в main не нужно. Выгрузка = коммит в рабочей ветке, которого ещё нет в main. Веток: <b>${br.length}</b>.${G.gh ? '' : ' <span class="badge stale">PR не загружены: gh недоступен</span>'}`
+    ? `Считается прямо из всех веток на GitHub, кроме main, — ждать вливания не нужно. Чья ветка — по <code>work/&lt;кто&gt;/…</code> или по списку в <code>team.aliases.json</code>. Выгрузка = коммит в ветке, которого ещё нет в main. Веток с выгрузками: <b>${br.length}</b>${brAll.length > br.length ? `, без новых коммитов: ${brAll.length - br.length}` : ''}.${G.gh ? '' : ' <span class="badge stale">PR не загружены: gh недоступен</span>'}`
     : 'Сборка запущена без доступа к git (<code>-NoGit</code>) — данных о ветках и выгрузках нет.';
   document.getElementById('gh-people').innerHTML = ppl.map(p => {
     const idle = !p.sessions && !p.uploads && !p.prs;
@@ -4002,15 +4322,16 @@ const dm = d => d && d.length >= 10 ? d.slice(8, 10) + '.' + d.slice(5, 7) : '�
     const st = p.state === 'OPEN' ? (p.draft ? ['черновик','var(--s1)'] : ['открыт','var(--s2)']) : p.state === 'MERGED' ? ['влит','var(--s4)'] : ['закрыт','var(--s0)'];
     return `${link('pull/' + p.number, '#' + p.number)} <span class="pill" style="background:${st[1]}" title="${esc(p.title)}">${st[0]}</span>`; };
   document.getElementById('gh-branches').innerHTML = !git ? '' : !br.length
-    ? '<div class="empty">Рабочих веток work/&lt;кто&gt;/… на GitHub пока нет.</div>'
+    ? '<div class="empty">Веток с выгрузками на GitHub пока нет.</div>'
     : `<table class="tbl"><thead><tr><th>Кто</th><th>Тема (ветка)</th><th>Последняя выгрузка</th><th>Коммитов 7 / 14 дн</th><th>Не влито в main</th><th>PR</th></tr></thead><tbody>${br.map(b => `<tr>
         <td class="nw">${av(b.user)} ${esc(first(b.user))}</td>
         <td>${link('tree/' + b.branch.split('/').map(encodeURIComponent).join('/'), esc(b.topic))}</td>
         <td><span class="nw num">${esc(dm(b.last_date))}</span> <span class="muted">${esc(b.subject)}</span></td>
         <td class="num nw">${b.commits_7d ? `<b>${b.commits_7d}</b>` : '0'} / ${b.commits_14d}</td>
         <td class="num">${b.ahead}</td><td class="nw">${prCell(b)}</td></tr>`).join('')}</tbody></table>`;
+  if (git && unm.length) document.getElementById('gh-branches').innerHTML += `<div class="xs muted" style="margin-top:10px">Ветки, которые ${esc(G.unmapped_label || 'не распознаны')} (не привязаны к человеку в <code>team.aliases.json</code>): ${unm.map(u => `<code>${esc(u.branch)}</code>${u.ahead ? ` · не влито: ${u.ahead}` : ''}`).join(', ')}</div>`;
 
-  const SS = {open:['в работе','var(--s2)'], handover:['передано','var(--s3)'], done:['готово','var(--s4)'], failed:['не получилось','var(--warn)']};
+  const SS = {open:['в работе','var(--s2)'], handover:['передано','var(--s3)'], done:['готово','var(--s4)'], failed:['не получилось','var(--bad)']};
   const DCC = {blender:'Blender', max:'3ds Max', other:'другое'};
   const dash = v => v && v !== '-' ? esc(v) : '<span class="muted">—</span>';
   const mins = s => s.minutes_manual == null && s.minutes_ai == null ? '<span class="muted">—</span>'
@@ -4202,12 +4523,18 @@ document.getElementById('lead-econ').innerHTML = `Из чего сложилис
 })();
 
 /* 5. kanban */
+function testBadge(t) {
+  const lt = t.last_test; if (!lt || (lt.result !== 'fail' && lt.result !== 'issues')) return '';
+  const who = `${esc(first(lt.tester))}, ${esc(dm(lt.date))}`, tip = lt.reason ? ` title="${esc(lt.reason)}"` : '';
+  return `<div style="margin-top:5px"><span class="badge ${lt.result === 'fail' ? 'fail' : 'iss'}"${tip}>${lt.result === 'fail' ? 'не подошёл' : 'с замечаниями'}: ${who}</span>${lt.reason ? `<div class="xs muted" style="margin-top:3px">${esc(lt.reason)}</div>` : ''}</div>`;
+}
 document.getElementById('kanban').innerHTML = ST.map(s => {
   const list = tools.filter(t => t.status === s);
   return `<div class="kcol"><div class="kh"><span><i class="dot" style="background:${STC[s]}"></i>${STN[s]}</span><span class="num muted">${list.length}</span></div>` +
     (list.map(t => `<div class="kcard l-${esc(t.line)}"><div class="n">${esc(t.title)}</div><div class="p">${esc(t.purpose || '')}</div>
       <div class="f">${av(t.author)}<span>${esc(first(t.author))}</span><span style="margin-left:auto">${esc(t.stage && t.stage !== '-' ? t.stage : '')}</span></div>
       ${t.in_branch ? `<div class="xs muted" style="margin-top:5px">пока только в ветке ${esc(t.in_branch)}</div>` : ''}
+      ${testBadge(t)}
       ${arr(t.testers).length ? `<div class="f" style="margin-top:5px">проверили: ${arr(t.testers).map(av).join('')}</div>` : ''}</div>`).join('') || '<div class="muted xs">пусто</div>') + '</div>';
 }).join('');
 

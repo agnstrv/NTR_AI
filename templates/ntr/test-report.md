@@ -4,6 +4,9 @@ tester: <user>
 date: <YYYY-MM-DD>
 project: <проект>
 result: <ok|issues|fail>
+reason: <input|scenario|tool|dcc|agent|->
+version: <версия сценария или тулзы>
+failed_step: <шаг или ->
 minutes_before:
 minutes_after:
 time_source: <measured|estimate>

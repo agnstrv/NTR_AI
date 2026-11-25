@@ -1,6 +1,6 @@
 {
-    "generated":  "2026-11-25 00:26",
-    "generated_utc":  "2026-11-24T23:26:29Z",
+    "generated":  "2026-11-25 01:13",
+    "generated_utc":  "2026-11-25T00:13:08Z",
     "label":  "",
     "live":  {
                  "sessions_7d":  0,
@@ -84,6 +84,19 @@
                                         "pr":  null
                                     },
                                     {
+                                        "branch":  "proposal/v2-harness",
+                                        "user":  "artem-safro",
+                                        "user_raw":  null,
+                                        "topic":  "proposal/v2-harness",
+                                        "last_commit":  "2026-11-16T23:07:32+01:00",
+                                        "last_date":  "2026-11-16",
+                                        "subject":  "NTR v2: 16.11 meeting — Roman\u0027s NPM-building contract, MK 01.12 requirements note",
+                                        "commits_7d":  0,
+                                        "commits_14d":  1,
+                                        "ahead":  3,
+                                        "pr":  null
+                                    },
+                                    {
                                         "branch":  "work/roman-kasyan/maf-remodel/publish-workflow",
                                         "user":  "roman",
                                         "user_raw":  "roman-kasyan",
@@ -128,6 +141,19 @@
                                         "pr":  null
                                     },
                                     {
+                                        "branch":  "Рома.Рассатновка-деревьев",
+                                        "user":  "roman",
+                                        "user_raw":  null,
+                                        "topic":  "Рома.Рассатновка-деревьев",
+                                        "last_commit":  "2026-10-30T15:01:09+03:00",
+                                        "last_date":  "2026-10-30",
+                                        "subject":  "Add album plant placement workflow and reusable card",
+                                        "commits_7d":  0,
+                                        "commits_14d":  0,
+                                        "ahead":  1,
+                                        "pr":  null
+                                    },
+                                    {
                                         "branch":  "work/nagornov-artem/repository/draft-push-command",
                                         "user":  "artem-nagornov",
                                         "user_raw":  "nagornov-artem",
@@ -144,6 +170,19 @@
                                                    "draft":  true,
                                                    "title":  "Добавить проектную команду /push для публикации наработок чата"
                                                }
+                                    },
+                                    {
+                                        "branch":  "Ваня",
+                                        "user":  "ivan",
+                                        "user_raw":  null,
+                                        "topic":  "Ваня",
+                                        "last_commit":  "2026-10-19T18:30:56+07:00",
+                                        "last_date":  "2026-10-19",
+                                        "subject":  "docs: register Vanya MAF workflow in tool catalog",
+                                        "commits_7d":  0,
+                                        "commits_14d":  0,
+                                        "ahead":  6,
+                                        "pr":  null
                                     },
                                     {
                                         "branch":  "work/nagornov-artem/repository/mtg-20261013-01-collection",
@@ -196,8 +235,30 @@
                                         "commits_14d":  0,
                                         "ahead":  0,
                                         "pr":  null
+                                    },
+                                    {
+                                        "branch":  "Рома-НПМ-ОКС",
+                                        "user":  "roman",
+                                        "user_raw":  null,
+                                        "topic":  "Рома-НПМ-ОКС",
+                                        "last_commit":  "2026-10-13T15:38:44+02:00",
+                                        "last_date":  "2026-10-13",
+                                        "subject":  "Merge pull request #29 from agnstrv/work/artem-safro/repository/team-handoff-20261013",
+                                        "commits_7d":  0,
+                                        "commits_14d":  0,
+                                        "ahead":  0,
+                                        "pr":  null
                                     }
                                 ],
+                   "unmapped_branches":  [
+                                             {
+                                                 "branch":  "создание-облегченной-сетки-Маф",
+                                                 "last_date":  "2026-10-13",
+                                                 "ahead":  0,
+                                                 "subject":  "Merge pull request #29 from agnstrv/work/artem-safro/repository/team-handoff-20261013"
+                                             }
+                                         ],
+                   "unmapped_label":  "не распознаны",
                    "prs_open":  [
                                     {
                                         "number":  31,
@@ -205,6 +266,8 @@
                                         "branch":  "work/roman-kasyan/maf-remodel/publish-workflow",
                                         "state":  "OPEN",
                                         "draft":  false,
+                                        "created":  "2026-11-13",
+                                        "age_days":  12,
                                         "updated":  "2026-11-13",
                                         "author":  "agnstrv",
                                         "user":  "roman"
@@ -215,6 +278,8 @@
                                         "branch":  "work/nagornov-artem/repository/draft-push-command",
                                         "state":  "OPEN",
                                         "draft":  true,
+                                        "created":  "2026-10-23",
+                                        "age_days":  33,
                                         "updated":  "2026-10-23",
                                         "author":  "agnstrv",
                                         "user":  "artem-nagornov"
@@ -230,7 +295,8 @@
                                          "prs_open":  0,
                                          "minutes_saved":  0,
                                          "branches":  1,
-                                         "last_activity":  "2026-10-13"
+                                         "last_activity":  "2026-11-16",
+                                         "last_upload":  "2026-11-16"
                                      },
                                      {
                                          "user":  "artem-nagornov",
@@ -241,7 +307,8 @@
                                          "prs_open":  1,
                                          "minutes_saved":  0,
                                          "branches":  9,
-                                         "last_activity":  "2026-11-23"
+                                         "last_activity":  "2026-11-23",
+                                         "last_upload":  "2026-11-23"
                                      },
                                      {
                                          "user":  "roman",
@@ -251,8 +318,9 @@
                                          "prs":  0,
                                          "prs_open":  1,
                                          "minutes_saved":  0,
-                                         "branches":  3,
-                                         "last_activity":  "2026-11-24"
+                                         "branches":  4,
+                                         "last_activity":  "2026-11-24",
+                                         "last_upload":  "2026-11-24"
                                      },
                                      {
                                          "user":  "ivan",
@@ -262,8 +330,9 @@
                                          "prs":  0,
                                          "prs_open":  0,
                                          "minutes_saved":  0,
-                                         "branches":  0,
-                                         "last_activity":  null
+                                         "branches":  1,
+                                         "last_activity":  "2026-10-19",
+                                         "last_upload":  "2026-10-19"
                                      },
                                      {
                                          "user":  "slava",
@@ -274,10 +343,201 @@
                                          "prs_open":  0,
                                          "minutes_saved":  0,
                                          "branches":  0,
-                                         "last_activity":  null
+                                         "last_activity":  null,
+                                         "last_upload":  null
                                      }
                                  ]
                },
+    "gaps":  [
+                 {
+                     "key":  "measured",
+                     "label":  "Замеров времени",
+                     "value":  "0 из 19 инструментов"
+                 },
+                 {
+                     "key":  "cross_tested",
+                     "label":  "Проверено коллегой",
+                     "value":  "1 из 19"
+                 },
+                 {
+                     "key":  "prs",
+                     "label":  "PR ждут мейнтейнера",
+                     "value":  "2 (старший — 33 дн)"
+                 },
+                 {
+                     "key":  "sessions",
+                     "label":  "Сессий записано",
+                     "value":  "0"
+                 }
+             ],
+    "attention":  [
+                      {
+                          "user":  "slava",
+                          "level":  "red",
+                          "last_upload":  null,
+                          "days_since_upload":  null,
+                          "uploads_7d":  0,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  2,
+                          "cards_unmeasured_titles":  [
+                                                          "Ретопология граунда с запеканием (Blender)",
+                                                          "Исправление шейдинга на зданиях (промпт)"
+                                                      ],
+                          "prs_waiting":  [
+
+                                          ],
+                          "cross_test":  {
+                                             "id":  "roman-interior-walls",
+                                             "title":  "Внутренние стены и лестницы (сценарий Ромы)",
+                                             "author":  "roman",
+                                             "cell":  "oks-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Внутренние стены и лестницы (сценарий Ромы) (Роман Касьян)"
+                                         },
+                          "facts":  [
+                                        "ни одной выгрузки в GitHub",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 2 — Ретопология граунда с запеканием (Blender); Исправление шейдинга на зданиях (промпт)"
+                                    ],
+                          "action":  "выгрузи первую наработку в ветку work/slava/… — начни задачу с `ntr`"
+                      },
+                      {
+                          "user":  "ivan",
+                          "level":  "red",
+                          "last_upload":  "2026-10-19",
+                          "days_since_upload":  37,
+                          "uploads_7d":  0,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  1,
+                          "cards_unmeasured_titles":  [
+                                                          "Сценарий МАФ (UV, свет)"
+                                                      ],
+                          "prs_waiting":  [
+
+                                          ],
+                          "cross_test":  {
+                                             "id":  "roman-maf-remodel",
+                                             "title":  "Перемоделирование МАФ (сценарий Ромы)",
+                                             "author":  "roman",
+                                             "cell":  "ground-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Перемоделирование МАФ (сценарий Ромы) (Роман Касьян)"
+                                         },
+                          "facts":  [
+                                        "последняя выгрузка: 37 дн назад (19.10); за 7 дней выгрузок: 0",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 1 — Сценарий МАФ (UV, свет)"
+                                    ],
+                          "action":  "выгрузи текущую работу в свою ветку"
+                      },
+                      {
+                          "user":  "artem-safro",
+                          "level":  "amber",
+                          "last_upload":  "2026-11-16",
+                          "days_since_upload":  9,
+                          "uploads_7d":  0,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  3,
+                          "cards_unmeasured_titles":  [
+                                                          "Replacer: замена родитель/дети (Max)",
+                                                          "Генерация граунда и проекция на рельеф (Max)"
+                                                      ],
+                          "prs_waiting":  [
+                                              {
+                                                  "number":  30,
+                                                  "age_days":  33,
+                                                  "draft":  true,
+                                                  "title":  "Добавить проектную команду /push для публикации наработок чата"
+                                              },
+                                              {
+                                                  "number":  31,
+                                                  "age_days":  12,
+                                                  "draft":  false,
+                                                  "title":  "Правила перемоделирования МАФов Ромы и запуск сценария Codex"
+                                              }
+                                          ],
+                          "cross_test":  {
+                                             "id":  "maf-workflow",
+                                             "title":  "Сценарий МАФ (UV, свет)",
+                                             "author":  "ivan",
+                                             "cell":  "ground-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Сценарий МАФ (UV, свет) (Иван Проселков)"
+                                         },
+                          "facts":  [
+                                        "последняя выгрузка: 9 дн назад (16.11); за 7 дней выгрузок: 0",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 3 — Replacer: замена родитель/дети (Max); Генерация граунда и проекция на рельеф (Max) и ещё 1",
+                                        "PR ждут ревью больше 7 дней: #30 (33 дн, черновик), #31 (12 дн)"
+                                    ],
+                          "action":  "посмотри PR #30, #31"
+                      },
+                      {
+                          "user":  "artem-nagornov",
+                          "level":  "green",
+                          "last_upload":  "2026-11-23",
+                          "days_since_upload":  2,
+                          "uploads_7d":  4,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  7,
+                          "cards_unmeasured_titles":  [
+                                                          "Рамы и стекло ВПМ",
+                                                          "Атлас окон НПМ"
+                                                      ],
+                          "prs_waiting":  [
+
+                                          ],
+                          "cross_test":  {
+                                             "id":  "npm-oks-scenario",
+                                             "title":  "Сценарий НПМ ОКС light/medium (окна, маска, bake)",
+                                             "author":  "roman",
+                                             "cell":  "oks-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Сценарий НПМ ОКС light/medium (окна, маска, bake) (Роман Касьян)"
+                                         },
+                          "facts":  [
+                                        "последняя выгрузка: 2 дн назад (23.11); за 7 дней выгрузок: 4",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 7 — Рамы и стекло ВПМ; Атлас окон НПМ и ещё 5"
+                                    ],
+                          "action":  "проверь у коллеги: Сценарий НПМ ОКС light/medium (окна, маска, bake) (Роман Касьян)"
+                      },
+                      {
+                          "user":  "roman",
+                          "level":  "green",
+                          "last_upload":  "2026-11-24",
+                          "days_since_upload":  1,
+                          "uploads_7d":  1,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  6,
+                          "cards_unmeasured_titles":  [
+                                                          "НПМ-здание через нейронку (сценарий Ромы)",
+                                                          "Расстановка растений по альбому"
+                                                      ],
+                          "prs_waiting":  [
+
+                                          ],
+                          "cross_test":  {
+                                             "id":  "window-atlas",
+                                             "title":  "Атлас окон НПМ",
+                                             "author":  "artem-nagornov",
+                                             "cell":  "oks-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Атлас окон НПМ (Артём Нагорнов)"
+                                         },
+                          "facts":  [
+                                        "последняя выгрузка: 1 дн назад (24.11); за 7 дней выгрузок: 1",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 6 — НПМ-здание через нейронку (сценарий Ромы); Расстановка растений по альбому и ещё 4"
+                                    ],
+                          "action":  "проверь у коллеги: Атлас окон НПМ (Артём Нагорнов)"
+                      }
+                  ],
     "sessions":  [
                      {
                          "id":  "example-2026-11-25-dashboard-pipeline",
@@ -1569,6 +1829,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1594,6 +1855,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1619,6 +1881,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1644,6 +1907,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1669,6 +1933,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1694,6 +1959,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1719,6 +1985,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1744,6 +2011,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1769,6 +2037,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1794,6 +2063,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1819,6 +2089,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1844,6 +2115,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1869,6 +2141,12 @@
                                       "artem-nagornov"
                                   ],
                       "tests":  1,
+                      "last_test":  {
+                                        "result":  "issues",
+                                        "tester":  "artem-nagornov",
+                                        "date":  "2026-11-10",
+                                        "reason":  null
+                                    },
                       "in_branch":  null
                   },
                   {
@@ -1894,6 +2172,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1919,6 +2198,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1944,6 +2224,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1969,6 +2250,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -1994,6 +2276,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   },
                   {
@@ -2019,6 +2302,7 @@
 
                                   ],
                       "tests":  0,
+                      "last_test":  null,
                       "in_branch":  null
                   }
               ],
@@ -2029,6 +2313,7 @@
                       "date":  "2026-11-10",
                       "project":  "уточнить",
                       "result":  "issues",
+                      "reason":  null,
                       "in_branch":  null
                   }
               ],

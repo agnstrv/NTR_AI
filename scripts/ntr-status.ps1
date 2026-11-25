@@ -13,13 +13,16 @@
     registry/tests/*.md        cross-test reports (front matter)
     journal/<date>/<user>.md   daily journals from scripts/ntr-daily.ps1 (branch 'journal')
     sessions/<date>_<user>_<slug>.md   one record per work session (front matter), written by the agent
-    team.aliases.json          branch / session user names that differ from team.md ids
+    team.aliases.json          branch / session user names that differ from team.md ids;
+                               "branches": branch name or prefix -> team id, for branches outside work/<user>/...
 
   sessions/, registry/tools/ and registry/tests/ are read from the working tree AND from every
   origin/* branch (git ls-tree / git show, nothing is checked out), so work that lives only in a
   colleague's branch is visible. Cards: working tree and main win, branch-only cards get in_branch.
-  Sessions: de-duplicated by path, newest commit wins. Remote work/<user>/... branches and pull
-  requests (gh, optional) form the 'github' block. Run 'git fetch' first for fresh data; -NoGit
+  Sessions: de-duplicated by path, newest commit wins. All remote branches except main (attributed
+  to people by work/<user>/... or the "branches" map; the rest go to github.unmapped_branches) and
+  pull requests (gh, optional) form the 'github' block; 'attention' and 'gaps' are the per-person
+  reminders and team-level gaps computed from it. Run 'git fetch' first for fresh data; -NoGit
   skips all of this.
 
   Savings count only cards with status measured|cross-tested|accepted and time_source: measured.
@@ -76,18 +79,27 @@ foreach ($l in [IO.File]::ReadAllLines((Join-Path $repo 'team.md'), $enc)) {
   }
 }
 # re-match ids for people (the second -match overwrote $Matches)
-$people = @()
+$people = @(); $maintainer = $null
 foreach ($l in [IO.File]::ReadAllLines((Join-Path $repo 'team.md'), $enc)) {
   if ($l -match '\|\s*да\s*\|\s*$' -and $l -match '^\|\s*([a-z][a-z0-9-]+)\s*\|') { $people += $Matches[1] }
+  if (-not $maintainer -and $l -match 'мейнтейнер' -and $l -match '^\|\s*([a-z][a-z0-9-]+)\s*\|') { $maintainer = $Matches[1] }
 }
 
 # branch / session user names that are not team.md ids (work/roman-kasyan/... -> roman)
-$aliases = @{}
+$aliases = @{}; $branchMap = @()
 $aliasPath = Join-Path $repo 'team.aliases.json'
 if (Test-Path $aliasPath) {
   $aj = [IO.File]::ReadAllText($aliasPath, $enc) | ConvertFrom-Json
-  foreach ($p in $aj.PSObject.Properties) { if ($p.Name -notlike '_*') { $aliases[$p.Name.ToLower()] = [string]$p.Value } }
+  foreach ($p in $aj.PSObject.Properties) {
+    if ($p.Name -like '_*') { continue }
+    if ($p.Name -eq 'branches') {
+      foreach ($b in $p.Value.PSObject.Properties) { if ($b.Name -notlike '_*') { $branchMap += [pscustomobject]@{ key=$b.Name; user=[string]$b.Value } } }
+      continue
+    }
+    $aliases[$p.Name.ToLower()] = [string]$p.Value
+  }
 }
+$branchMap = @($branchMap | Sort-Object { -$_.key.Length })      # longest key first
 function Resolve-User([string]$raw) {
   if (-not $raw) { return $null }
   $k = $raw.Trim().ToLower()
@@ -95,6 +107,19 @@ function Resolve-User([string]$raw) {
   if ($aliases.ContainsKey($k)) { return $aliases[$k] }
   return $raw.Trim()
 }
+# Whose branch is it: work/<user>/... by its user segment, anything else by the "branches" map
+# (exact name or prefix). $null = not recognised; commit authors are not used (shared account).
+function Resolve-BranchUser([string]$branch) {
+  if ($branch -like 'work/*/*') { return Resolve-User ($branch.Split('/')[1]) }
+  foreach ($m in $branchMap) { if ($branch.StartsWith($m.key, [StringComparison]::OrdinalIgnoreCase)) { return $m.user } }
+  return $null
+}
+$today = (Get-Date).Date
+function Get-DaysSince([string]$d) {
+  if ($d -notmatch '^\d{4}-\d{2}-\d{2}') { return $null }
+  return [int]($today - [datetime]::ParseExact($d.Substring(0, 10), 'yyyy-MM-dd', $null)).TotalDays
+}
+function Dm([string]$d) { if ($d -match '^\d{4}-(\d{2})-(\d{2})') { return "$($Matches[2]).$($Matches[1])" } return $d }
 $weekAgo = (Get-Date).Date.AddDays(-6).ToString('yyyy-MM-dd')
 $twoWeeksAgo = (Get-Date).Date.AddDays(-13).ToString('yyyy-MM-dd')
 
@@ -177,7 +202,7 @@ function Get-RepoDocs([string]$dir, [bool]$localWins) {
 $tests = @()
 foreach ($d in Get-RepoDocs 'registry/tests' $true) {
   $t = $d.fm
-  if ($t.tool) { $tests += [pscustomobject]@{ tool=$t.tool; tester=$t.tester; date=$t.date; project=$t.project; result=$t.result; in_branch=$d.in_branch } }
+  if ($t.tool) { $tests += [pscustomobject]@{ tool=$t.tool; tester=$t.tester; date=$t.date; project=$t.project; result=$t.result; reason=$t.reason; in_branch=$d.in_branch } }
 }
 $measuredStatuses = @('measured','cross-tested','accepted')
 $tools = @()
@@ -189,12 +214,14 @@ foreach ($d in @(Get-RepoDocs 'registry/tools' $true) | Sort-Object { [bool]$_.i
   if ($mb -and $ma -ne $null -and $mb -gt 0) { $saving = [math]::Round(($mb - $ma) / $mb, 3) }
   $counts = ($measuredStatuses -contains $c.status) -and $c.time_source -eq 'measured' -and $saving -ne $null
   $myTests = @($tests | Where-Object { $_.tool -eq $c.id })
+  $lt = $myTests | Sort-Object date -Descending | Select-Object -First 1
   $tools += [pscustomobject]@{
     id=$c.id; title=$c.title; purpose=$c.purpose; trello=$c.trello; line=$c.line; author=$c.author
     cell=$c.cell; stage=$c.stage; dcc=$c.dcc; status=$c.status; where=$c.where
     minutes_before=$mb; minutes_after=$ma; time_source=$c.time_source
     saving=$saving; counts=$counts; contribution_pct=0.0; note=$c._body
     testers=@($myTests | ForEach-Object { $_.tester } | Sort-Object -Unique); tests=$myTests.Count
+    last_test= if ($lt) { [pscustomobject]@{ result=$lt.result; tester=$lt.tester; date=$lt.date; reason=$lt.reason } } else { $null }
     in_branch=$d.in_branch
   }
 }
@@ -353,34 +380,43 @@ foreach ($d in Get-RepoDocs 'sessions' $false) {
 $sessions = @($sessions | Sort-Object date, updated -Descending | Select-Object -First 200)
 $realSessions = @($sessions | Where-Object { -not $_.example })
 
-# ---- github: work/<user>/... branches, pull requests, 7-day summary per person ------------------
-$branches = @(); $prs = @(); $ghOk = $false
+# ---- github: all remote branches except main, pull requests, 7-day summary per person -----------
+$branches = @(); $unmapped = @(); $prs = @(); $ghOk = $false
 if ($useGit) {
   if (Get-Command gh -ErrorAction SilentlyContinue) {
     $raw = & { $ErrorActionPreference = 'Continue'; Push-Location $repo
-      try { gh pr list --state all --limit 200 --json number,title,headRefName,state,isDraft,updatedAt,author 2>$null } finally { Pop-Location } }
+      try { gh pr list --state all --limit 200 --json number,title,headRefName,state,isDraft,createdAt,updatedAt,author 2>$null } finally { Pop-Location } }
     if ($LASTEXITCODE -eq 0 -and $raw) {
       try {
         $pj = ($raw -join "`n") | ConvertFrom-Json
         foreach ($p in @($pj)) {
-          $u = if ($p.headRefName -like 'work/*/*') { Resolve-User ($p.headRefName.Split('/')[1]) } else { $null }
+          $created = ([datetime]$p.createdAt).ToUniversalTime().ToString('yyyy-MM-dd')
           $prs += [pscustomobject]@{ number=$p.number; title=$p.title; branch=$p.headRefName; state=$p.state; draft=[bool]$p.isDraft
-            updated=([datetime]$p.updatedAt).ToUniversalTime().ToString('yyyy-MM-dd'); author=$p.author.login; user=$u }
+            created=$created; age_days=(Get-DaysSince $created)
+            updated=([datetime]$p.updatedAt).ToUniversalTime().ToString('yyyy-MM-dd'); author=$p.author.login; user=(Resolve-BranchUser $p.headRefName) }
         }
         $ghOk = $true
       } catch { $prs = @() }
     }
   }
   $notMain = if ($mainRef) { @('--not', $mainRef) } else { @() }
-  foreach ($r in $refs | Where-Object { $_.branch -like 'work/*/*' }) {
+  foreach ($r in $refs | Where-Object { $_.ref -ne $mainRef -and @('main','master') -notcontains $_.branch }) {
+    $u = Resolve-BranchUser $r.branch
+    $ahead = [int](Invoke-Git rev-list --count $r.ref @notMain)
+    if (-not $u) {
+      $unmapped += [pscustomobject]@{ branch=$r.branch; last_date=$r.date.Substring(0, 10); ahead=$ahead; subject=$r.subject }
+      continue
+    }
+    $isWork = $r.branch -like 'work/*/*'
     $seg = $r.branch.Split('/')
     $pr = $prs | Where-Object { $_.branch -eq $r.branch } | Sort-Object { $_.state -ne 'OPEN' }, { -$_.number } | Select-Object -First 1
     $branches += [pscustomobject]@{
-      branch=$r.branch; user=(Resolve-User $seg[1]); user_raw=$seg[1]; topic=($seg[2..($seg.Count - 1)] -join '/')
+      branch=$r.branch; user=$u; user_raw= if ($isWork) { $seg[1] } else { $null }
+      topic= if ($isWork) { $seg[2..($seg.Count - 1)] -join '/' } else { $r.branch }
       last_commit=$r.date; last_date=$r.date.Substring(0, 10); subject=$r.subject
       commits_7d=[int](Invoke-Git rev-list --count "--since=${weekAgo}T00:00:00" $r.ref @notMain)
       commits_14d=[int](Invoke-Git rev-list --count "--since=${twoWeeksAgo}T00:00:00" $r.ref @notMain)
-      ahead=[int](Invoke-Git rev-list --count $r.ref @notMain)
+      ahead=$ahead
       pr= if ($pr) { [pscustomobject]@{ number=$pr.number; state=$pr.state; draft=$pr.draft; title=$pr.title } } else { $null }
     }
   }
@@ -388,23 +424,27 @@ if ($useGit) {
 $people7 = @()
 $seenUsers = @($people) + @($branches | ForEach-Object { $_.user }) + @($realSessions | ForEach-Object { $_.user }) | Where-Object { $_ } | Select-Object -Unique
 foreach ($u in $seenUsers) {
-  $mine = @($branches | Where-Object { $_.user -eq $u })
+  $mine = @($branches | Where-Object { $_.user -eq $u -and $_.ahead -gt 0 })   # 0 ahead of main = nothing uploaded
   $uploads = 0
   if ($mine.Count) { $ur = @($mine | ForEach-Object { "origin/$($_.branch)" }); $uploads = [int](Invoke-Git rev-list --count "--since=${weekAgo}T00:00:00" @ur @notMain) }
   $ses = @($realSessions | Where-Object { $_.user -eq $u -and $_.date -ge $weekAgo })
   $dates = @(@($mine | ForEach-Object { $_.last_date }) + @($realSessions | Where-Object { $_.user -eq $u } | ForEach-Object { $_.date }) | Sort-Object -Descending)
   $last = if ($dates.Count) { $dates[0] } else { $null }
+  $ups = @($mine | ForEach-Object { $_.last_date } | Sort-Object -Descending)
+  $lastUp = if ($ups.Count) { $ups[0] } else { $null }
   $people7 += [pscustomobject]@{
     user=$u; known=$team.Contains($u); sessions=$ses.Count; uploads=$uploads
     prs=@($prs | Where-Object { $_.user -eq $u -and $_.updated -ge $weekAgo }).Count
     prs_open=@($prs | Where-Object { $_.user -eq $u -and $_.state -eq 'OPEN' }).Count
     minutes_saved=[int](($ses | Where-Object { $_.measured } | Measure-Object minutes_saved -Sum).Sum)
-    branches=$mine.Count; last_activity=$last
+    branches=$mine.Count; last_activity=$last; last_upload=$lastUp
   }
 }
 $github = [ordered]@{
   available = $useGit; gh = $ghOk; repo = $repoUrl; main = $mainRef; refs_scanned = $refs.Count
   branches = $branches
+  unmapped_branches = $unmapped
+  unmapped_label = 'не распознаны'
   prs_open = @($prs | Where-Object { $_.state -eq 'OPEN' })
   people_7d = $people7
 }
@@ -417,6 +457,64 @@ $live = [ordered]@{
   measurements = @($realSessions | Where-Object { $_.measured }).Count
   minutes_saved_7d = [int](($people7 | Measure-Object minutes_saved -Sum).Sum)
 }
+
+# ---- attention: per-person reminders (facts + one suggested action), team-level gaps ----------
+$prsWaiting = @($prs | Where-Object { $_.state -eq 'OPEN' -and $_.age_days -gt 7 } | Sort-Object age_days -Descending)
+$untested = @($tools | Where-Object { @('draft','measured') -contains $_.status -and $_.tests -eq 0 })
+$suggested = @{}
+$attention = @()
+foreach ($u in $people) {
+  $p7 = $people7 | Where-Object { $_.user -eq $u } | Select-Object -First 1
+  $lastUp = if ($p7) { $p7.last_upload } else { $null }
+  $sinceUp = if ($lastUp) { Get-DaysSince $lastUp } else { $null }
+  $up7 = if ($p7) { $p7.uploads } else { 0 }
+  $ses7 = @($realSessions | Where-Object { $_.user -eq $u -and $_.date -ge $weekAgo }).Count
+  $sesAll = @($realSessions | Where-Object { $_.user -eq $u }).Count
+  $mineT = @($tools | Where-Object { $_.author -eq $u })
+  $noTime = @($mineT | Where-Object { $_.time_source -ne 'measured' })
+  $myPrs = if ($u -eq $maintainer) { $prsWaiting } else { @() }
+  $myCells = @($mineT | ForEach-Object { $_.cell } | Where-Object { $_ -and $_ -ne '-' } | Select-Object -Unique)
+  $pick = $untested | Where-Object { $_.author -ne $u } | Sort-Object @{ Expression = { [int](-not ($myCells -contains $_.cell)) } }, @{ Expression = { [int]$suggested[$_.id] } }, id | Select-Object -First 1
+  if ($pick) { $suggested[$pick.id] = [int]$suggested[$pick.id] + 1 }
+
+  $level = if (-not $useGit) { 'none' } elseif ($null -eq $sinceUp -or $sinceUp -ge 14) { 'red' } elseif ($sinceUp -ge 7) { 'amber' } else { 'green' }
+  $facts = @()
+  if (-not $useGit) { $facts += 'данных о выгрузках нет (сборка без git)' }
+  elseif ($null -eq $sinceUp) { $facts += 'ни одной выгрузки в GitHub' }
+  else { $facts += "последняя выгрузка: $(if ($sinceUp -eq 0) { 'сегодня' } else { "$sinceUp дн назад" }) ($(Dm $lastUp)); за 7 дней выгрузок: $up7" }
+  if ($sesAll -eq 0) { $facts += 'сессии ещё не записываются — начни задачу с `ntr`' }
+  else { $facts += "сессий записано: $ses7 за 7 дней / $sesAll всего" }
+  if ($noTime.Count) { $facts += "инструментов без замера времени: $($noTime.Count) — $((@($noTime | Select-Object -First 2 | ForEach-Object { $_.title }) -join '; '))$(if ($noTime.Count -gt 2) { " и ещё $($noTime.Count - 2)" })" }
+  if (@($myPrs).Count) { $facts += "PR ждут ревью больше 7 дней: $((@($myPrs | ForEach-Object { "#$($_.number) ($($_.age_days) дн$(if ($_.draft) { ', черновик' }))" }) -join ', '))" }
+  $crossText = if ($pick) { "проверь у коллеги: $($pick.title) ($(if ($team.Contains([string]$pick.author)) { $team[$pick.author] } else { $pick.author }))" } else { $null }
+
+  $action = if ($useGit -and $null -eq $sinceUp) { "выгрузи первую наработку в ветку work/$u/… — начни задачу с ``ntr``" }
+    elseif (@($myPrs).Count) { "посмотри PR $((@($myPrs | ForEach-Object { "#$($_.number)" }) -join ', '))" }
+    elseif ($useGit -and $sinceUp -ge 14) { 'выгрузи текущую работу в свою ветку' }
+    elseif ($crossText) { $crossText }
+    elseif ($noTime.Count) { "замерь время «вручную → с инструментом»: $($noTime[0].title)" }
+    elseif ($sesAll -eq 0) { 'начни следующую задачу с `ntr`' }
+    else { $null }
+  $attention += [pscustomobject]@{
+    user=$u; level=$level; last_upload=$lastUp; days_since_upload=$sinceUp; uploads_7d=$up7
+    sessions_7d=$ses7; sessions_total=$sesAll
+    cards_unmeasured=$noTime.Count; cards_unmeasured_titles=@($noTime | Select-Object -First 2 | ForEach-Object { $_.title })
+    prs_waiting=@($myPrs | ForEach-Object { [pscustomobject]@{ number=$_.number; age_days=$_.age_days; draft=$_.draft; title=$_.title } })
+    cross_test= if ($pick) { [pscustomobject]@{ id=$pick.id; title=$pick.title; author=$pick.author; cell=$pick.cell; same_cell=($myCells -contains $pick.cell); text=$crossText } } else { $null }
+    facts=$facts; action=$action
+  }
+}
+# no uploads at all first, then the longest silence
+$attention = @($attention | Sort-Object @{ Expression = { if ($null -eq $_.days_since_upload) { 0 } else { 1 } } }, @{ Expression = { -[int]$_.days_since_upload } }, @{ Expression = { -$_.cards_unmeasured } })
+$nTimed = @($tools | Where-Object { $_.time_source -eq 'measured' }).Count
+$nTested = @($tools | Where-Object { $_.tests -gt 0 }).Count
+$prsOpenAll = @($prs | Where-Object { $_.state -eq 'OPEN' } | Sort-Object age_days -Descending)
+$gaps = @(
+  [pscustomobject]@{ key='measured'; label='Замеров времени'; value="$nTimed из $($tools.Count) инструментов" }
+  [pscustomobject]@{ key='cross_tested'; label='Проверено коллегой'; value="$nTested из $($tools.Count)" }
+  [pscustomobject]@{ key='prs'; label='PR ждут мейнтейнера'; value= if (-not $ghOk) { 'нет данных' } elseif ($prsOpenAll.Count) { "$($prsOpenAll.Count) (старший — $($prsOpenAll[0].age_days) дн)" } else { '0' } }
+  [pscustomobject]@{ key='sessions'; label='Сессий записано'; value="$($realSessions.Count)" }
+)
 
 # ---- people contributions ------------------------------------------------------------------
 $contrib = @()
@@ -452,6 +550,8 @@ $data = [ordered]@{
   label = $Label
   live = $live
   github = $github
+  gaps = $gaps
+  attention = $attention
   sessions = $sessions
   focus = $pipeline.focus
   target = $pipeline.target
@@ -502,6 +602,14 @@ foreach ($p in $products) { L "| $($p.title) | $($p.hours) ч | $($p.after_h) ч
 L ""
 L "Цель: $($pipeline.target.project_saving_pct)% — $($pipeline.target.why)"
 L ""
+L "## Кому напомнить"
+L (($gaps | ForEach-Object { "$($_.label): **$($_.value)**" }) -join ' · ')
+L ""
+foreach ($a in $attention) {
+  L "- **$(Who $a.user)** — $($a.facts -join '; ')$(if ($a.action) { ". Что сделать: $($a.action)" })."
+}
+if ($unmapped.Count) { L ""; L ('Ветки, которые не распознаны (нет в `team.aliases.json`): ' + ((@($unmapped | ForEach-Object { '`' + $_.branch + '`' }) -join ', ')) + '.') }
+L ""
 L "## Кто что внёс"
 L "| Кто | Сэкономил часов (на 3 типовых проекта) | Контрактов / скриптов | Проверил чужих | Минут с агентом (7 дн) |"
 L "|---|---|---|---|---|"
@@ -522,9 +630,11 @@ foreach ($line in @(@('contract','Линия 1 — контракты для а�
   L "|---|---|---|---|---|---|"
   foreach ($t in $tools | Where-Object { $_.line -eq $line[0] } | Sort-Object cell, stage) {
     $who = if ($t.testers.Count) { ($t.testers | ForEach-Object { Who $_ }) -join ', ' } else { '—' }
+    if ($t.last_test -and $t.last_test.result -eq 'fail') { $who += " — не подошёл: $(Who $t.last_test.tester), $(Dm $t.last_test.date)" }
+    elseif ($t.last_test -and $t.last_test.result -eq 'issues') { $who += ' — с замечаниями' }
     L "| $($t.title) | $($t.purpose) | $(Who $t.author) | $($t.cell)/$($t.stage) | $($st[$t.status]) | $who |"
   }
 }
 $statusPath = if ($OutDir -eq (Join-Path $repo 'status')) { Join-Path $repo 'STATUS.md' } else { Join-Path $OutDir 'STATUS.md' }
 [IO.File]::WriteAllText($statusPath, $sb.ToString(), $utf8)
-Write-Output "status: $statusPath; $OutDir\dashboard.html ($($tools.Count) tools, $(@($tools | Where-Object { $_.in_branch }).Count) only in branches; $($sessions.Count) sessions, $($live.examples) example; $($branches.Count) work branches of $($refs.Count) remote, $(@($github.prs_open).Count) open PRs, gh=$ghOk; $($activity.Count) journal days, top $($top.Count))"
+Write-Output "status: $statusPath; $OutDir\dashboard.html ($($tools.Count) tools, $(@($tools | Where-Object { $_.in_branch }).Count) only in branches; $($sessions.Count) sessions, $($live.examples) example; $($branches.Count) attributed branches of $($refs.Count) remote, $($unmapped.Count) unmapped, $(@($github.prs_open).Count) open PRs, gh=$ghOk; $($activity.Count) journal days, top $($top.Count))"

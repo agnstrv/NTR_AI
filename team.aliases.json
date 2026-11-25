@@ -1,5 +1,11 @@
 {
   "_comment": "Имена в ветках work/<user>/... и в сессиях, которые отличаются от id в team.md. Ключ — как написано в ветке, значение — id из team.md.",
   "roman-kasyan": "roman",
-  "nagornov-artem": "artem-nagornov"
+  "nagornov-artem": "artem-nagornov",
+  "branches": {
+    "_comment": "Ветки вне work/<user>/...: имя ветки или его начало → id из team.md. Побеждает самое длинное совпадение. Остальные ветки попадают в «не распознаны».",
+    "proposal/": "artem-safro",
+    "Ваня": "ivan",
+    "Рома": "roman"
+  }
 }
