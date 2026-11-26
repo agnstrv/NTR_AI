@@ -1,12 +1,12 @@
 {
-    "generated":  "2026-11-25 20:01",
-    "generated_utc":  "2026-11-25T20:01:00Z",
+    "generated":  "2026-11-26 02:58",
+    "generated_utc":  "2026-11-26T02:58:15Z",
     "label":  "",
     "live":  {
                  "sessions_7d":  0,
                  "sessions_total":  0,
                  "examples":  1,
-                 "uploads_7d":  15,
+                 "uploads_7d":  14,
                  "active_people_7d":  2,
                  "measurements":  0,
                  "minutes_saved_7d":  0
@@ -161,7 +161,7 @@
                                         "last_commit":  "2026-11-19T16:32:23+07:00",
                                         "last_date":  "2026-11-19",
                                         "subject":  "docs(building-ucx): consolidate nagornov-artem collision workflow",
-                                        "commits_7d":  1,
+                                        "commits_7d":  0,
                                         "commits_14d":  1,
                                         "ahead":  12,
                                         "pr":  null
@@ -337,7 +337,7 @@
                                         "state":  "OPEN",
                                         "draft":  false,
                                         "created":  "2026-11-13",
-                                        "age_days":  12,
+                                        "age_days":  13,
                                         "updated":  "2026-11-13",
                                         "author":  "agnstrv",
                                         "user":  "roman"
@@ -349,7 +349,7 @@
                                         "state":  "OPEN",
                                         "draft":  true,
                                         "created":  "2026-10-23",
-                                        "age_days":  33,
+                                        "age_days":  34,
                                         "updated":  "2026-10-23",
                                         "author":  "agnstrv",
                                         "user":  "artem-nagornov"
@@ -372,7 +372,7 @@
                                          "user":  "artem-nagornov",
                                          "known":  true,
                                          "sessions":  0,
-                                         "uploads":  14,
+                                         "uploads":  13,
                                          "prs":  0,
                                          "prs_open":  1,
                                          "minutes_saved":  0,
@@ -432,7 +432,7 @@
                  {
                      "key":  "prs",
                      "label":  "PR ждут мейнтейнера",
-                     "value":  "2 (старший — 33 дн)"
+                     "value":  "2 (старший — 34 дн)"
                  },
                  {
                      "key":  "sessions",
@@ -457,13 +457,13 @@
                           "prs_waiting":  [
                                               {
                                                   "number":  30,
-                                                  "age_days":  33,
+                                                  "age_days":  34,
                                                   "draft":  true,
                                                   "title":  "Добавить проектную команду /push для публикации наработок чата"
                                               },
                                               {
                                                   "number":  31,
-                                                  "age_days":  12,
+                                                  "age_days":  13,
                                                   "draft":  false,
                                                   "title":  "Правила перемоделирования МАФов Ромы и запуск сценария Codex"
                                               }
@@ -481,7 +481,7 @@
                                         "ни одной выгрузки в GitHub",
                                         "сессии ещё не записываются — начни задачу с `ntr`",
                                         "инструментов без замера времени: 3 — Replacer: замена родитель/дети (Max); Генерация граунда и проекция на рельеф (Max) и ещё 1",
-                                        "PR ждут ревью больше 7 дней: #30 (33 дн, черновик), #31 (12 дн)"
+                                        "PR ждут ревью больше 7 дней: #30 (34 дн, черновик), #31 (13 дн)"
                                     ],
                           "action":  "выгрузи первую наработку в ветку work/artem-safro/… — начни задачу с `ntr`"
                       },
@@ -521,7 +521,7 @@
                           "user":  "ivan",
                           "level":  "red",
                           "last_upload":  "2026-10-19",
-                          "days_since_upload":  37,
+                          "days_since_upload":  38,
                           "uploads_7d":  0,
                           "sessions_7d":  0,
                           "sessions_total":  0,
@@ -542,7 +542,7 @@
                                              "prompt":  "ntr. Хочу проверить на своём проекте наработку коллеги: Перемоделирование МАФ (сценарий Ромы) (Роман Касьян), этап ground-npm/maf. Режим apply."
                                          },
                           "facts":  [
-                                        "последняя выгрузка: 37 дн назад (19.10); за 7 дней выгрузок: 0",
+                                        "последняя выгрузка: 38 дн назад (19.10); за 7 дней выгрузок: 0",
                                         "сессии ещё не записываются — начни задачу с `ntr`",
                                         "инструментов без замера времени: 1 — Сценарий МАФ (UV, свет)"
                                     ],
@@ -552,7 +552,7 @@
                           "user":  "roman",
                           "level":  "green",
                           "last_upload":  "2026-11-24",
-                          "days_since_upload":  1,
+                          "days_since_upload":  2,
                           "uploads_7d":  1,
                           "sessions_7d":  0,
                           "sessions_total":  0,
@@ -574,7 +574,7 @@
                                              "prompt":  "ntr. Хочу проверить на своём проекте наработку коллеги: Атлас окон НПМ (Артём Нагорнов), этап oks-npm/textures. Режим apply."
                                          },
                           "facts":  [
-                                        "последняя выгрузка: 1 дн назад (24.11); за 7 дней выгрузок: 1",
+                                        "последняя выгрузка: 2 дн назад (24.11); за 7 дней выгрузок: 1",
                                         "сессии ещё не записываются — начни задачу с `ntr`",
                                         "инструментов без замера времени: 6 — НПМ-здание через нейронку (сценарий Ромы); Расстановка растений по альбому и ещё 4"
                                     ],
@@ -584,8 +584,8 @@
                           "user":  "artem-nagornov",
                           "level":  "green",
                           "last_upload":  "2026-11-25",
-                          "days_since_upload":  0,
-                          "uploads_7d":  14,
+                          "days_since_upload":  1,
+                          "uploads_7d":  13,
                           "sessions_7d":  0,
                           "sessions_total":  0,
                           "cards_unmeasured":  7,
@@ -606,7 +606,7 @@
                                              "prompt":  "ntr. Хочу проверить на своём проекте наработку коллеги: Сценарий НПМ ОКС light/medium (окна, маска, bake) (Роман Касьян), этап oks-npm/textures. Режим apply."
                                          },
                           "facts":  [
-                                        "последняя выгрузка: сегодня (25.11); за 7 дней выгрузок: 14",
+                                        "последняя выгрузка: 1 дн назад (25.11); за 7 дней выгрузок: 13",
                                         "сессии ещё не записываются — начни задачу с `ntr`",
                                         "инструментов без замера времени: 7 — Рамы и стекло ВПМ; Атлас окон НПМ и ещё 5"
                                     ],
