@@ -345,15 +345,15 @@ code{font-family:Consolas,"Cascadia Mono",monospace;font-size:.92em;background:v
 </main>
 <script>
 const DATA = {
-    "generated":  "2026-11-26 20:47",
-    "generated_utc":  "2026-11-26T20:47:30Z",
+    "generated":  "2026-11-26 22:41",
+    "generated_utc":  "2026-11-26T22:41:00Z",
     "label":  "",
     "live":  {
                  "sessions_7d":  0,
                  "sessions_total":  0,
                  "examples":  1,
-                 "uploads_7d":  15,
-                 "active_people_7d":  3,
+                 "uploads_7d":  14,
+                 "active_people_7d":  2,
                  "measurements":  0,
                  "minutes_saved_7d":  0
              },
@@ -372,12 +372,12 @@ const DATA = {
                                         "last_commit":  "2026-11-25T11:17:33+01:00",
                                         "last_date":  "2026-11-25",
                                         "subject":  "deploy: dashboard on company server (nginx + basic auth, cron sync from gh-pages, Docker variant)",
-                                        "commits_7d":  1,
-                                        "commits_14d":  1,
-                                        "ahead":  1,
+                                        "commits_7d":  0,
+                                        "commits_14d":  0,
+                                        "ahead":  0,
                                         "pr":  {
                                                    "number":  34,
-                                                   "state":  "OPEN",
+                                                   "state":  "MERGED",
                                                    "draft":  false,
                                                    "title":  "Deploy: dashboard on company server (nginx + login, sync from gh-pages)"
                                                }
@@ -677,18 +677,6 @@ const DATA = {
                    "unmapped_label":  "не распознаны",
                    "prs_open":  [
                                     {
-                                        "number":  34,
-                                        "title":  "Deploy: dashboard on company server (nginx + login, sync from gh-pages)",
-                                        "branch":  "proposal/v2-harness",
-                                        "state":  "OPEN",
-                                        "draft":  false,
-                                        "created":  "2026-11-26",
-                                        "age_days":  0,
-                                        "updated":  "2026-11-26",
-                                        "author":  "artsafro",
-                                        "user":  "artem-safro"
-                                    },
-                                    {
                                         "number":  31,
                                         "title":  "Правила перемоделирования МАФов Ромы и запуск сценария Codex",
                                         "branch":  "work/roman-kasyan/maf-remodel/publish-workflow",
@@ -718,13 +706,13 @@ const DATA = {
                                          "user":  "artem-safro",
                                          "known":  true,
                                          "sessions":  0,
-                                         "uploads":  1,
+                                         "uploads":  0,
                                          "prs":  3,
-                                         "prs_open":  1,
+                                         "prs_open":  0,
                                          "minutes_saved":  0,
-                                         "branches":  1,
-                                         "last_activity":  "2026-11-25",
-                                         "last_upload":  "2026-11-25"
+                                         "branches":  0,
+                                         "last_activity":  null,
+                                         "last_upload":  null
                                      },
                                      {
                                          "user":  "artem-nagornov",
@@ -790,7 +778,7 @@ const DATA = {
                  {
                      "key":  "prs",
                      "label":  "PR ждут мейнтейнера",
-                     "value":  "3 (старший — 34 дн)"
+                     "value":  "2 (старший — 34 дн)"
                  },
                  {
                      "key":  "sessions",
@@ -799,6 +787,50 @@ const DATA = {
                  }
              ],
     "attention":  [
+                      {
+                          "user":  "artem-safro",
+                          "level":  "red",
+                          "last_upload":  null,
+                          "days_since_upload":  null,
+                          "uploads_7d":  0,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  3,
+                          "cards_unmeasured_titles":  [
+                                                          "Replacer: замена родитель/дети (Max)",
+                                                          "Генерация граунда и проекция на рельеф (Max)"
+                                                      ],
+                          "prs_waiting":  [
+                                              {
+                                                  "number":  30,
+                                                  "age_days":  34,
+                                                  "draft":  true,
+                                                  "title":  "Добавить проектную команду /push для публикации наработок чата"
+                                              },
+                                              {
+                                                  "number":  31,
+                                                  "age_days":  13,
+                                                  "draft":  false,
+                                                  "title":  "Правила перемоделирования МАФов Ромы и запуск сценария Codex"
+                                              }
+                                          ],
+                          "cross_test":  {
+                                             "id":  "maf-workflow",
+                                             "title":  "Сценарий МАФ (UV, свет)",
+                                             "author":  "ivan",
+                                             "cell":  "ground-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Сценарий МАФ (UV, свет) (Иван Проселков)",
+                                             "prompt":  "ntr. Хочу проверить на своём проекте наработку коллеги: Сценарий МАФ (UV, свет) (Иван Проселков), этап ground-npm/maf. Режим apply."
+                                         },
+                          "facts":  [
+                                        "ни одной выгрузки в GitHub",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 3 — Replacer: замена родитель/дети (Max); Генерация граунда и проекция на рельеф (Max) и ещё 1",
+                                        "PR ждут ревью больше 7 дней: #30 (34 дн, черновик), #31 (13 дн)"
+                                    ],
+                          "action":  "выгрузи первую наработку в ветку work/artem-safro/… — начни задачу с `ntr`"
+                      },
                       {
                           "user":  "slava",
                           "level":  "red",
@@ -925,50 +957,6 @@ const DATA = {
                                         "инструментов без замера времени: 7 — Рамы и стекло ВПМ; Атлас окон НПМ и ещё 5"
                                     ],
                           "action":  "проверь у коллеги: Сценарий НПМ ОКС light/medium (окна, маска, bake) (Роман Касьян)"
-                      },
-                      {
-                          "user":  "artem-safro",
-                          "level":  "green",
-                          "last_upload":  "2026-11-25",
-                          "days_since_upload":  1,
-                          "uploads_7d":  1,
-                          "sessions_7d":  0,
-                          "sessions_total":  0,
-                          "cards_unmeasured":  3,
-                          "cards_unmeasured_titles":  [
-                                                          "Replacer: замена родитель/дети (Max)",
-                                                          "Генерация граунда и проекция на рельеф (Max)"
-                                                      ],
-                          "prs_waiting":  [
-                                              {
-                                                  "number":  30,
-                                                  "age_days":  34,
-                                                  "draft":  true,
-                                                  "title":  "Добавить проектную команду /push для публикации наработок чата"
-                                              },
-                                              {
-                                                  "number":  31,
-                                                  "age_days":  13,
-                                                  "draft":  false,
-                                                  "title":  "Правила перемоделирования МАФов Ромы и запуск сценария Codex"
-                                              }
-                                          ],
-                          "cross_test":  {
-                                             "id":  "maf-workflow",
-                                             "title":  "Сценарий МАФ (UV, свет)",
-                                             "author":  "ivan",
-                                             "cell":  "ground-npm",
-                                             "same_cell":  true,
-                                             "text":  "проверь у коллеги: Сценарий МАФ (UV, свет) (Иван Проселков)",
-                                             "prompt":  "ntr. Хочу проверить на своём проекте наработку коллеги: Сценарий МАФ (UV, свет) (Иван Проселков), этап ground-npm/maf. Режим apply."
-                                         },
-                          "facts":  [
-                                        "последняя выгрузка: 1 дн назад (25.11); за 7 дней выгрузок: 1",
-                                        "сессии ещё не записываются — начни задачу с `ntr`",
-                                        "инструментов без замера времени: 3 — Replacer: замена родитель/дети (Max); Генерация граунда и проекция на рельеф (Max) и ещё 1",
-                                        "PR ждут ревью больше 7 дней: #30 (34 дн, черновик), #31 (13 дн)"
-                                    ],
-                          "action":  "посмотри PR #30, #31"
                       }
                   ],
     "active":  [
