@@ -1,13 +1,13 @@
 {
-    "generated":  "2026-11-27 03:24",
-    "generated_utc":  "2026-11-27T03:24:17Z",
+    "generated":  "2026-11-27 10:35",
+    "generated_utc":  "2026-11-27T10:35:27Z",
     "label":  "",
     "live":  {
                  "sessions_7d":  0,
                  "sessions_total":  0,
                  "examples":  1,
-                 "uploads_7d":  12,
-                 "active_people_7d":  2,
+                 "uploads_7d":  14,
+                 "active_people_7d":  3,
                  "measurements":  0,
                  "minutes_saved_7d":  0
              },
@@ -23,17 +23,17 @@
                                         "user":  "artem-safro",
                                         "user_raw":  null,
                                         "topic":  "proposal/v2-harness",
-                                        "last_commit":  "2026-11-25T11:17:33+01:00",
-                                        "last_date":  "2026-11-25",
-                                        "subject":  "deploy: dashboard on company server (nginx + basic auth, cron sync from gh-pages, Docker variant)",
-                                        "commits_7d":  0,
-                                        "commits_14d":  0,
-                                        "ahead":  0,
+                                        "last_commit":  "2026-11-27T11:25:19+01:00",
+                                        "last_date":  "2026-11-27",
+                                        "subject":  "ntr: search tools/ in branches, stop when the work branch cannot be created, takeover reads local sessions",
+                                        "commits_7d":  2,
+                                        "commits_14d":  2,
+                                        "ahead":  2,
                                         "pr":  {
-                                                   "number":  34,
-                                                   "state":  "MERGED",
+                                                   "number":  35,
+                                                   "state":  "OPEN",
                                                    "draft":  false,
-                                                   "title":  "Deploy: dashboard on company server (nginx + login, sync from gh-pages)"
+                                                   "title":  "ntr: fixes from the clean Codex run; dashboard: last upload counts merged branches"
                                                }
                                     },
                                     {
@@ -331,6 +331,18 @@
                    "unmapped_label":  "не распознаны",
                    "prs_open":  [
                                     {
+                                        "number":  35,
+                                        "title":  "ntr: fixes from the clean Codex run; dashboard: last upload counts merged branches",
+                                        "branch":  "proposal/v2-harness",
+                                        "state":  "OPEN",
+                                        "draft":  false,
+                                        "created":  "2026-11-27",
+                                        "age_days":  0,
+                                        "updated":  "2026-11-27",
+                                        "author":  "artsafro",
+                                        "user":  "artem-safro"
+                                    },
+                                    {
                                         "number":  31,
                                         "title":  "Правила перемоделирования МАФов Ромы и запуск сценария Codex",
                                         "branch":  "work/roman-kasyan/maf-remodel/publish-workflow",
@@ -360,13 +372,13 @@
                                          "user":  "artem-safro",
                                          "known":  true,
                                          "sessions":  0,
-                                         "uploads":  0,
-                                         "prs":  3,
-                                         "prs_open":  0,
+                                         "uploads":  2,
+                                         "prs":  4,
+                                         "prs_open":  1,
                                          "minutes_saved":  0,
-                                         "branches":  0,
-                                         "last_activity":  null,
-                                         "last_upload":  null
+                                         "branches":  1,
+                                         "last_activity":  "2026-11-27",
+                                         "last_upload":  "2026-11-27"
                                      },
                                      {
                                          "user":  "artem-nagornov",
@@ -432,7 +444,7 @@
                  {
                      "key":  "prs",
                      "label":  "PR ждут мейнтейнера",
-                     "value":  "2 (старший — 35 дн)"
+                     "value":  "3 (старший — 35 дн)"
                  },
                  {
                      "key":  "sessions",
@@ -441,50 +453,6 @@
                  }
              ],
     "attention":  [
-                      {
-                          "user":  "artem-safro",
-                          "level":  "red",
-                          "last_upload":  null,
-                          "days_since_upload":  null,
-                          "uploads_7d":  0,
-                          "sessions_7d":  0,
-                          "sessions_total":  0,
-                          "cards_unmeasured":  3,
-                          "cards_unmeasured_titles":  [
-                                                          "Replacer: замена родитель/дети (Max)",
-                                                          "Генерация граунда и проекция на рельеф (Max)"
-                                                      ],
-                          "prs_waiting":  [
-                                              {
-                                                  "number":  30,
-                                                  "age_days":  35,
-                                                  "draft":  true,
-                                                  "title":  "Добавить проектную команду /push для публикации наработок чата"
-                                              },
-                                              {
-                                                  "number":  31,
-                                                  "age_days":  14,
-                                                  "draft":  false,
-                                                  "title":  "Правила перемоделирования МАФов Ромы и запуск сценария Codex"
-                                              }
-                                          ],
-                          "cross_test":  {
-                                             "id":  "maf-workflow",
-                                             "title":  "Сценарий МАФ (UV, свет)",
-                                             "author":  "ivan",
-                                             "cell":  "ground-npm",
-                                             "same_cell":  true,
-                                             "text":  "проверь у коллеги: Сценарий МАФ (UV, свет) (Иван Проселков)",
-                                             "prompt":  "ntr. Хочу проверить на своём проекте наработку коллеги: Сценарий МАФ (UV, свет) (Иван Проселков), этап ground-npm/maf. Режим apply."
-                                         },
-                          "facts":  [
-                                        "ни одной выгрузки в GitHub",
-                                        "сессии ещё не записываются — начни задачу с `ntr`",
-                                        "инструментов без замера времени: 3 — Replacer: замена родитель/дети (Max); Генерация граунда и проекция на рельеф (Max) и ещё 1",
-                                        "PR ждут ревью больше 7 дней: #30 (35 дн, черновик), #31 (14 дн)"
-                                    ],
-                          "action":  "выгрузи первую наработку в ветку work/artem-safro/… — начни задачу с `ntr`"
-                      },
                       {
                           "user":  "slava",
                           "level":  "red",
@@ -611,6 +579,50 @@
                                         "инструментов без замера времени: 7 — Рамы и стекло ВПМ; Атлас окон НПМ и ещё 5"
                                     ],
                           "action":  "проверь у коллеги: Сценарий НПМ ОКС light/medium (окна, маска, bake) (Роман Касьян)"
+                      },
+                      {
+                          "user":  "artem-safro",
+                          "level":  "green",
+                          "last_upload":  "2026-11-27",
+                          "days_since_upload":  0,
+                          "uploads_7d":  2,
+                          "sessions_7d":  0,
+                          "sessions_total":  0,
+                          "cards_unmeasured":  3,
+                          "cards_unmeasured_titles":  [
+                                                          "Replacer: замена родитель/дети (Max)",
+                                                          "Генерация граунда и проекция на рельеф (Max)"
+                                                      ],
+                          "prs_waiting":  [
+                                              {
+                                                  "number":  30,
+                                                  "age_days":  35,
+                                                  "draft":  true,
+                                                  "title":  "Добавить проектную команду /push для публикации наработок чата"
+                                              },
+                                              {
+                                                  "number":  31,
+                                                  "age_days":  14,
+                                                  "draft":  false,
+                                                  "title":  "Правила перемоделирования МАФов Ромы и запуск сценария Codex"
+                                              }
+                                          ],
+                          "cross_test":  {
+                                             "id":  "maf-workflow",
+                                             "title":  "Сценарий МАФ (UV, свет)",
+                                             "author":  "ivan",
+                                             "cell":  "ground-npm",
+                                             "same_cell":  true,
+                                             "text":  "проверь у коллеги: Сценарий МАФ (UV, свет) (Иван Проселков)",
+                                             "prompt":  "ntr. Хочу проверить на своём проекте наработку коллеги: Сценарий МАФ (UV, свет) (Иван Проселков), этап ground-npm/maf. Режим apply."
+                                         },
+                          "facts":  [
+                                        "последняя выгрузка: сегодня (27.11); за 7 дней выгрузок: 2",
+                                        "сессии ещё не записываются — начни задачу с `ntr`",
+                                        "инструментов без замера времени: 3 — Replacer: замена родитель/дети (Max); Генерация граунда и проекция на рельеф (Max) и ещё 1",
+                                        "PR ждут ревью больше 7 дней: #30 (35 дн, черновик), #31 (14 дн)"
+                                    ],
+                          "action":  "посмотри PR #30, #31"
                       }
                   ],
     "active":  [
