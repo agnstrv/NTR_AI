@@ -413,6 +413,7 @@ if ($useGit) {
     $u = Resolve-BranchUser $r.branch
     $ahead = [int](Invoke-Git rev-list --count $r.ref @notMain)
     if (-not $u) {
+      if ($ahead -eq 0) { continue }
       $unmapped += [pscustomobject]@{ branch=$r.branch; last_date=$r.date.Substring(0, 10); ahead=$ahead; subject=$r.subject }
       continue
     }
@@ -439,7 +440,7 @@ foreach ($u in $seenUsers) {
   $ses = @($realSessions | Where-Object { $_.user -eq $u -and $_.date -ge $weekAgo })
   $dates = @(@($mine | ForEach-Object { $_.last_date }) + @($realSessions | Where-Object { $_.user -eq $u } | ForEach-Object { $_.date }) | Sort-Object -Descending)
   $last = if ($dates.Count) { $dates[0] } else { $null }
-  $ups = @($mine | ForEach-Object { $_.last_date } | Sort-Object -Descending)
+  $ups = @($branches | Where-Object { $_.user -eq $u } | ForEach-Object { $_.last_date } | Sort-Object -Descending)
   $lastUp = if ($ups.Count) { $ups[0] } else { $null }
   $people7 += [pscustomobject]@{
     user=$u; known=$team.Contains($u); sessions=$ses.Count; uploads=$uploads
